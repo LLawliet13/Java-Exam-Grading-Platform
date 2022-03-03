@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChamThiWeb", "ChamThiWeb\ChamThiWeb.csproj", "{9D913970-F882-4E7B-82E7-01C9807DBBB3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChamThiWeb", "ChamThiWeb\ChamThiWeb.csproj", "{9D913970-F882-4E7B-82E7-01C9807DBBB3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChamThiDotnet5", "ChamThiDotnet5\ChamThiDotnet5.csproj", "{707205D0-05F6-487E-98BE-59835E57F9B7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{9D913970-F882-4E7B-82E7-01C9807DBBB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9D913970-F882-4E7B-82E7-01C9807DBBB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9D913970-F882-4E7B-82E7-01C9807DBBB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{707205D0-05F6-487E-98BE-59835E57F9B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{707205D0-05F6-487E-98BE-59835E57F9B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{707205D0-05F6-487E-98BE-59835E57F9B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{707205D0-05F6-487E-98BE-59835E57F9B7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
