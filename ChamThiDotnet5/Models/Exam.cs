@@ -8,7 +8,9 @@ namespace ChamThiDotnet5.Models
     {
         [Key]
         public int Id { get; set; }
+        [Required]
         public string Examname { get; set; }
+        [Required]
         public string Detail { get; set; }
     }
 }

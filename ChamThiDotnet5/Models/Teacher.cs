@@ -9,7 +9,9 @@ namespace ChamThiDotnet5.Models
         [Key]
         public int Id { get; set; }
         [StringLength (100)]
+        [Required]
         public string TeacherName { get; set; }
+        [Required]
         public int AccountId { get; set; }
 
     }
