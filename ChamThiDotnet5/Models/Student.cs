@@ -7,6 +7,7 @@ namespace ChamThiDotnet5.Models
     public class Student
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [Required]
@@ -18,6 +19,11 @@ namespace ChamThiDotnet5.Models
 
         [Required]
         public int AccountId { get; set; }
-        public int ExamId { get; set; }
+        [ForeignKey("AccountId")]
+        public Account Account { get; set; }    
+        public int? ExamId { get; set; }
+
+        [ForeignKey("ExamId")]
+        public Exam Exam { get; set; }
     }
 }
