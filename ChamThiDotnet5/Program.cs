@@ -1,3 +1,5 @@
+using ChamThiDotnet5.DAO;
+using ChamThiDotnet5.Models;
 using ChamThiWeb5.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -26,10 +28,25 @@ namespace ChamThiDotnet5
         }
         public static void Main(string[] args)
         {
-            DropDatabase();
+            //DropDatabase();
+
             var ans = CreateDatabase();
-            if(ans)
-            CreateHostBuilder(args).Build().Run();
+            //AccountDAO AccountDAO = new AccountDAO();
+            //AccountTypeDAO AccountTypeDao = new AccountTypeDAO();
+            //AccountTypeDao.AddNewAccountType(new AccountType()
+            //{
+            //    Typename = "Vip"
+            //});
+            //AccountDAO.AddNewAccount(new Account()
+            //{
+            //    AccountTypeId = 1,
+            //    Email = "Dung@gmail.com",
+            //    Username = "username1",
+            //    Password = "123456"
+            //}); ;
+            //AccountTypeDao.DeleteAccountType(1);
+            if (ans)
+                CreateHostBuilder(args).Build().Run();
 
         }
 

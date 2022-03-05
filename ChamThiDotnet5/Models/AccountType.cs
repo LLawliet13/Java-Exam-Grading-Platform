@@ -9,6 +9,7 @@ namespace ChamThiDotnet5.Models
     {
         [Key]
         [Required]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [Required]
         public string Typename { get; set; }

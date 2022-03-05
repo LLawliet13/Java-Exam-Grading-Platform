@@ -1,6 +1,8 @@
 ﻿//using ChamThiWeb5.Models;
 using ChamThiDotnet5.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using System.IO;
 
 namespace ChamThiWeb5.Data
 {
@@ -16,11 +18,17 @@ namespace ChamThiWeb5.Data
         public DbSet<Exam> Exams { get; set; }
 
 
-        private const string connectionString = @"server=(local); database=Test_db; uid=sa; pwd=123456;Trusted_Connection=True;";
+       
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+            IConfiguration configuration = builder.Build();
+
+
+
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlServer(connectionString);  
+            optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));  
         }
     }
 }

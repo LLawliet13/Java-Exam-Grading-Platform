@@ -17,14 +17,17 @@ namespace ChamThiDotnet5.DAO
 
         public DbSet<AccountType> ReadAllAccountType()
         {
+
+
             return DbContext.AccountTypes;
 
         }
 
         public AccountType ReadAAccountType(int id)
         {
-            var accountType = from a in DbContext.AccountTypes where a.Id == id select a;
-            return (AccountType)accountType;
+            AccountType accountType = (from a in DbContext.AccountTypes where a.Id == id select a).FirstOrDefault();
+
+            return accountType; 
         }
 
         // return false co nghia id khong ton tai
