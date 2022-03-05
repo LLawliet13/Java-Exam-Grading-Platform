@@ -20,7 +20,11 @@ namespace ChamThiDotnet5.Models
         
         [ForeignKey("AccountTypeId")]
         public AccountType AccountType { get; set; }
-        public List<Teacher> Teachers { get; set; } 
+        //public List<Teacher> Teachers { get; set; }
+        //public List<Student> Students { get; set; }
+
+        public virtual Teacher Teacher { get; set; }
+        public virtual Student Student { get; set; }
 
 
     }

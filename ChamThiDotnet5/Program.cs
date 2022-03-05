@@ -26,7 +26,7 @@ namespace ChamThiDotnet5
         }
         public static void Main(string[] args)
         {
-            DropDatabase();
+            //DropDatabase();
             var ans = CreateDatabase();
             if(ans)
             CreateHostBuilder(args).Build().Run();

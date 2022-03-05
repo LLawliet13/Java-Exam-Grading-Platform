@@ -13,7 +13,7 @@ namespace ChamThiDotnet5.Models
         [Required]
         public string Classname { get; set; }
         [Required]
-        public string TeacherID { get; set; }
+
 
         public int TeacherId { get; set; }
         [ForeignKey("TeacherId")]

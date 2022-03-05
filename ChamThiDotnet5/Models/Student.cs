@@ -14,8 +14,11 @@ namespace ChamThiDotnet5.Models
         [StringLength(100)]
         public string Studentname { get; set; }
         public float Score { get; set; }
-        [Required]
-        public int ClassId { get; set; }
+        
+        public int? ClassId { get; set; }
+        [ForeignKey("ClassId")]
+        
+        public Class Class { get; set; }
 
         [Required]
         public int AccountId { get; set; }
