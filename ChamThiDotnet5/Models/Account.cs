@@ -7,7 +7,8 @@ namespace ChamThiDotnet5.Models
     public class Account
     {
         [Key]
-        [Required]
+        
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [Required]
         public string Username { get; set; }
