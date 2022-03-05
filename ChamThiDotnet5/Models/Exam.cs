@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ChamThiDotnet5.Models
@@ -12,5 +13,7 @@ namespace ChamThiDotnet5.Models
         public string Examname { get; set; }
         [Required]
         public string Detail { get; set; }
+
+        public List<Student> Students { get; set; }
     }
 }
