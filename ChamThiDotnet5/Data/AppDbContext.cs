@@ -18,6 +18,7 @@ namespace ChamThiWeb5.Data
         public DbSet<Class> Classes { get; set; }
         public DbSet<Student> Students { get; set; }
 
+        public DbSet<Exam_Student> Exam_Students { get; set;}
         public DbSet<Exam> Exams { get; set; }
 
 
