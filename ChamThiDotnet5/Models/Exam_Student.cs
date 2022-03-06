@@ -9,6 +9,7 @@ namespace ChamThiDotnet5.Models
     public class Exam_Student
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; } 
 
         [Required]
