@@ -1,6 +1,7 @@
 ﻿namespace ChamThiDotnet5.Services
 {
-    public class AccountService
+    public interface AccountService
     {
+        public string start();
     }
 }
