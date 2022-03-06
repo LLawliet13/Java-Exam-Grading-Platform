@@ -31,6 +31,15 @@ namespace ChamThiDotnet5.DAO
         public List<Teacher> ReadAllTeacher()
         {
             IQueryable<Teacher> Teachers = from a in DbContext.Teachers select a;
+            foreach (Teacher Teacher in Teachers)
+            {
+                var e = DbContext.Entry(Teacher);
+                e.Reference(a => a.Classes);
+                e.Reference(a => a.Account);
+                
+
+            }
+            return Teachers.ToList();
             return Teachers.ToList();
 
         }
@@ -38,6 +47,11 @@ namespace ChamThiDotnet5.DAO
         public Teacher ReadATeacher(int id)
         {
             Teacher Teacher = (from a in DbContext.Teachers where a.Id == id select a).FirstOrDefault();
+            if(Teacher == null) { 
+            var e = DbContext.Entry(Teacher);
+            e.Reference(a => a.Classes);
+            e.Reference(a => a.Account);
+            }
             return Teacher;
         }
 

@@ -31,6 +31,14 @@ namespace ChamThiDotnet5.DAO
         public List<Account> ReadAllAccount()
         {
             IQueryable<Account> Accounts = from a in DbContext.Accounts select a;
+            
+            //reference navigation
+            foreach (Account Account in Accounts) { 
+            var e = DbContext.Entry(Account);
+                e.Reference(a => a.AccountType);
+                e.Reference(a => a.Student);
+                e.Reference(a => a.Teacher);
+            }
             return Accounts.ToList();
 
         }
@@ -38,6 +46,13 @@ namespace ChamThiDotnet5.DAO
         public Account ReadAAccount(int id)
         {
             Account Account = (from a in DbContext.Accounts where a.Id == id select a).FirstOrDefault();
+            if (Account != null)
+            {
+                var e = DbContext.Entry(Account);
+                e.Reference(a => a.AccountType);
+                e.Reference(a => a.Student);
+                e.Reference(a => a.Teacher);
+            }
             return Account;
         }
 

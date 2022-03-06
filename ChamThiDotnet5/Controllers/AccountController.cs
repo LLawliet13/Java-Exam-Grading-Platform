@@ -14,6 +14,8 @@ namespace ChamThiDotnet5.Controllers
 
         public IActionResult Index()
         {
+            // truyen doi tuong sang trang web
+            //this.ViewData["key"] = "value";
             return View();
         }
     }

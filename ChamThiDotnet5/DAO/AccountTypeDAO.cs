@@ -31,6 +31,11 @@ namespace ChamThiDotnet5.DAO
         public List<AccountType> ReadAllAccountType()
         {
             IQueryable<AccountType> AccountTypes = from a in DbContext.AccountTypes select a;
+            foreach (AccountType AccountType in AccountTypes)
+            {
+                var e = DbContext.Entry(AccountType);
+                e.Reference(a => a.Accounts);
+            }
             return AccountTypes.ToList();
 
         }
@@ -38,6 +43,11 @@ namespace ChamThiDotnet5.DAO
         public AccountType ReadAAccountType(int id)
         {
             AccountType AccountType = (from a in DbContext.AccountTypes where a.Id == id select a).FirstOrDefault();
+            if (AccountType != null)
+            {
+                var e = DbContext.Entry(AccountType);
+                e.Reference(a => a.Accounts);
+            }
             return AccountType;
         }
 

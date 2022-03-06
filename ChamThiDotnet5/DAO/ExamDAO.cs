@@ -31,6 +31,12 @@ namespace ChamThiDotnet5.DAO
         public List<Exam> ReadAllExam()
         {
             IQueryable<Exam> Exams = from a in DbContext.Exams select a;
+            foreach (Exam Exam in Exams)
+            {
+                var e = DbContext.Entry(Exam);
+                e.Reference(a => a.Students);
+               
+            }
             return Exams.ToList();
 
         }
@@ -38,6 +44,11 @@ namespace ChamThiDotnet5.DAO
         public Exam ReadAExam(int id)
         {
             Exam Exam = (from a in DbContext.Exams where a.Id == id select a).FirstOrDefault();
+            if (Exam != null)
+            {
+                var e = DbContext.Entry(Exam);
+                e.Reference(a => a.Students);
+            }
             return Exam;
         }
 
