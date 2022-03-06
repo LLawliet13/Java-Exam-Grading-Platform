@@ -18,7 +18,7 @@ namespace ChamThiDotnet5.Controllers
 
             // truyen doi tuong sang trang web
             this.ViewData["info"] = _accountService.start();
-            return View();
+            return View("CustomNamePage");
         }
     }
 }
