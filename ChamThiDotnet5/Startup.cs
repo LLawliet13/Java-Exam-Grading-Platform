@@ -1,3 +1,4 @@
+using ChamThiDotnet5.Services;
 using ChamThiWeb5.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -26,9 +27,13 @@ namespace ChamThiDotnet5
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            //services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
-            //Configuration.GetConnectionString("DefaultConnection")
-            //));
+            services.AddSingleton<ClassService, ClassServiceImpl>();
+            services.AddSingleton<AccountService, AccountServiceImpl>();
+            services.AddSingleton<AccountTypeService, AccountTypeServiceImpl>();
+            services.AddSingleton<StudentService, StudentServiceImpl>();
+            services.AddSingleton<TeacherService, TeacherServiceImpl>();
+            services.AddSingleton<ExamService, ExamServiceImpl>();
+
 
         }
 
