@@ -1,6 +1,7 @@
 ﻿using ChamThiDotnet5.Models;
 using ChamThiWeb5.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace ChamThiDotnet5.DAO
@@ -9,40 +10,79 @@ namespace ChamThiDotnet5.DAO
     {
         AppDbContext DbContext = new AppDbContext();
 
-        public void AddNewTeacher(Teacher Teacher)
+        public int AddNewTeacher(Teacher Teacher)
         {
-            DbContext.Teachers.Add(Teacher);
-            DbContext.SaveChanges();
+            int n = 0;
+            try
+            {
+                DbContext.Teachers.Add(Teacher);
+                n = DbContext.SaveChanges();
+            }
+            catch (System.Exception ex)
+            {
+
+                throw ex.InnerException;
+            }
+            DbContext = new AppDbContext();
+            return n;
+
         }
 
-        public DbSet<Teacher> ReadAllTeacher()
+        public List<Teacher> ReadAllTeacher()
         {
-            return DbContext.Teachers;
+            IQueryable<Teacher> Teachers = from a in DbContext.Teachers select a;
+            return Teachers.ToList();
 
         }
 
         public Teacher ReadATeacher(int id)
         {
-            var Teacher = from a in DbContext.Teachers where a.Id == id select a;
-            return (Teacher)Teacher;
+            Teacher Teacher = (from a in DbContext.Teachers where a.Id == id select a).FirstOrDefault();
+            return Teacher;
         }
 
         // return false co nghia id khong ton tai
-        public bool UpdateTeacher(int id, Teacher NewTeacher)
+        public int UpdateTeacher(int id, Teacher NewTeacher)
 
         {
+            int n = 0;
             Teacher Teacher = ReadATeacher(id);
-            if (Teacher == null) return false;
+            if (Teacher == null) return n;
             Teacher = NewTeacher;
-            DbContext.SaveChanges();
-            return true;
+
+
+            try
+            {
+                n = DbContext.SaveChanges();
+            }
+            catch (System.Exception ex)
+            {
+
+                throw ex.InnerException;
+            }
+            DbContext = new AppDbContext();
+            return n;
+
+
         }
-        public void DeleteTeacher(int id)
+        public int DeleteTeacher(int id)
         {
+            int n = 0;
             Teacher Teacher = ReadATeacher(id);
             if (Teacher != null)
                 DbContext.Teachers.Remove(Teacher);
-            DbContext.SaveChanges();
+            try
+            {
+                n = DbContext.SaveChanges();
+            }
+            catch (System.Exception ex)
+            {
+
+                throw ex.InnerException;
+            }
+            DbContext = new AppDbContext();
+            return n;
+
         }
     }
 }

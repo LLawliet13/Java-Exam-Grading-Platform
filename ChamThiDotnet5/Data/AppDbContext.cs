@@ -1,8 +1,11 @@
-﻿//using ChamThiWeb5.Models;
+﻿
 using ChamThiDotnet5.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using System;
 using System.IO;
+using System.Linq;
+
 
 namespace ChamThiWeb5.Data
 {
@@ -18,7 +21,22 @@ namespace ChamThiWeb5.Data
         public DbSet<Exam> Exams { get; set; }
 
 
-       
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            
+            base.OnModelCreating(modelBuilder);
+            foreach( var fk in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+            {
+                fk.DeleteBehavior = DeleteBehavior.Restrict;
+                modelBuilder.Entity<Teacher>().HasOne(e => e.Account).WithOne(e => e.Teacher).OnDelete(DeleteBehavior.Cascade);
+                modelBuilder.Entity<Student>().HasOne(e => e.Account).WithOne(e => e.Student).OnDelete(DeleteBehavior.Cascade);
+
+
+
+
+            }
+            
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory())

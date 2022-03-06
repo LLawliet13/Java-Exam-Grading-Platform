@@ -15,11 +15,12 @@ namespace ChamThiDotnet5
 {
     public class Program
     {
-        static bool CreateDatabase()
+        static void CreateDatabase()
         {
             using var dbcontext = new AppDbContext();
             Console.WriteLine(dbcontext.Database.GetDbConnection().Database);
-            return dbcontext.Database.EnsureCreated();
+            //dbcontext.Database.EnsureCreated();
+            dbcontext.Database.Migrate();
         }
         static bool DropDatabase()
         {
@@ -29,8 +30,8 @@ namespace ChamThiDotnet5
         public static void Main(string[] args)
         {
             //DropDatabase();
-
-            var ans = CreateDatabase();
+            CreateDatabase();
+            //var ans = CreateDatabase();
             //AccountDAO AccountDAO = new AccountDAO();
             //AccountTypeDAO AccountTypeDao = new AccountTypeDAO();
             //AccountTypeDao.AddNewAccountType(new AccountType()
@@ -43,10 +44,30 @@ namespace ChamThiDotnet5
             //    Email = "Dung@gmail.com",
             //    Username = "username1",
             //    Password = "123456"
-            //}); ;
-            //AccountTypeDao.DeleteAccountType(1);
-            if (ans)
-                CreateHostBuilder(args).Build().Run();
+            //});
+            //int n = 0 ;
+            //try
+            //{
+            //    n = AccountTypeDao.DeleteAccountType(1);
+            //}
+            //catch (Exception ex)
+            //{
+
+            //    Console.Error.WriteLine(ex.Message);
+            //}
+            //if (n == 0) Console.WriteLine("cant delete");
+            //else Console.WriteLine("deleted");
+            //List<Account> AccountList = AccountDAO.ReadAllAccount();
+
+
+            //Account account = AccountDAO.ReadAAccount(1);
+            //Console.WriteLine(account.Username);
+            //    account.Username = "username1";
+            //    AccountDAO.UpdateAccount(1, account);
+            //    Console.WriteLine(AccountDAO.ReadAAccount(1).Username);
+            
+            
+            CreateHostBuilder(args).Build().Run();
 
         }
 

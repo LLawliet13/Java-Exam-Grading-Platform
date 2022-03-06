@@ -1,6 +1,7 @@
 ﻿using ChamThiDotnet5.Models;
 using ChamThiWeb5.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace ChamThiDotnet5.DAO
@@ -9,40 +10,79 @@ namespace ChamThiDotnet5.DAO
     {
         AppDbContext DbContext = new AppDbContext();
 
-        public void AddNewAccount(Account Account)
+        public int AddNewAccount(Account Account)
         {
-            DbContext.Accounts.Add(Account);
-            DbContext.SaveChanges();
+            int n = 0;
+            try
+            {
+                DbContext.Accounts.Add(Account);
+                n = DbContext.SaveChanges();
+            }
+            catch (System.Exception ex)
+            {
+
+                throw ex.InnerException;
+            }
+            DbContext = new AppDbContext();
+            return n;
+
         }
 
-        public DbSet<Account> ReadAllAccount()
+        public List<Account> ReadAllAccount()
         {
-            return DbContext.Accounts;
+            IQueryable<Account> Accounts = from a in DbContext.Accounts select a;
+            return Accounts.ToList();
 
         }
 
         public Account ReadAAccount(int id)
         {
-            var Account = from a in DbContext.Accounts where a.Id == id select a;
-            return (Account)Account;
+            Account Account = (from a in DbContext.Accounts where a.Id == id select a).FirstOrDefault();
+            return Account;
         }
 
         // return false co nghia id khong ton tai
-        public bool UpdateAccount(int id, Account NewAccount)
+        public int UpdateAccount(int id, Account NewAccount)
 
         {
+            int n = 0;
             Account Account = ReadAAccount(id);
-            if (Account == null) return false;
+            if (Account == null) return n;
             Account = NewAccount;
-            DbContext.SaveChanges();
-            return true;
+
+
+            try
+            {
+                n = DbContext.SaveChanges();
+            }
+            catch (System.Exception ex)
+            {
+
+                throw ex.InnerException;
+            }
+            DbContext = new AppDbContext();
+            return n;
+
+
         }
-        public void DeleteAccount(int id)
+        public int DeleteAccount(int id)
         {
+            int n = 0;
             Account Account = ReadAAccount(id);
             if (Account != null)
                 DbContext.Accounts.Remove(Account);
-            DbContext.SaveChanges();
+            try
+            {
+                n = DbContext.SaveChanges();
+            }
+            catch (System.Exception ex)
+            {
+
+                throw ex.InnerException;
+            }
+            DbContext = new AppDbContext();
+            return n;
+
         }
     }
 }

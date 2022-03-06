@@ -1,6 +1,7 @@
 ﻿using ChamThiDotnet5.Models;
 using ChamThiWeb5.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace ChamThiDotnet5.DAO
@@ -9,40 +10,85 @@ namespace ChamThiDotnet5.DAO
     {
         AppDbContext DbContext = new AppDbContext();
 
-        public void AddNewAccountType(AccountType Type)
+        public int AddNewClass(Class Class)
         {
-            DbContext.AccountTypes.Add(Type);
-            DbContext.SaveChanges();
+            int n = 0;
+            try
+            {
+                DbContext.Classes.Add(Class);
+                n = DbContext.SaveChanges();
+            }
+            catch (System.Exception ex)
+            {
+
+                throw ex.InnerException;
+            }
+            DbContext = new AppDbContext();
+            return n;
+
         }
 
-        public DbSet<AccountType> ReadAllAccountType()
+        public DbSet<Class> ReadAllClass()
         {
-            return DbContext.AccountTypes;
+            return DbContext.Classes;
 
         }
 
-        public AccountType ReadAAccountType(int id)
+        public List<Class> ReadAllClases()
         {
-            var accountType = from a in DbContext.AccountTypes where a.Id == id select a;
-            return (AccountType)accountType;
+            IQueryable<Class> Classes = from a in DbContext.Classes select a;
+            return Classes.ToList();
+
+        }
+
+        public Class ReadAClass(int id)
+        {
+            Class Class = (from a in DbContext.Classes where a.Id == id select a).FirstOrDefault();
+            return Class;
         }
 
         // return false co nghia id khong ton tai
-        public bool UpdateAccountType(int id, AccountType NewAccountType)
+        public int UpdateClass(int id, Class NewClass)
 
         {
-            AccountType accountType = ReadAAccountType(id);
-            if (accountType == null) return false;
-            accountType = NewAccountType;
-            DbContext.SaveChanges();
-            return true;
+            int n = 0;
+            Class Class = ReadAClass(id);
+            if (Class == null) return n;
+            Class = NewClass;
+
+
+            try
+            {
+                n = DbContext.SaveChanges();
+            }
+            catch (System.Exception ex)
+            {
+
+                throw ex.InnerException;
+            }
+            DbContext = new AppDbContext();
+            return n;
+
+
         }
-        public void DeleteAccountType(int id)
+        public int DeleteClass(int id)
         {
-            AccountType accountType = ReadAAccountType(id);
-            if (accountType != null)
-                DbContext.AccountTypes.Remove(accountType);
-            DbContext.SaveChanges();
+            int n = 0;
+            Class Class = ReadAClass(id);
+            if (Class != null)
+                DbContext.Classes.Remove(Class);
+            try
+            {
+                n = DbContext.SaveChanges();
+            }
+            catch (System.Exception ex)
+            {
+
+                throw ex.InnerException;
+            }
+            DbContext = new AppDbContext();
+            return n;
+
         }
     }
 }

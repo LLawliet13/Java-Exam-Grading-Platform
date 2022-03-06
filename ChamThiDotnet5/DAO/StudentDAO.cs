@@ -10,40 +10,79 @@ namespace ChamThiDotnet5.DAO
     {
         AppDbContext DbContext = new AppDbContext();
 
-        public void AddNewAccountType(AccountType Type)
+        public int AddNewStudent(Student Student)
         {
-            DbContext.AccountTypes.Add(Type);
-            DbContext.SaveChanges();
+            int n = 0;
+            try
+            {
+                DbContext.Students.Add(Student);
+                n = DbContext.SaveChanges();
+            }
+            catch (System.Exception ex)
+            {
+
+                throw ex.InnerException;
+            }
+            DbContext = new AppDbContext();
+            return n;
+
         }
 
-        public DbSet<AccountType> ReadAllAccountType()
+        public List<Student> ReadAllStudent()
         {
-            return DbContext.AccountTypes;
+            IQueryable<Student> Students = from a in DbContext.Students select a;
+            return Students.ToList();
 
         }
 
-        public AccountType ReadAAccountType(int id)
+        public Student ReadAStudent(int id)
         {
-            var accountType = from a in DbContext.AccountTypes where a.Id == id select a;
-            return (AccountType)accountType;
+            Student Student = (from a in DbContext.Students where a.Id == id select a).FirstOrDefault();
+            return Student;
         }
 
         // return false co nghia id khong ton tai
-        public bool UpdateAccountType(int id, AccountType NewAccountType)
+        public int UpdateStudent(int id, Student NewStudent)
 
         {
-            AccountType accountType = ReadAAccountType(id);
-            if (accountType == null) return false;
-            accountType = NewAccountType;
-            DbContext.SaveChanges();
-            return true;
+            int n = 0;
+            Student Student = ReadAStudent(id);
+            if (Student == null) return n;
+            Student = NewStudent;
+
+
+            try
+            {
+                n = DbContext.SaveChanges();
+            }
+            catch (System.Exception ex)
+            {
+
+                throw ex.InnerException;
+            }
+            DbContext = new AppDbContext();
+            return n;
+
+
         }
-        public void DeleteAccountType(int id)
+        public int DeleteStudent(int id)
         {
-            AccountType accountType = ReadAAccountType(id);
-            if (accountType != null)
-                DbContext.AccountTypes.Remove(accountType);
-            DbContext.SaveChanges();
+            int n = 0;
+            Student Student = ReadAStudent(id);
+            if (Student != null)
+                DbContext.Students.Remove(Student);
+            try
+            {
+                n = DbContext.SaveChanges();
+            }
+            catch (System.Exception ex)
+            {
+
+                throw ex.InnerException;
+            }
+            DbContext = new AppDbContext();
+            return n;
+
         }
 
     }
