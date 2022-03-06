@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ChamThiDotnet5.Models
@@ -13,7 +14,7 @@ namespace ChamThiDotnet5.Models
         [Required]
         [StringLength(100)]
         public string Studentname { get; set; }
-        public float Score { get; set; }
+        
         
         public int? ClassId { get; set; }
         [ForeignKey("ClassId")]
@@ -23,10 +24,9 @@ namespace ChamThiDotnet5.Models
         [Required]
         public int AccountId { get; set; }
         [ForeignKey("AccountId")]
-        public Account Account { get; set; }    
-        public int? ExamId { get; set; }
+        public Account Account { get; set; }  
+        
+        public virtual List<Exam> Exams { get; set; }
 
-        [ForeignKey("ExamId")]
-        public Exam Exam { get; set; }
     }
 }
