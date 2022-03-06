@@ -36,7 +36,7 @@ namespace ChamThiDotnet5.DAO
                 var e = DbContext.Entry(Student);
                 e.Reference(a => a.Class);
                 e.Reference(a => a.Account);
-                e.Reference(a => a.Exams);
+                e.Reference(a => a.Exam_Students);
 
             }
             return Students.ToList();
@@ -51,7 +51,7 @@ namespace ChamThiDotnet5.DAO
                 var e = DbContext.Entry(Student);
                 e.Reference(a => a.Class);
                 e.Reference(a => a.Account);
-                e.Reference(a => a.Exams);
+                e.Reference(a => a.Exam_Students);
             }
             return Student;
         }

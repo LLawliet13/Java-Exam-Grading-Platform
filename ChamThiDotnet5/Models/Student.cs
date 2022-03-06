@@ -26,7 +26,7 @@ namespace ChamThiDotnet5.Models
         [ForeignKey("AccountId")]
         public Account Account { get; set; }  
         
-        public virtual List<Exam> Exams { get; set; }
+        public virtual List<Exam_Student> Exam_Students { get; set; }
 
     }
 }
