@@ -19,8 +19,9 @@ namespace ChamThiDotnet5.Models
 
         [ForeignKey("ExamId")]
         public Exam Exam { get; set; }
-
+        [Required]
         public DateTime Start { get; set; }
+
         [Required]
         public DateTime End { get; set; }
 
