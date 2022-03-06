@@ -28,14 +28,10 @@ namespace ChamThiWeb5.Data
             foreach( var fk in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
             {
                 fk.DeleteBehavior = DeleteBehavior.Restrict;
-                modelBuilder.Entity<Teacher>().HasOne(e => e.Account).WithOne(e => e.Teacher).OnDelete(DeleteBehavior.Cascade);
-                modelBuilder.Entity<Student>().HasOne(e => e.Account).WithOne(e => e.Student).OnDelete(DeleteBehavior.Cascade);
-
-
-
-
             }
-            
+            modelBuilder.Entity<Teacher>().HasOne(e => e.Account).WithOne(e => e.Teacher).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Student>().HasOne(e => e.Account).WithOne(e => e.Student).OnDelete(DeleteBehavior.Cascade);
+
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
