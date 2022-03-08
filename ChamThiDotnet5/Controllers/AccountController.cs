@@ -20,5 +20,9 @@ namespace ChamThiDotnet5.Controllers
             this.ViewData["info"] = _accountService.start();
             return View("CustomNamePage");
         }
+        public IActionResult Login()
+        {
+            return View("Login");
+        }
     }
 }
