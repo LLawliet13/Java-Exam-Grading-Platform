@@ -1,0 +1,83 @@
+.u-dialog-section-4 {
+    min-height: 826px;
+}
+
+    .u-dialog-section-4 .u-dialog-1 {
+        width: 566px;
+        min-height: 375px;
+        height: auto;
+        margin: 183px auto 60px;
+    }
+
+    .u-dialog-section-4 .u-container-layout-1 {
+        padding: 24px 30px 16px;
+    }
+
+    .u-dialog-section-4 .u-form-1 {
+        height: 329px;
+        width: 506px;
+        margin: 0;
+    }
+
+    .u-dialog-section-4 .u-form-group-1 {
+        margin-left: 0;
+    }
+
+    .u-dialog-section-4 .u-btn-1 {
+        font-size: 0.875rem;
+        letter-spacing: 1px;
+        font-weight: 700;
+        text-transform: uppercase;
+        background-image: none;
+        border-style: none;
+    }
+
+    .u-dialog-section-4 .u-icon-1 {
+        width: 15px;
+        height: 15px;
+        left: auto;
+        top: 17px;
+        position: absolute;
+        right: 16px;
+    }
+
+@media (max-width: 1199px) {
+    .u-dialog-section-4 .u-dialog-1 {
+        width: 566px;
+    }
+}
+
+@media (max-width: 991px) {
+    .u-dialog-section-4 .u-container-layout-1 {
+        padding-top: 40px;
+    }
+}
+
+@media (max-width: 767px) {
+    .u-dialog-section-4 .u-dialog-1 {
+        width: 540px;
+    }
+
+    .u-dialog-section-4 .u-container-layout-1 {
+        padding-top: 24px;
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+}
+
+@media (max-width: 575px) {
+    .u-dialog-section-4 .u-dialog-1 {
+        width: 340px;
+    }
+
+    .u-dialog-section-4 .u-container-layout-1 {
+        padding-top: 40px;
+        padding-left: 25px;
+        padding-right: 25px;
+    }
+
+    .u-dialog-section-4 .u-form-1 {
+        margin-top: 184px;
+        width: 320px;
+    }
+}
