@@ -27,6 +27,7 @@ namespace ChamThiDotnet5
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddRazorPages();
             services.AddSingleton<ClassService, ClassServiceImpl>();
             services.AddSingleton<AccountService, AccountServiceImpl>();
             services.AddSingleton<AccountTypeService, AccountTypeServiceImpl>();
@@ -59,6 +60,8 @@ namespace ChamThiDotnet5
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllers();
+                endpoints.MapRazorPages();
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

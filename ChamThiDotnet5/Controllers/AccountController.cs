@@ -18,7 +18,15 @@ namespace ChamThiDotnet5.Controllers
 
             // truyen doi tuong sang trang web
             this.ViewData["info"] = _accountService.start();
-            return View("CustomNamePage");
+            return View("Login");
+        }
+        public IActionResult Login()
+        {
+            return View();
+        }
+        public IActionResult Account()
+        {
+            return View();
         }
         public IActionResult Login()
         {
