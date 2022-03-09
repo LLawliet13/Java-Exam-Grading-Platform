@@ -22,7 +22,7 @@ namespace ChamThiDotnet5.Controllers
         }
         public IActionResult Login()
         {
-            return View("Login");
+            return View();
         }
     }
 }
