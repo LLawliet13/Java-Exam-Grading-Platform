@@ -1,15 +1,21 @@
 ﻿using ChamThiDotnet5.Models;
 using ChamThiDotnet5.Services;
+using ChamThiWeb5.Data;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using System.IO;
+using System.Linq;
 
 namespace ChamThiDotnet5.Controllers
 {
 
+
     public class AccountController : Controller
     {
+        AppDbContext db = new AppDbContext();
 
         private readonly AccountService _accountService;
 
@@ -21,11 +27,15 @@ namespace ChamThiDotnet5.Controllers
 
         public IActionResult Index()
         {
-            ;
-
-            // truyen doi tuong sang trang web
-            this.ViewData["info"] = _accountService.start();
-            return View("Login");
+            if (HttpContext.Session.GetString("AccountSession") != null)
+            {
+                TempData["account"] = HttpContext.Session.GetString("Account");
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
         }
         [HttpGet]
         public IActionResult Login()
@@ -36,7 +46,18 @@ namespace ChamThiDotnet5.Controllers
         [HttpPost]
         public IActionResult Login(Account account)
         {
-            return View();
+            var obj = db.Accounts.Where(x => x.Username.Equals(account.Username) && x.Password.Equals(account.Password)).FirstOrDefault();
+            if (obj != null)
+            {
+                HttpContext.Session.SetString("Account", JsonConvert.SerializeObject(obj));
+                HttpContext.Session.SetString("AccountSession", JsonConvert.SerializeObject(account));
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                TempData["error"] = "Error";
+                return View(account);
+            }
         }
         public IActionResult Account()
         {

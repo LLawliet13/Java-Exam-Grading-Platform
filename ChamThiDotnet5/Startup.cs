@@ -1,4 +1,4 @@
-using ChamThiDotnet5.Services;
+﻿using ChamThiDotnet5.Services;
 using ChamThiWeb5.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -34,6 +34,12 @@ namespace ChamThiDotnet5
             services.AddSingleton<StudentService, StudentServiceImpl>();
             services.AddSingleton<TeacherService, TeacherServiceImpl>();
             services.AddSingleton<ExamService, ExamServiceImpl>();
+            services.AddDistributedMemoryCache();
+            services.AddSession(cfg =>
+            {
+                cfg.Cookie.Name = "ChamThi";
+                cfg.IdleTimeout = new TimeSpan(0, 60, 0);
+            });
 
 
         }
@@ -57,7 +63,7 @@ namespace ChamThiDotnet5
             app.UseRouting();
 
             app.UseAuthorization();
-
+            app.UseSession();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
