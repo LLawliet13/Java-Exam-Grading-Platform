@@ -1,11 +1,18 @@
-﻿using ChamThiDotnet5.Services;
+﻿using ChamThiDotnet5.Models;
+using ChamThiDotnet5.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
+using System.IO;
 
 namespace ChamThiDotnet5.Controllers
 {
+
     public class AccountController : Controller
     {
+
         private readonly AccountService _accountService;
+
 
         public AccountController(AccountService accountService)
         {
@@ -20,7 +27,14 @@ namespace ChamThiDotnet5.Controllers
             this.ViewData["info"] = _accountService.start();
             return View("Login");
         }
+        [HttpGet]
         public IActionResult Login()
+        {
+            Account account = new Account();
+            return View(account);
+        }
+        [HttpPost]
+        public IActionResult Login(Account account)
         {
             return View();
         }
