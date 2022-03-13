@@ -34,8 +34,8 @@ namespace ChamThiDotnet5.DAO
             foreach (Teacher Teacher in Teachers)
             {
                 var e = DbContext.Entry(Teacher);
-                e.Reference(a => a.Classes);
-                e.Reference(a => a.Account);
+                e.Collection(a => a.Classes).Load();
+                e.Reference(a => a.Account).Load();
                 
 
             }
@@ -47,10 +47,10 @@ namespace ChamThiDotnet5.DAO
         public Teacher ReadATeacher(int id)
         {
             Teacher Teacher = (from a in DbContext.Teachers where a.Id == id select a).FirstOrDefault();
-            if(Teacher == null) { 
+            if(Teacher != null) { 
             var e = DbContext.Entry(Teacher);
-            e.Reference(a => a.Classes);
-            e.Reference(a => a.Account);
+            e.Collection(a => a.Classes).Load();
+            e.Reference(a => a.Account).Load();
             }
             return Teacher;
         }

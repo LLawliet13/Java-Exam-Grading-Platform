@@ -34,9 +34,9 @@ namespace ChamThiDotnet5.DAO
             foreach (Student Student in Students)
             {
                 var e = DbContext.Entry(Student);
-                e.Reference(a => a.Class);
-                e.Reference(a => a.Account);
-                e.Reference(a => a.Exam_Students);
+                e.Reference(a => a.Class).Load();
+                e.Reference(a => a.Account).Load();
+                e.Collection(a => a.Exam_Students).Load();
 
             }
             return Students.ToList();
@@ -49,9 +49,9 @@ namespace ChamThiDotnet5.DAO
             if (Student != null)
             {
                 var e = DbContext.Entry(Student);
-                e.Reference(a => a.Class);
-                e.Reference(a => a.Account);
-                e.Reference(a => a.Exam_Students);
+                e.Reference(a => a.Class).Load();
+                e.Reference(a => a.Account).Load();
+                e.Collection(a => a.Exam_Students).Load();
             }
             return Student;
         }

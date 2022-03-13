@@ -40,8 +40,8 @@ namespace ChamThiDotnet5.DAO
             foreach (Class Class in Classes)
             {
                 var e = DbContext.Entry(Class);
-                e.Reference(a => a.Teacher);
-                e.Reference(a => a.Student);
+                e.Reference(a => a.Teacher).Load();
+                e.Collection(a => a.Student).Load();
             }
             return Classes.ToList();
 
@@ -53,8 +53,8 @@ namespace ChamThiDotnet5.DAO
             if (Class != null)
             {
                 var e = DbContext.Entry(Class);
-                e.Reference(a => a.Teacher);
-                e.Reference(a => a.Student);
+                e.Reference(a => a.Teacher).Load();
+                e.Collection(a => a.Student).Load();
             }
             return Class;
         }

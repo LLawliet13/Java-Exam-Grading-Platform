@@ -34,7 +34,7 @@ namespace ChamThiDotnet5.DAO
             foreach (AccountType AccountType in AccountTypes)
             {
                 var e = DbContext.Entry(AccountType);
-                e.Reference(a => a.Accounts);
+                e.Collection(a => a.Accounts).Load();
             }
             return AccountTypes.ToList();
 
@@ -46,7 +46,7 @@ namespace ChamThiDotnet5.DAO
             if (AccountType != null)
             {
                 var e = DbContext.Entry(AccountType);
-                e.Reference(a => a.Accounts);
+                e.Collection(a => a.Accounts).Load();
             }
             return AccountType;
         }

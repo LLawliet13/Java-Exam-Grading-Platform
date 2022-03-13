@@ -1,4 +1,4 @@
-using ChamThiDotnet5.Services;
+﻿using ChamThiDotnet5.Services;
 using ChamThiWeb5.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -34,6 +34,13 @@ namespace ChamThiDotnet5
             services.AddSingleton<StudentService, StudentServiceImpl>();
             services.AddSingleton<TeacherService, TeacherServiceImpl>();
             services.AddSingleton<ExamService, ExamServiceImpl>();
+            services.AddSingleton<Exam_StudentService, Exam_StudentServiceImpl>();
+            services.AddSingleton<AutoMarkService, AutoMarkServiceImpl>();
+
+            services.AddDistributedMemoryCache();           // Đăng ký dịch vụ lưu cache trong bộ nhớ (Session sẽ sử dụng nó)
+            services.AddSession(cfg => {                    // Đăng ký dịch vụ Session
+               
+            });
 
 
         }
@@ -41,6 +48,7 @@ namespace ChamThiDotnet5
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseSession();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
