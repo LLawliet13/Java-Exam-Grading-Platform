@@ -14,7 +14,7 @@
 
     $.ajax({
 
-        url: "/Teacher/getExam_Student",
+        url: "/Teacher/getPendingExam_Student",
         type: 'post',
         data: {
             'classid': classid,

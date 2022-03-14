@@ -12,7 +12,7 @@ namespace ChamThiDotnet5.Services
         TeacherDAO teacherDAO = new TeacherDAO();
         ClassDAO ClassDAO = new ClassDAO();
         StudentDAO studentDAO = new StudentDAO();   
-        public List<Class_Exam> FindPendingExamOfTeacher(int id)
+        public List<Class_Exam> FindPending_ResultExamOfTeacher(int id)
         {
             List<Class_Exam> class_Exams = new List<Class_Exam>();
             Teacher t = teacherDAO.ReadATeacher(id);
@@ -49,7 +49,7 @@ namespace ChamThiDotnet5.Services
         }
 
         // lay thong tin danh sach hoc sinh theo class id va exam id 
-        public List<Exam_Student> FindPending_ResultExamOfTeacher(int ClassID, int ExamID)
+        public List<Exam_Student> FindStudent_ExamByClassAndExamID(int ClassID, int ExamID)
         {
 
             List<Exam_Student> exam_Students = new List<Exam_Student>();
