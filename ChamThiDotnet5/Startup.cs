@@ -2,10 +2,12 @@
 using ChamThiWeb5.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
@@ -36,13 +38,14 @@ namespace ChamThiDotnet5
             services.AddSingleton<ExamService, ExamServiceImpl>();
             services.AddSingleton<Exam_StudentService, Exam_StudentServiceImpl>();
             services.AddSingleton<AutoMarkService, AutoMarkServiceImpl>();
-
-            services.AddDistributedMemoryCache();           // Đăng ký dịch vụ lưu cache trong bộ nhớ (Session sẽ sử dụng nó)
-            services.AddSession(cfg => {                    // Đăng ký dịch vụ Session
-               
+            services.AddDistributedMemoryCache();
+            services.AddSession(cfg =>
+            {
+                cfg.Cookie.Name = "ChamThi";
+                cfg.IdleTimeout = new TimeSpan(0, 60, 0);
             });
 
-
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -65,7 +68,7 @@ namespace ChamThiDotnet5
             app.UseRouting();
 
             app.UseAuthorization();
-
+            app.UseSession();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

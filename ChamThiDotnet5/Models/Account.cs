@@ -7,18 +7,19 @@ namespace ChamThiDotnet5.Models
     public class Account
     {
         [Key]
-        
+
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        [Required]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Username not empty")]
         public string Username { get; set; }
-        [Required]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Password not empty")]
         public string Password { get; set; }
-        [Required]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Email not empty")]
+        [RegularExpression(pattern: @"^[\w\.]+@([\w-]+\.)+[\w-]{2,3}$", ErrorMessage = "Email is not valid")]
         public string Email { get; set; }
-       
+
         public int AccountTypeId { get; set; }
-        
+
         [ForeignKey("AccountTypeId")]
         public AccountType AccountType { get; set; }
         //public List<Teacher> Teachers { get; set; }

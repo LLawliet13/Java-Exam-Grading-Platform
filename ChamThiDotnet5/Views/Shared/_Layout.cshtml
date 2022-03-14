@@ -1,4 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+<!DOCTYPE html>
+@{
+    var username = HttpContextAccessor.HttpContext.Session.GetString("username");
+    var password = HttpContextAccessor.HttpContext.Session.GetString("password");
+
+}
 <html style="font-size: 16px;">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,7 +29,17 @@
                     <a href="Student.html" data-page-id="1539906" class="u-image u-logo u-image-1" data-image-width="500" data-image-height="500" title="Student">
                         <img src="/images/Logo.png" class="u-logo-image u-logo-image-1">
                     </a>
-                    <a class="u-custom-font u-heading-font u-login u-login-1" href="/Account/Login" data-page-id="1538002" title="Login">Login</a>
+                    @{
+                        if (username != null)
+                        {
+                            <a class="u-custom-font u-heading-font u-login u-login-1" href="#" data-page-id="1538002" title="Login">@username</a>
+                        }
+                        else
+                        {
+                            <a class="u-custom-font u-heading-font u-login u-login-1" href="/Account/Login" data-page-id="1538002" title="Login">Login</a>
+                        }
+                    }
+
                 </div>
             </div>
             <div class="u-container-style u-group u-group-2">
@@ -91,7 +108,7 @@
             </div>
         </div>
     </header>
-    
+
     <div>
         @RenderBody()
     </div>
@@ -105,6 +122,6 @@
             </p>
         </div>
     </footer>
-   
+
 </body>
 </html>

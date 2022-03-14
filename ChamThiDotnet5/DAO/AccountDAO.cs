@@ -31,13 +31,16 @@ namespace ChamThiDotnet5.DAO
         public List<Account> ReadAllAccount()
         {
             IQueryable<Account> Accounts = from a in DbContext.Accounts select a;
-            
+
             //reference navigation
-            foreach (Account Account in Accounts) { 
-            var e = DbContext.Entry(Account);
+
+            foreach (Account Account in Accounts)
+            {
+                var e = DbContext.Entry(Account);
                 e.Reference(a => a.AccountType).Load();
                 e.Reference(a => a.Student).Load();
                 e.Reference(a => a.Teacher).Load();
+
             }
             return Accounts.ToList();
 

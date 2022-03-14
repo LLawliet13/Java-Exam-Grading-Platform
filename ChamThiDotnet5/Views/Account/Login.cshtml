@@ -1,7 +1,11 @@
 ﻿@{
     ViewData["Title"] = "Login";
 }
-@{
+@if (TempData["error"] != null)
+{
+    <script>
+        alert("Username or Password is not correct");
+    </script>
 }
 <!DOCTYPE html>
 <html style="font-size: 16px;">
@@ -13,7 +17,7 @@
     <meta name="page_type" content="np-template-header-footer-from-plugin">
     <title>Login</title>
     <link rel="stylesheet" href="/css/nicepage.css" media="screen">
- <link rel="stylesheet" href="/css/Login.css" media="screen">
+    <link rel="stylesheet" href="/css/Login.css" media="screen">
     <script class="u-script" type="text/javascript" src="jquery-1.9.1.min.js" defer=""></script>
     <script class="u-script" type="text/javascript" src="nicepage.js" defer=""></script>
     <meta name="generator" content="Nicepage 4.6.5, nicepage.com">
@@ -35,118 +39,118 @@
 <body class="u-body u-xl-mode">
     @*<header class="u-clearfix u-header u-header" id="sec-bc81">
         <div class="u-clearfix u-sheet u-sheet-1">
-            <div class="u-container-style u-group u-group-1">
-                <div class="u-container-layout">
-                    <a href="https://nicepage.com" class="u-image u-logo u-image-1" data-image-width="500" data-image-height="500">
-                        <img src="img/Logo.png" class="u-logo-image u-logo-image-1">
-                    </a>
-                    <a class="u-custom-font u-heading-font u-login u-login-1">Login</a>
-                </div>
-            </div>
-            <div class="u-container-style u-group u-group-2">
-                <div class="u-container-layout">
-                    <div class="u-container-style u-group u-group-3">
-                        <div class="u-container-layout">
-                            <a href="https://nicepage.com/wysiwyg-html-editor" class="u-image u-logo u-image-2" data-image-width="412" data-image-height="122">
-                                <img src="img/logoFPT.png" class="u-logo-image u-logo-image-2">
-                            </a>
-                            <nav class="u-align-left u-menu u-menu-dropdown u-nav-spacing-25 u-offcanvas u-menu-1" data-responsive-from="XL">
-                                <div class="menu-collapse">
-                                    <a class="u-button-style u-nav-link" href="#" style="font-size: calc(1em + 14px);">
-                                        <svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 302 302" style=""><use xlink:href="#svg-f86e"></use></svg>
-                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="svg-f86e" x="0px" y="0px" viewBox="0 0 302 302" style="enable-background:new 0 0 302 302;" xml:space="preserve" class="u-svg-content"><g><rect y="36" width="302" height="30"></rect><rect y="236" width="302" height="30"></rect><rect y="136" width="302" height="30"></rect>
-</g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g></svg>
-                                    </a>
-                                </div>
-                                <div class="u-custom-menu u-nav-container">
-                                    <ul class="u-nav u-unstyled u-nav-1">
-                                        <li class="u-nav-item">
-                                            <a class="u-button-style u-nav-link" href="Index.html" style="padding-right: 6px;">Index</a>
-                                        </li>
-                                        <li class="u-nav-item">
-                                            <a class="u-button-style u-nav-link" href="Account.html" style="padding-right: 6px;">Account</a>
-                                        </li>
-                                        <li class="u-nav-item">
-                                            <a class="u-button-style u-nav-link" href="Login2.html" style="padding-right: 6px;">Login</a>
-                                        </li>
-                                        <li class="u-nav-item">
-                                            <a class="u-button-style u-nav-link" href="Student.html" style="padding-right: 6px;">Student</a>
-                                        </li>
-                                        <li class="u-nav-item">
-                                            <a class="u-button-style u-nav-link" href="Teacher.html" style="padding-right: 6px;">Te</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="u-custom-menu u-nav-container-collapse">
-                                    <div class="u-align-center u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
-                                        <div class="u-inner-container-layout u-sidenav-overflow">
-                                            <div class="u-menu-close"></div>
-                                            <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
-                                                <li class="u-nav-item">
-                                                    <a class="u-button-style u-nav-link" href="Index.html" style="padding-right: 6px;">Index</a>
-                                                </li>
-                                                <li class="u-nav-item">
-                                                    <a class="u-button-style u-nav-link" href="Account.html" style="padding-right: 6px;">Account</a>
-                                                </li>
-                                                <li class="u-nav-item">
-                                                    <a class="u-button-style u-nav-link" href="Login2.html" style="padding-right: 6px;">Login</a>
-                                                </li>
-                                                <li class="u-nav-item">
-                                                    <a class="u-button-style u-nav-link" href="Student.html" style="padding-right: 6px;">Student</a>
-                                                </li>
-                                                <li class="u-nav-item">
-                                                    <a class="u-button-style u-nav-link" href="Teacher.html" style="padding-right: 6px;">Te</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
-                                </div>
-                            </nav>
-                        </div>
+        <div class="u-container-style u-group u-group-1">
+        <div class="u-container-layout">
+        <a href="https://nicepage.com" class="u-image u-logo u-image-1" data-image-width="500" data-image-height="500">
+        <img src="img/Logo.png" class="u-logo-image u-logo-image-1">
+        </a>
+        <a class="u-custom-font u-heading-font u-login u-login-1">Login</a>
+        </div>
+        </div>
+        <div class="u-container-style u-group u-group-2">
+        <div class="u-container-layout">
+        <div class="u-container-style u-group u-group-3">
+        <div class="u-container-layout">
+        <a href="https://nicepage.com/wysiwyg-html-editor" class="u-image u-logo u-image-2" data-image-width="412" data-image-height="122">
+        <img src="img/logoFPT.png" class="u-logo-image u-logo-image-2">
+        </a>
+        <nav class="u-align-left u-menu u-menu-dropdown u-nav-spacing-25 u-offcanvas u-menu-1" data-responsive-from="XL">
+        <div class="menu-collapse">
+        <a class="u-button-style u-nav-link" href="#" style="font-size: calc(1em + 14px);">
+        <svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 302 302" style=""><use xlink:href="#svg-f86e"></use></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="svg-f86e" x="0px" y="0px" viewBox="0 0 302 302" style="enable-background:new 0 0 302 302;" xml:space="preserve" class="u-svg-content"><g><rect y="36" width="302" height="30"></rect><rect y="236" width="302" height="30"></rect><rect y="136" width="302" height="30"></rect>
+        </g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g></svg>
+        </a>
+        </div>
+        <div class="u-custom-menu u-nav-container">
+        <ul class="u-nav u-unstyled u-nav-1">
+        <li class="u-nav-item">
+        <a class="u-button-style u-nav-link" href="Index.html" style="padding-right: 6px;">Index</a>
+        </li>
+        <li class="u-nav-item">
+        <a class="u-button-style u-nav-link" href="Account.html" style="padding-right: 6px;">Account</a>
+        </li>
+        <li class="u-nav-item">
+        <a class="u-button-style u-nav-link" href="Login2.html" style="padding-right: 6px;">Login</a>
+        </li>
+        <li class="u-nav-item">
+        <a class="u-button-style u-nav-link" href="Student.html" style="padding-right: 6px;">Student</a>
+        </li>
+        <li class="u-nav-item">
+        <a class="u-button-style u-nav-link" href="Teacher.html" style="padding-right: 6px;">Te</a>
+        </li>
+        </ul>
+        </div>
+        <div class="u-custom-menu u-nav-container-collapse">
+        <div class="u-align-center u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
+        <div class="u-inner-container-layout u-sidenav-overflow">
+        <div class="u-menu-close"></div>
+        <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
+        <li class="u-nav-item">
+        <a class="u-button-style u-nav-link" href="Index.html" style="padding-right: 6px;">Index</a>
+        </li>
+        <li class="u-nav-item">
+        <a class="u-button-style u-nav-link" href="Account.html" style="padding-right: 6px;">Account</a>
+        </li>
+        <li class="u-nav-item">
+        <a class="u-button-style u-nav-link" href="Login2.html" style="padding-right: 6px;">Login</a>
+        </li>
+        <li class="u-nav-item">
+        <a class="u-button-style u-nav-link" href="Student.html" style="padding-right: 6px;">Student</a>
+        </li>
+        <li class="u-nav-item">
+        <a class="u-button-style u-nav-link" href="Teacher.html" style="padding-right: 6px;">Te</a>
+        </li>
+        </ul>
+        </div>
+        </div>
+        <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
+        </div>
+        </nav>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </header>*@
+    <section class="u-clearfix u-image u-shading u-section-1" id="sec-e51d" data-image-width="1280" data-image-height="704">
+        <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+            <div class="u-align-center u-border-2 u-border-grey-75 u-container-style u-grey-10 u-group u-radius-15 u-shape-round u-group-1">
+                <div class="u-container-layout u-container-layout-1">
+                    <span class="u-icon u-icon-circle u-text-custom-color-1 u-icon-1">
+                        <svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 45.532 45.532" style=""><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-862c"></use></svg>
+                        <svg class="u-svg-content" viewBox="0 0 45.532 45.532" x="0px" y="0px" id="svg-862c" style="enable-background:new 0 0 45.532 45.532;">
+                            <g>
+                                <path d="M22.766,0.001C10.194,0.001,0,10.193,0,22.766s10.193,22.765,22.766,22.765c12.574,0,22.766-10.192,22.766-22.765   S35.34,0.001,22.766,0.001z M22.766,6.808c4.16,0,7.531,3.372,7.531,7.53c0,4.159-3.371,7.53-7.531,7.53   c-4.158,0-7.529-3.371-7.529-7.53C15.237,10.18,18.608,6.808,22.766,6.808z M22.761,39.579c-4.149,0-7.949-1.511-10.88-4.012   c-0.714-0.609-1.126-1.502-1.126-2.439c0-4.217,3.413-7.592,7.631-7.592h8.762c4.219,0,7.619,3.375,7.619,7.592   c0,0.938-0.41,1.829-1.125,2.438C30.712,38.068,26.911,39.579,22.761,39.579z"></path>
+                            </g>
+                        </svg>
+                    </span>
+                    <h3 class="u-text u-text-default u-text-1">User Log In</h3>
+                    <div class="u-form u-login-control u-form-1">
+                        <form action="Login" method="POST" class="u-clearfix u-form-custom-backend u-form-spacing-30 u-form-vertical u-inner-form" source="custom" name="form-3" style="padding: 10px;">
+                            <div class="u-form-group u-form-name">
+                                <label for="username-5b0a" class="u-form-control-hidden u-label"></label>
+                                <input type="text" placeholder="Enter your Username" id="username-5b0a" name="username" class="u-border-2 u-border-white u-input u-input-rectangle u-radius-43 u-white" required="" autofocus="autofocus">
+                            </div>
+                            <div class="u-form-group u-form-password">
+                                <label for="password-5b0a" class="u-form-control-hidden u-label"></label>
+                                <input type="password" placeholder="Enter your Password" id="password-5b0a" name="password" class="u-border-2 u-border-white u-input u-input-rectangle u-radius-43 u-white" required="">
+                            </div>
+                            <div class="u-form-checkbox u-form-group">
+                                <input type="checkbox" id="checkbox-5b0a" name="remember" value="On">
+                                <label for="checkbox-5b0a" class="u-label">Remember me</label>
+                            </div>
+                            <div class="u-align-left u-form-group u-form-submit">
+                                <a href="#" class="u-border-none u-btn u-btn-round u-btn-submit u-button-style u-custom-color-1 u-hover-palette-1-dark-3 u-radius-50 u-btn-1">Login</a>
+                                <input type="submit" value="submit" class="u-form-control-hidden">
+                            </div>
+                            <input type="hidden" id="siteId" name="siteId" value="1531132">
+                            <input type="hidden" id="pageId" name="pageId" value="1538002">
+                            <input type="hidden" value="" name="recaptchaResponse">
+                        </form>
                     </div>
                 </div>
             </div>
-        </div>
-    </header>*@
-<section class="u-clearfix u-image u-shading u-section-1" id="sec-e51d" data-image-width="1280" data-image-height="704">
-    <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
-        <div class="u-align-center u-border-2 u-border-grey-75 u-container-style u-grey-10 u-group u-radius-15 u-shape-round u-group-1">
-            <div class="u-container-layout u-container-layout-1">
-                <span class="u-icon u-icon-circle u-text-custom-color-1 u-icon-1">
-                    <svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 45.532 45.532" style=""><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-862c"></use></svg>
-                    <svg class="u-svg-content" viewBox="0 0 45.532 45.532" x="0px" y="0px" id="svg-862c" style="enable-background:new 0 0 45.532 45.532;">
-                        <g>
-                            <path d="M22.766,0.001C10.194,0.001,0,10.193,0,22.766s10.193,22.765,22.766,22.765c12.574,0,22.766-10.192,22.766-22.765   S35.34,0.001,22.766,0.001z M22.766,6.808c4.16,0,7.531,3.372,7.531,7.53c0,4.159-3.371,7.53-7.531,7.53   c-4.158,0-7.529-3.371-7.529-7.53C15.237,10.18,18.608,6.808,22.766,6.808z M22.761,39.579c-4.149,0-7.949-1.511-10.88-4.012   c-0.714-0.609-1.126-1.502-1.126-2.439c0-4.217,3.413-7.592,7.631-7.592h8.762c4.219,0,7.619,3.375,7.619,7.592   c0,0.938-0.41,1.829-1.125,2.438C30.712,38.068,26.911,39.579,22.761,39.579z"></path>
-                        </g>
-                    </svg>
-                </span>
-                <h3 class="u-text u-text-default u-text-1">User Log In</h3>
-                <div class="u-form u-login-control u-form-1">
-                    <form action="#" method="POST" class="u-clearfix u-form-custom-backend u-form-spacing-30 u-form-vertical u-inner-form" source="custom" name="form-3" style="padding: 10px;">
-                        <div class="u-form-group u-form-name">
-                            <label for="username-5b0a" class="u-form-control-hidden u-label"></label>
-                            <input type="text" placeholder="Enter your Username" id="username-5b0a" name="username" class="u-border-2 u-border-white u-input u-input-rectangle u-radius-43 u-white" required="" autofocus="autofocus">
-                        </div>
-                        <div class="u-form-group u-form-password">
-                            <label for="password-5b0a" class="u-form-control-hidden u-label"></label>
-                            <input type="password" placeholder="Enter your Password" id="password-5b0a" name="password" class="u-border-2 u-border-white u-input u-input-rectangle u-radius-43 u-white" required="">
-                        </div>
-                        <div class="u-form-checkbox u-form-group">
-                            <input type="checkbox" id="checkbox-5b0a" name="remember" value="On">
-                            <label for="checkbox-5b0a" class="u-label">Remember me</label>
-                        </div>
-                        <div class="u-align-left u-form-group u-form-submit">
-                            <a href="#" class="u-border-none u-btn u-btn-round u-btn-submit u-button-style u-custom-color-1 u-hover-palette-1-dark-3 u-radius-50 u-btn-1">Login</a>
-                            <input type="submit" value="submit" class="u-form-control-hidden">
-                        </div>
-                        <input type="hidden" id="siteId" name="siteId" value="1531132">
-                        <input type="hidden" id="pageId" name="pageId" value="1538002">
-                        <input type="hidden" value="" name="recaptchaResponse">
-                    </form>
-                </div>
-            </div>
-        </div>
         </div>
     </section>
 
@@ -154,13 +158,13 @@
 
     @*<footer class="u-align-center u-clearfix u-footer u-grey-80 u-footer" id="sec-b612">
         <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
-            <p class="u-small-text u-text u-text-variant u-text-1" spellcheck="false">
-                <font style="vertical-align: inherit;">
-                    <font style="vertical-align: inherit;"></font>
-                </font>You are not logged in. (<a href="https://cmshn.fpt.edu.vn/login/index.php" class="u-active-none u-border-none u-btn u-button-style u-hover-none u-none u-text-palette-1-base u-btn-1">Log in</a>)<br>Created and Developed by TEAM 1 - PRN211<br>
-            </p>
-    </div>
-    </footer>*@
+        <p class="u-small-text u-text u-text-variant u-text-1" spellcheck="false">
+        <font style="vertical-align: inherit;">
+        <font style="vertical-align: inherit;"></font>
+        </font>You are not logged in. (<a href="https://cmshn.fpt.edu.vn/login/index.php" class="u-active-none u-border-none u-btn u-button-style u-hover-none u-none u-text-palette-1-base u-btn-1">Log in</a>)<br>Created and Developed by TEAM 1 - PRN211<br>
+        </p>
+        </div>
+        </footer>*@
     <section class="u-backlink u-clearfix u-grey-80">
         <a class="u-link" href="https://nicepage.com/website-templates" target="_blank">
             <span>Website Templates</span>
@@ -171,6 +175,6 @@
         <a class="u-link" href="" target="_blank">
             <span>Website Builder Software</span>
         </a>.
-</section>
+    </section>
 </body>
 </html>
