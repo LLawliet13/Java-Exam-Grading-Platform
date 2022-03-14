@@ -48,7 +48,7 @@ namespace ChamThiDotnet5.Controllers
         {
             var obj = db.Accounts.Where(x => x.Username.Equals(account.Username) && x.Password.Equals(account.Password)).FirstOrDefault();
             var e = db.Entry(obj);
-            e.Reference(ai => ai.AccountType);
+            e.Reference(ai => ai.AccountType).Load();
             if (obj != null)
             {
                 HttpContext.Session.SetString("username", obj.Username);
