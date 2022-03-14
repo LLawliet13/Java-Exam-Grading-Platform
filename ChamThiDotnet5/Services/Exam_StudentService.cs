@@ -7,6 +7,7 @@ namespace ChamThiDotnet5.Services
     {
 
         public abstract List<Exam_Student> FindStudent_ExamByClassAndExamID(int ClassID, int ExamID);
+        public abstract List<Class_Exam> FindPendingExamOfTeacher(int teacherid);
 
     }
 }

@@ -1,3 +1,23 @@
-﻿@{
-    Layout = "_Layout";
+﻿ @using Microsoft.AspNetCore.Http.Extensions; 
+@{
+    //var path = @Context.Request.Path.ToString();
+    //var routeUrl = ViewContext.RouteData.Values["Page"];
+    ////you can put pages' name into pages
+    //if(routeUrl!=null){
+    //    var route = routeUrl.ToString();
+    //    var pages = new List<string> { "StudentList", "Page2"};
+    //    //if routeUrl contains any of pages,the page will use _Layout as Layout page,the other pages will use _Layout1 ad Layout page
+    //    if (pages.Any(path.Contains))
+    //    {
+    //        Layout = "_NewLayout";
+    //    }
+    //    else {
+    //        Layout = "_Layout";
+    //    }
+    //}
+    //else
+    //{
+        Layout = "_Layout";
+    //}
+
 }
