@@ -26,6 +26,7 @@ namespace ChamThiDotnet5.Models
         [Required]
         public DateTime End { get; set; }
 
+        public string SubmittedFolder { get; set; }
         public float? Score { get; set; }
     }
 }

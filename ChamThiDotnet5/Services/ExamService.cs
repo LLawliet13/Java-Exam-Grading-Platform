@@ -1,6 +1,9 @@
-﻿namespace ChamThiDotnet5.Services
+﻿
+
+namespace ChamThiDotnet5.Services
 {
     public interface ExamService
     {
+       
     }
 }

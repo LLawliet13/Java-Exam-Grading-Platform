@@ -33,12 +33,20 @@ namespace ChamThiDotnet5.DAO
             IQueryable<Account> Accounts = from a in DbContext.Accounts select a;
 
             //reference navigation
+<<<<<<< HEAD
             foreach (Account Account in Accounts)
             {
                 var e = DbContext.Entry(Account);
                 e.Reference(a => a.AccountType);
                 e.Reference(a => a.Student);
                 e.Reference(a => a.Teacher);
+=======
+            foreach (Account Account in Accounts) { 
+            var e = DbContext.Entry(Account);
+                e.Reference(a => a.AccountType).Load();
+                e.Reference(a => a.Student).Load();
+                e.Reference(a => a.Teacher).Load();
+>>>>>>> e8e98a84139fb0330a97158e0c44976390730efd
             }
             return Accounts.ToList();
 
@@ -50,9 +58,9 @@ namespace ChamThiDotnet5.DAO
             if (Account != null)
             {
                 var e = DbContext.Entry(Account);
-                e.Reference(a => a.AccountType);
-                e.Reference(a => a.Student);
-                e.Reference(a => a.Teacher);
+                e.Reference(a => a.AccountType).Load();
+                e.Reference(a => a.Student).Load();
+                e.Reference(a => a.Teacher).Load();
             }
             return Account;
         }

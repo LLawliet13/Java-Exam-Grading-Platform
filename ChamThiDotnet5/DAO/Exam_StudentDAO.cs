@@ -34,8 +34,8 @@ namespace ChamThiDotnet5.DAO
             foreach (Exam_Student Exam_Student in Exam_Students)
             {
                 var e = DbContext.Entry(Exam_Student);
-                e.Reference(a => a.Exam);
-                e.Reference(a => a.Student);
+                e.Reference(a => a.Exam).Load();
+                e.Reference(a => a.Student).Load();
             }
             return Exam_Students.ToList();
 
@@ -47,8 +47,8 @@ namespace ChamThiDotnet5.DAO
             if (Exam_Student != null)
             {
                 var e = DbContext.Entry(Exam_Student);
-                e.Reference(a => a.Exam);
-                e.Reference(a => a.Student);
+                e.Reference(a => a.Exam).Load();
+                e.Reference(a => a.Student).Load();
             }
             return Exam_Student;
         }
