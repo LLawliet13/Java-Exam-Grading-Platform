@@ -25,18 +25,18 @@ namespace ChamThiDotnet5.Controllers
             _accountService = accountService;
         }
 
-        public IActionResult Index()
-        {
-            if (HttpContext.Session.GetString("AccountSession") != null)
-            {
-                TempData["account"] = HttpContext.Session.GetString("Account");
-                return View();
-            }
-            else
-            {
-                return RedirectToAction("Login", "Account");
-            }
-        }
+        //public IActionResult Index()
+        //{
+        //    if (HttpContext.Session.GetString("AccountSession") != null)
+        //    {
+        //        TempData["account"] = HttpContext.Session.GetString("Account");
+        //        return View();
+        //    }
+        //    else
+        //    {
+        //        return RedirectToAction("Login", "Account");
+        //    }
+        //}
         [HttpGet]
         public IActionResult Login()
         {
@@ -47,10 +47,13 @@ namespace ChamThiDotnet5.Controllers
         public IActionResult Login(Account account)
         {
             var obj = db.Accounts.Where(x => x.Username.Equals(account.Username) && x.Password.Equals(account.Password)).FirstOrDefault();
+            var e = db.Entry(obj);
+            e.Reference(ai => ai.AccountType);
             if (obj != null)
             {
-                HttpContext.Session.SetString("Account", JsonConvert.SerializeObject(obj));
-                HttpContext.Session.SetString("AccountSession", JsonConvert.SerializeObject(account));
+                HttpContext.Session.SetString("username", obj.Username);
+                HttpContext.Session.SetString("password", obj.Password);
+                HttpContext.Session.SetString("accounttype", obj.AccountType.Typename);
                 return RedirectToAction("Index", "Home");
             }
             else
