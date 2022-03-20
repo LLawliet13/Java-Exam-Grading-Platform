@@ -27,7 +27,7 @@ namespace ChamThiDotnet5.Controllers
         public IActionResult Teacher()
         {
             //id mac dinh dung trong test
-            int id = 10;
+            int id = 2;
             //Dictionary<string, List<Class_Exam>> examList = new Dictionary<string, List<Class_Exam>>();
             List<Class_Exam> Class_Exams = new List<Class_Exam>();
             if (teacherDAO.ReadATeacher(id) != null)
