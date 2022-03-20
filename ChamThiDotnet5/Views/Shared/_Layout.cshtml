@@ -8,10 +8,12 @@
 }
 <html style="font-size: 16px;">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <meta charset="utf-8">
-    <meta name="keywords" content="">
-    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <meta name="page_type" content="np-template-header-footer-from-plugin">
     <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="/css/nicepage.css" media="screen">
@@ -113,12 +115,24 @@
         @RenderBody()
     </div>
 
-    <footer class="u-align-center u-clearfix u-footer u-grey-80 u-footer" id="sec-b612">
+    <footer class="u-align-center u-clearfix u-footer u-grey-80 u-footer" id="sec-b612" style="background-color: #111111;">
         <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
             <p class="u-small-text u-text u-text-variant u-text-1" spellcheck="false">
                 <font style="vertical-align: inherit;">
                     <font style="vertical-align: inherit;"></font>
-                </font>You are not logged in. (<a href="/Account/Login" data-page-id="1538002" class="u-active-none u-border-none u-btn u-button-style u-hover-none u-none u-text-palette-1-base u-btn-1">Log in</a>)<br>Created and Developed by TEAM 1 - PRN211<br>
+                </font>
+                @{
+                        if (username != null)
+                        {
+                            <div>User(<a href="#" >@username</a>)</div>
+                        }
+                        else
+                        {
+                            <div>You are not logged in. <a href="/Account/Login" >Login</a></div>
+                        }
+                    }
+                
+                Created and Developed by TEAM 1 - PRN211<br>
             </p>
         </div>
     </footer>

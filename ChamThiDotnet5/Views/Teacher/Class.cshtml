@@ -1,0 +1,31 @@
+﻿@{
+    Layout = "_TeacherMenu";
+}
+<div class="row">
+    <div class="leftcolumn">
+        <div class="card">
+            <h4>CLASS INFORMATION</h4>
+            <partial name="_ClassName" />
+        </div>
+        @if (@ViewData["ClassId"] != null)
+        {
+            @if (@ViewData["StudentNum"].ToString() != "0")
+            {
+                <div class="card">
+                    <h4>ADD TEST SCHEDULE</h4>
+                    <partial name="_AddExam" />
+                </div>
+            }
+
+        }
+    </div>
+
+
+    <div class="rightcolumn">
+        <div class="card">
+            <h4>STUDENT LIST</h4>
+            <partial name="_StudentList" />
+        </div>
+    </div>
+
+</div>

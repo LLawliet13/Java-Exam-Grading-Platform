@@ -40,7 +40,6 @@ namespace ChamThiDotnet5.DAO
 
             }
             return Teachers.ToList();
-            return Teachers.ToList();
 
         }
 
@@ -51,6 +50,18 @@ namespace ChamThiDotnet5.DAO
             var e = DbContext.Entry(Teacher);
             e.Collection(a => a.Classes).Load();
             e.Reference(a => a.Account).Load();
+            }
+            return Teacher;
+        }
+
+        public Teacher GetATercherByAccId(int accid)
+        {
+            Teacher Teacher = (from a in DbContext.Teachers where a.AccountId == accid select a).FirstOrDefault();
+            if (Teacher != null)
+            {
+                var e = DbContext.Entry(Teacher);
+                e.Collection(a => a.Classes).Load();
+                e.Reference(a => a.Account).Load();
             }
             return Teacher;
         }

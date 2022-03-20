@@ -1,0 +1,25 @@
+﻿
+<div class="dropdown" style="z-index:1;margin: 20px 50px;">
+    <button onclick="myFunction()" class="dropbtn">Class name</button>
+    <div id="myDropdown" class="dropdown-content">
+        @{
+            foreach (Class cl in ViewBag.ClassList)
+            {
+                <a href="/Teacher/Class/@cl.Id">@cl.Classname</a>
+            }
+        }
+    </div>
+</div>
+<div>
+    @if (ViewData["ClassName"] != null)
+    {
+        <h6>Class @ViewData["ClassName"]: @ViewData["StudentNum"] Students</h6>
+        <a href="/Teacher/ExamResult/classid=@ViewData["ClassId"]">View Test History</a>
+    }
+    else
+    {
+        <h6>Class information...</h6>
+    }
+
+</div>
+<script class="u-script" type="text/javascript" src="/js/dropdown.js" defer=""></script>

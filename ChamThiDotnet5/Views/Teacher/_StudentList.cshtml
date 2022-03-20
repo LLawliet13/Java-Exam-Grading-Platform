@@ -1,0 +1,23 @@
+﻿<div>
+    <table>
+        <tr>
+            <th>StudentNo</th>
+            <th>Student Name</th>
+            <th>Note</th>
+        </tr>
+        @{
+            int index = 0;
+            if (@ViewBag.StudentList != null)
+                @foreach (var s in @ViewBag.StudentList)
+                {
+                    index++;
+                    <tr>
+                        <td>@index</td>
+                        <td>@s.Studentname</td>
+                        <td>__</td>
+                    </tr>
+                }
+        }
+    </table>
+</div>
+
