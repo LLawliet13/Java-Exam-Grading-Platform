@@ -13,11 +13,12 @@ namespace ChamThiDotnet5.Models
         public int Id { get; set; } 
 
         [Required]
+        public int StudentId { get; set; }
 
         [ForeignKey("StudentId")]
         public Student Student { get; set; }
         [Required]
-
+        public int ExamId { get; set; }
         [ForeignKey("ExamId")]
         public Exam Exam { get; set; }
         [Required]
