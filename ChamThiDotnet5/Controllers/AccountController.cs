@@ -47,10 +47,11 @@ namespace ChamThiDotnet5.Controllers
         public IActionResult Login(Account account)
         {
             var obj = db.Accounts.Where(x => x.Username.Equals(account.Username) && x.Password.Equals(account.Password)).FirstOrDefault();
-            var e = db.Entry(obj);
-            e.Reference(ai => ai.AccountType).Load();
+
             if (obj != null)
             {
+                var e = db.Entry(obj);
+                e.Reference(ai => ai.AccountType).Load();
                 HttpContext.Session.SetString("username", obj.Username);
                 HttpContext.Session.SetString("password", obj.Password);
                 HttpContext.Session.SetString("accounttype", obj.AccountType.Typename);
@@ -61,6 +62,15 @@ namespace ChamThiDotnet5.Controllers
                 TempData["error"] = "Error";
                 return View(account);
             }
+        }
+        [HttpGet]
+        public IActionResult Logout()
+        {
+
+            HttpContext.Session.Clear();
+            HttpContext.Session.Remove("username");
+            HttpContext.Session.Remove("password");
+            return RedirectToAction("Index", "Home");
         }
         public IActionResult Account()
         {
