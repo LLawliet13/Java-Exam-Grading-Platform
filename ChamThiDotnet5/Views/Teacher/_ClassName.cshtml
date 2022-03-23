@@ -1,15 +1,16 @@
 ﻿
 <div class="dropdown" style="z-index:1;margin: 20px 50px;">
-    <button onclick="myFunction()" class="dropbtn">Class name</button>
-    <div id="myDropdown" class="dropdown-content">
+    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Class Name</button>
+    <ul class="dropdown-menu">
         @{
-            foreach (Class cl in ViewBag.ClassList)
-            {
-                <a href="/Teacher/Class/@cl.Id">@cl.Classname</a>
-            }
+            @if (ViewBag.ClassList != null)
+                foreach (Class cl in ViewBag.ClassList)
+                {
+                    <li><a href="/Teacher/Class/@cl.Id">@cl.Classname</a></li>
+                }
         }
-    </div>
-</div>
+    </ul>
+  </div>
 <div>
     @if (ViewData["ClassName"] != null)
     {
@@ -22,4 +23,4 @@
     }
 
 </div>
-<script class="u-script" type="text/javascript" src="/js/dropdown.js" defer=""></script>
+

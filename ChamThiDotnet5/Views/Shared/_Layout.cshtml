@@ -1,11 +1,13 @@
 ﻿@using Microsoft.AspNetCore.Http
 @inject IHttpContextAccessor HttpContextAccessor
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 <!DOCTYPE html>
 @{
     var username = HttpContextAccessor.HttpContext.Session.GetString("username");
     var password = HttpContextAccessor.HttpContext.Session.GetString("password");
 
 }
+
 <html style="font-size: 16px;">
 <head>
 

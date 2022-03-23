@@ -19,7 +19,6 @@ namespace ChamThiDotnet5.Models
         public int ExamId { get; set; }
 
         [Required]
-
         [ForeignKey("StudentId")]
 
         public Student Student { get; set; }
