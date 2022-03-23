@@ -1,0 +1,26 @@
+﻿
+<div class="dropdown" style="z-index:1;margin: 20px 50px;">
+    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Class Name</button>
+    <ul class="dropdown-menu">
+        @{
+            @if (ViewBag.ClassList != null)
+                foreach (Class cl in ViewBag.ClassList)
+                {
+                    <li><a href="/Teacher/Class/@cl.Id">@cl.Classname</a></li>
+                }
+        }
+    </ul>
+  </div>
+<div>
+    @if (ViewData["ClassName"] != null)
+    {
+        <h6>Class @ViewData["ClassName"]: @ViewData["StudentNum"] Students</h6>
+        <a href="/Teacher/ExamResult/classid=@ViewData["ClassId"]">View Test History</a>
+    }
+    else
+    {
+        <h6>Class information...</h6>
+    }
+
+</div>
+

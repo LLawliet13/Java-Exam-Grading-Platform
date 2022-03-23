@@ -40,7 +40,6 @@ namespace ChamThiDotnet5.Controllers
         public IActionResult Login(Account account)
         {
             var obj = db.Accounts.Where(x => x.Username.Equals(account.Username) && x.Password.Equals(account.Password)).FirstOrDefault();
-
             if (obj != null)
             {
                 var e = db.Entry(obj);
@@ -48,6 +47,7 @@ namespace ChamThiDotnet5.Controllers
                 HttpContext.Session.SetString("username", obj.Username);
                 HttpContext.Session.SetString("password", obj.Password);
                 HttpContext.Session.SetString("accounttype", obj.AccountType.Typename);
+                HttpContext.Session.SetString("accountid", obj.Id.ToString());
                 return RedirectToAction("Index", "Home");
             }
             else

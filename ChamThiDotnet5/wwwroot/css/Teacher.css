@@ -1,51 +1,87 @@
+
+* {
+    box-sizing: border-box;
+}
+
+/* Create two unequal columns that floats next to each other */
+/* Left column */
+.leftcolumn {
+    float: left;
+    width: 45%;
+    padding-left: 20px;
+}
+
+/* Right column */
+.rightcolumn {
+    float: left;
+    width: 55%;
+    padding-left: 10px;
+}
+
+/* Add a card effect for articles */
+.cards {
+    background-color: white;
+    padding: 20px;
+    margin: 40px 20px;
+    
+}
+
+
 .u-section-1 {
     background-image: none;
 }
 
     .u-section-1 .u-sheet-1 {
-        min-height: 1314px;
     }
 
     .u-section-1 .u-tabs-1 {
-        min-height: 1194px;
+        min-height: 800px;
         margin-top: 60px;
         margin-bottom: 60px;
     }
 
     .u-section-1 .u-tab-link-1 {
+        display: block;
         font-size: 1.125rem;
         background-image: none;
         letter-spacing: 2px;
         text-transform: uppercase;
         font-weight: 300;
         padding: 10px 25px;
+        color: #ffffff;
     }
 
     .u-section-1 .u-tab-link-2 {
+        display: block;
         font-size: 1.125rem;
         background-image: none;
         letter-spacing: 2px;
         text-transform: uppercase;
         font-weight: 300;
         padding: 10px 25px;
+        color: #ffffff;
     }
 
     .u-section-1 .u-tab-link-3 {
+        display: block;
         font-size: 1.125rem;
         background-image: none;
         letter-spacing: 2px;
         text-transform: uppercase;
         font-weight: 300;
         padding: 10px 25px;
+        color: #ffffff;
     }
 
     .u-section-1 .u-tab-link-4 {
+        display: block;
         font-size: 1.125rem;
         background-image: none;
         letter-spacing: 2px;
         text-transform: uppercase;
         font-weight: 300;
         padding: 10px 25px;
+        color: #ffffff;
     }
 
     .u-section-1 .u-tab-pane-1 {
@@ -101,8 +137,7 @@
 }
 
 .u-section-1 .u-form-1 {
-    height: 329px;
-    margin: 82px 796px 458px 60px;
+    margin: auto 70px;
 }
 
 .u-section-1 .u-form-group-1 {

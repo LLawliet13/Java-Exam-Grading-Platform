@@ -11,14 +11,20 @@ namespace ChamThiDotnet5.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; } 
-
         [Required]
 
+        public int StudentId { get; set; }
+        [Required]
+
+        public int ExamId { get; set; }
+
+        [Required]
         [ForeignKey("StudentId")]
+
         public Student Student { get; set; }
         [Required]
 
-        [ForeignKey("ExamId")]
+        [ForeignKey("ExamId")] 
         public Exam Exam { get; set; }
         [Required]
         public DateTime Start { get; set; }

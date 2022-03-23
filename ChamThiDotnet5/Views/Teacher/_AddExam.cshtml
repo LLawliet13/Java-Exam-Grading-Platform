@@ -1,0 +1,30 @@
+﻿<div class="u-form u-form-1">
+    <form asp-action="class" asp-controller="teacher" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="email" name="form">
+        <input type="hidden" id="classid" name="classid" value="@ViewData["ClassId"]">
+        <div class="u-form-group u-form-select u-form-group-1">
+            <label for="select-0641" class="u-label">Exam</label>
+            <div class="u-form-select-wrapper">
+                <select id="select-0641" name="exam" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="required" autofocus="autofocus">
+                    @if (@ViewBag.Exam != null)
+                        @foreach (var e in @ViewBag.Exam)
+                        {
+                            <option value="@e.Id">@e.Examname</option>
+                        }
+                </select>
+            </div>
+        </div>
+
+        <div class="u-form-group u-form-name">
+            <label for="name-ba83" class="u-label">Time Start</label>
+            <input type="datetime-local" name="start" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="required" autofocus="autofocus">
+        </div>
+        <div class="u-form-group u-form-name">
+            <label for="email-ba83" class="u-label">Time End</label>
+            <input type="datetime-local" name="end" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="required" autofocus="autofocus">
+        </div>
+        <div class="u-align-left u-form-group u-form-submit">
+            <button type="submit" class="u-border-none u-btn u-btn-submit u-button-style u-custom-color-5 u-hover-palette-1-dark-3 u-btn-1" style="color: #ffffff !important;background-color: #40bb25 !important;">Add Exam</button>
+        </div>
+    </form>
+</div>
+
