@@ -28,202 +28,105 @@
             </ul>
             <div class="u-tab-content">
                 <div class="u-align-left u-container-style u-tab-active u-tab-pane u-white u-tab-pane-1" id="tab-0da5" role="tabpanel" aria-labelledby="link-tab-0da5">
-                    <div class="u-container-layout u-container-layout-1">
-                        <div class="u-table u-table-responsive u-table-1">
-                            @*<table class="u-table-entity">
-                                <colgroup>
-                                <col width="32.2%">
-                                <col width="67.8%">
-                                </colgroup>
-                                <thead class="u-align-center u-table-header u-table-header-1">
-                                <tr style="height: 49px;">
-                                <th class="u-border-3 u-border-grey-dark-1 u-table-cell u-table-cell-1">Student ID</th>
-                                <th class="u-border-3 u-border-grey-dark-1 u-table-cell u-table-cell-2">Student Name</th>
-                                </tr>
-                                </thead>
-                                <tbody class="u-align-center u-table-body">
-                                <tr style="height: 67px;">
-                                <td class="u-border-1 u-border-grey-dark-1 u-table-cell">1</td>
-                                <td class="u-border-1 u-border-grey-dark-1 u-table-cell" spellcheck="false">Trần Ngọc Hiếu</td>
-                                </tr>
-                                <tr style="height: 66px;">
-                                <td class="u-border-1 u-border-grey-dark-1 u-table-cell"></td>
-                                <td class="u-border-1 u-border-grey-dark-1 u-table-cell"></td>
-                                </tr>
-                                <tr style="height: 65px;">
-                                <td class="u-border-1 u-border-grey-dark-1 u-table-cell"></td>
-                                <td class="u-border-1 u-border-grey-dark-1 u-table-cell"></td>
-                                </tr>
-                                <tr style="height: 65px;">
-                                <td class="u-border-1 u-border-grey-dark-1 u-table-cell"></td>
-                                <td class="u-border-1 u-border-grey-dark-1 u-table-cell"></td>
-                                </tr>
-                                <tr style="height: 66px;">
-                                <td class="u-border-1 u-border-grey-dark-1 u-table-cell"></td>
-                                <td class="u-border-1 u-border-grey-dark-1 u-table-cell"></td>
-                                </tr>
-                                <tr style="height: 66px;">
-                                <td class="u-border-1 u-border-grey-dark-1 u-table-cell"></td>
-                                <td class="u-border-1 u-border-grey-dark-1 u-table-cell"></td>
-                                </tr>
-                                <tr style="height: 66px;">
-                                <td class="u-border-1 u-border-grey-dark-1 u-table-cell"></td>
-                                <td class="u-border-1 u-border-grey-dark-1 u-table-cell"></td>
-                                </tr>
-                                <tr style="height: 66px;">
-                                <td class="u-border-1 u-border-grey-dark-1 u-table-cell"></td>
-                                <td class="u-border-1 u-border-grey-dark-1 u-table-cell"></td>
-                                </tr>
-                                <tr style="height: 66px;">
-                                <td class="u-border-1 u-border-grey-dark-1 u-table-cell"></td>
-                                <td class="u-border-1 u-border-grey-dark-1 u-table-cell"></td>
-                                </tr>
-                                <tr style="height: 66px;">
-                                <td class="u-border-1 u-border-grey-dark-1 u-table-cell"></td>
-                                <td class="u-border-1 u-border-grey-dark-1 u-table-cell"></td>
-                                </tr>
-                                <tr style="height: 66px;">
-                                <td class="u-border-1 u-border-grey-dark-1 u-table-cell"></td>
-                                <td class="u-border-1 u-border-grey-dark-1 u-table-cell"></td>
-                                </tr>
-                                <tr style="height: 66px;">
-                                <td class="u-border-1 u-border-grey-dark-1 u-table-cell"></td>
-                                <td class="u-border-1 u-border-grey-dark-1 u-table-cell"></td>
-                                </tr>
-                                <tr style="height: 66px;">
-                                <td class="u-border-1 u-border-grey-dark-1 u-table-cell"></td>
-                                <td class="u-border-1 u-border-grey-dark-1 u-table-cell"></td>
-                                </tr>
-                                <tr style="height: 66px;">
-                                <td class="u-border-1 u-border-grey-dark-1 u-table-cell"></td>
-                                <td class="u-border-1 u-border-grey-dark-1 u-table-cell"></td>
-                                </tr>
-                                </tbody>
-                                </table>*@
+                    @*hieu dien*@
+                    <div class="leftcolumn">
+                        <div class="cards">
+                            <h4>CLASS INFORMATION</h4>
+                            <div class="dropdown" style="z-index:1;margin: 20px 50px;">
+                                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Class Name</button>
+                                <ul class="dropdown-menu">
+                                    @{
+                                        @if (ViewBag.ClassList != null)
+                                            foreach (Class cl in ViewBag.ClassList)
+                                            {
+                                                <li><a href="/Teacher/Class/@cl.Id">@cl.Classname</a></li>
+                                            }
+                                    }
+                                </ul>
+                            </div>
+                            <div>
+                                @if (ViewData["ClassName"] != null)
+                                {
+                                    <h6>Class @ViewData["ClassName"]: @ViewData["StudentNum"] Students</h6>
+                                    <a href="/Teacher/ExamResult/classid=@ViewData["ClassId"]">View Test History</a>
+                                }
+                                else
+                                {
+                                    <h6>Class information...</h6>
+                                }
+
+                            </div>
+                        </div>
+                        @if (@ViewData["ClassId"] != null)
+                        {
+                            @if (@ViewData["StudentNum"].ToString() != "0")
+                            {
+                                <div class="cards">
+                                    <h4>ADD TEST SCHEDULE</h4>
+                                    <div class="u-form u-form-1">
+                                        <form asp-action="class" asp-controller="teacher" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="email" name="form">
+                                            <input type="hidden" id="classid" name="classid" value="@ViewData["ClassId"]">
+                                            <div class="u-form-group u-form-select u-form-group-1">
+                                                <label for="select-0641" class="u-label">Exam</label>
+                                                <div class="u-form-select-wrapper">
+                                                    <select id="select-0641" name="exam" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="required" autofocus="autofocus">
+                                                        @if (@ViewBag.Exam != null)
+                                                            @foreach (var e in @ViewBag.Exam)
+                                                            {
+                                                                <option value="@e.Id">@e.Examname</option>
+                                                            }
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="u-form-group u-form-name">
+                                                <label for="name-ba83" class="u-label">Time Start</label>
+                                                <input type="datetime-local" name="start" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="required" autofocus="autofocus">
+                                            </div>
+                                            <div class="u-form-group u-form-name">
+                                                <label for="email-ba83" class="u-label">Time End</label>
+                                                <input type="datetime-local" name="end" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="required" autofocus="autofocus">
+                                            </div>
+                                            <div class="u-align-left u-form-group u-form-submit">
+                                                <button type="submit" class="u-border-none u-btn u-btn-submit u-button-style u-custom-color-5 u-hover-palette-1-dark-3 u-btn-1" style="color: #ffffff !important;background-color: #40bb25 !important;">Add Exam</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                    <div class="rightcolumn">
+                        <div class="cards">
+                            <h4>STUDENT LIST</h4>
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">First</th>
-                                        <th scope="col">Last</th>
-                                        <th scope="col">Handle</th>
+                                        <th scope="col">Student ID</th>
+                                        <th scope="col">Student Name</th>
+                                        <th scope="col">Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>mdo</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>fat</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>Larry</td>
-                                        <td>the Bird</td>
-                                        <td>twitter</td>
-                                    </tr>
+                                    @{
+                                        int index = 0;
+                                        if (@ViewBag.StudentList != null)
+                                            @foreach (var s in @ViewBag.StudentList)
+                                            {
+                                                index++;
+                                                <tr>
+                                                    <td>@index</td>
+                                                    <td>@s.Studentname</td>
+                                                    <td>__</td>
+                                                </tr>
+                                            }
+                                    }
                                 </tbody>
                             </table>
                         </div>
-                        <nav class="u-dropdown-icon u-menu u-menu-dropdown u-offcanvas u-menu-1" data-position="">
-                            <div class="menu-collapse" style="font-size: 1rem; letter-spacing: 0px; font-weight: 700; text-transform: uppercase;">
-                                <a class="u-border-4 u-border-grey-75 u-button-style u-custom-active-border-color u-custom-border u-custom-border-color u-custom-borders u-custom-hover-border-color u-custom-left-right-menu-spacing u-custom-text-active-color u-custom-text-color u-custom-text-hover-color u-custom-top-bottom-menu-spacing u-nav-link u-palette-1-base" href="#" style="background-image: none;">
-                                    <svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 52.966 52.966" style=""><use xlink:href="#svg-5c69"></use></svg>
-                                    <svg class="u-svg-content" viewBox="0 0 52.966 52.966" x="0px" y="0px" id="svg-5c69" style="enable-background:new 0 0 52.966 52.966;">
-                                        <circle style="fill:#57ABC1;" cx="21.983" cy="21" r="20"></circle>
-                                        <line style="fill:none;stroke:#556080;stroke-width:2;stroke-linecap:round;stroke-miterlimit:10;" x1="35.437" y1="35.798" x2="50.983" y2="51.966"></line>
-                                        <path style="fill:#7CCBD8;" d="M3.002,27.253c0.848,2.582,2.24,5.018,4.167,7.146L35.382,6.186
-	c-2.129-1.928-4.564-3.319-7.146-4.167L3.002,27.253z"></path>
-                                        <path style="fill:#556080;" d="M21.983,42c-11.58,0-21-9.42-21-21s9.42-21,21-21s21,9.42,21,21S33.562,42,21.983,42z M21.983,2
-	c-10.477,0-19,8.523-19,19s8.523,19,19,19s19-8.523,19-19S32.459,2,21.983,2z"></path>
-                                    </svg>
-                                </a>
-                            </div>
-                            <div class="u-custom-menu u-nav-container">
-                                <ul class="u-nav u-spacing-30 u-unstyled u-nav-1">
-                                    <li class="u-nav-item">
-                                        <a class="u-border-2 u-border-active-black u-border-hover-palette-1-base u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-grey-90" href="#" style="padding: 10px 0px;">Class Name</a><div class="u-nav-popup">
-                                            <ul class="u-h-spacing-25 u-nav u-unstyled u-v-spacing-10">
-                                                <li class="u-nav-item">
-                                                    <a class="u-button-style u-nav-link" href="#">SE1512</a>
-                                                </li>
-                                                <li class="u-nav-item">
-                                                    <a class="u-button-style u-nav-link" href="#">SE1518</a>
-                                                </li>
-                                                <li class="u-nav-item">
-                                                    <a class="u-button-style u-nav-link">Add more form Data Base</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="u-custom-menu u-nav-container-collapse">
-                                <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
-                                    <div class="u-inner-container-layout u-sidenav-overflow">
-                                        <div class="u-menu-close"></div>
-                                        <ul class="u-align-left u-nav u-popupmenu-items u-unstyled u-nav-3">
-                                            <li class="u-nav-item">
-                                                <a class="u-button-style u-nav-link" href="#" style="padding: 10px 0px;">Class Name</a><div class="u-nav-popup">
-                                                    <ul class="u-h-spacing-25 u-nav u-unstyled u-v-spacing-10">
-                                                        <li class="u-nav-item">
-                                                            <a class="u-button-style u-nav-link" href="#">SE1512</a>
-                                                        </li>
-                                                        <li class="u-nav-item">
-                                                            <a class="u-button-style u-nav-link" href="#">SE1518</a>
-                                                        </li>
-                                                        <li class="u-nav-item">
-                                                            <a class="u-button-style u-nav-link">Add more form Data Base</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
-                            </div>
-                        </nav>
-                        <h6 class="u-text u-text-default u-text-1">Lớp có ? sinh viên</h6>
-                        <div class="u-form u-form-1">
-                            <form action="https://nicepage.com/editor/Forms/Process" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="email" name="form" style="padding: 10px;">
-                                <input type="hidden" id="siteId" name="siteId" value="1531132">
-                                <input type="hidden" id="pageId" name="pageId" value="1538070">
-                                <div class="u-form-group u-form-select u-form-group-1">
-                                    <label for="select-0641" class="u-label">Exam</label>
-                                    <div class="u-form-select-wrapper">
-                                        <select id="select-0641" name="exam" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="required" autofocus="autofocus">
-                                            <option value="Item 1">Item 1</option>
-                                            <option value="Item 2">Item 2</option>
-                                            <option value="Item 3">Item 3</option>
-                                        </select>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="12" version="1" class="u-caret"><path fill="currentColor" d="M4 8L0 4h8z"></path></svg>
-                                    </div>
-                                </div>
-                                <div class="u-form-group u-form-name">
-                                    <label for="name-ba83" class="u-label">Time Start</label>
-                                    <input type="text" placeholder="hh:mm:ss" id="name-ba83" name="start" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="" spellcheck="false">
-                                </div>
-                                <div class="u-form-email u-form-group">
-                                    <label for="email-ba83" class="u-label">Time End</label>
-                                    <input type="email" placeholder="hh:mm:ss" id="email-ba83" name="end" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="" autofocus="autofocus">
-                                </div>
-                                <div class="u-align-left u-form-group u-form-submit">
-                                    <a href="#" class="u-border-none u-btn u-btn-submit u-button-style u-custom-color-5 u-hover-palette-1-dark-3 u-btn-1" style="color: #ffffff !important;background-color: #40bb25 !important;">Add Exam</a>
-                                    <input type="submit" value="submit" class="u-form-control-hidden">
-                                </div>
-                                <div class="u-form-send-message u-form-send-success"> Thank you! Your message has been sent. </div>
-                                <div class="u-form-send-error u-form-send-message"> Unable to send your message. Please fix errors then try again. </div>
-                                <input type="hidden" value="" name="recaptchaResponse">
-                            </form>
-                        </div>
                     </div>
+
+                    
                 </div>
                 <div class="u-align-left u-container-style u-tab-pane u-white u-tab-pane-2" id="tab-14b7" role="tabpanel" aria-labelledby="link-tab-14b7">
                     <div class="u-container-layout u-container-layout-2">
@@ -362,7 +265,7 @@
 
                                 @* <a href="https://nicepage.online" class="u-border-none u-btn u-button-style u-custom-color-1 u-hover-palette-1-dark-3 u-btn-8">DELETE</a>
                                     <a href="#EditExam" class="u-border-none u-btn u-button-style u-custom-color-5 u-dialog-link u-hover-palette-1-dark-3 u-btn-9" title="EDIT" style="color: #ffffff !important;background-color: #40bb25 !important;">EDIT</a>*@
-                                <a onlick="autoMark()" class="u-border-none u-btn u-button-style u-custom-color-1 u-hover-palette-1-dark-3 u-btn-10"> Automark</a>
+                                <button onclick="autoMark()" class="u-border-none u-btn u-button-style u-custom-color-1 u-hover-palette-1-dark-3 u-btn-10"> Automark</button>
                             </div>
                             <div class="col-sm-7">
                                 <div id="class_exam">
