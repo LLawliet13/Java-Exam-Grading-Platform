@@ -147,16 +147,16 @@
                     <font style="vertical-align: inherit;"></font>
                 </font>
                 @{
-                        if (username != null)
-                        {
-                            <div>User(<a href="#" >@username</a>)</div>
-                        }
-                        else
-                        {
-                            <div>You are not logged in. <a href="/Account/Login" >Login</a></div>
-                        }
+                    if (username != null)
+                    {
+                        <div>User(<a href="#">@username</a>)</div>
                     }
-                
+                    else
+                    {
+                        <div>You are not logged in. <a href="/Account/Login">Login</a></div>
+                    }
+                }
+
                 Created and Developed by TEAM 1 - PRN211<br>
             </p>
         </div>
