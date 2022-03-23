@@ -1,6 +1,8 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@{
     ViewData["Title"] = "Home Page";
-    var user = TempData["account"] as Account;
+    var username = HttpContextAccessor.HttpContext.Session.GetString("username");
 }
 
 <!DOCTYPE html>
@@ -113,13 +115,22 @@ In-Demand Professions, ​Top ten most popular courses for international student
         </header>*@
     <section class="u-align-center u-clearfix u-section-1" src="" id="sec-115c">
         <div class="u-clearfix u-sheet u-sheet-1">
-            <h1 class="u-align-center u-text u-title u-text-1" spellcheck="false"> Programming Fundamentals  Online Exam (C++)</h1>
-            <p class="u-text u-text-2"> Automatic scoring program</p>
+            <h1 class="u-align-center u-text u-title u-text-1" spellcheck="false"> Programming Fundamentals Online Exam (Java Core)</h1>
+            <p class="u-text u-text-2"> Automatic Scoring Website</p>
             <div class="u-list u-list-1">
                 <div class="u-repeater u-repeater-1">
                     <div class="u-align-center u-container-style u-list-item u-repeater-item">
                         <div class="u-container-layout u-similar-container u-valign-middle u-container-layout-1">
-                            <a href="https://nicepage.com/html-website-builder" class="u-active-white u-border-none u-btn u-btn-round u-button-style u-custom-color-1 u-hover-palette-1-dark-3 u-radius-50 u-btn-1">join now</a>
+                            @{
+                                if (username == null)
+                                {
+                                    <a href="Account/Login" class="u-active-white u-border-none u-btn u-btn-round u-button-style u-custom-color-1 u-hover-palette-1-dark-3 u-radius-50 u-btn-1">join now</a>
+                                }
+                                if (username != null)
+                                {
+                                    <a href="Account/Account" class="u-active-white u-border-none u-btn u-btn-round u-button-style u-custom-color-1 u-hover-palette-1-dark-3 u-radius-50 u-btn-1">Welcome: @username</a>
+                                }
+                            }
                         </div>
                     </div>
                 </div>
@@ -202,14 +213,14 @@ In-Demand Professions, ​Top ten most popular courses for international student
         </div>
         </footer>*@
     <section class="u-backlink u-clearfix u-grey-80">
-        <a class="u-link" href="https://nicepage.com/website-design" target="_blank">
-            <span>Website Design Ideas</span>
+        <a class="u-link" href="" target="_blank">
+            <span>Programming Fundamentals Online Exam</span>
         </a>
         <p class="u-text">
             <span>created with</span>
         </p>
-        <a class="u-link" href="https://nicepage.com/website-builder" target="_blank">
-            <span>Website Builder</span>
+        <a class="u-link" href="" target="_blank">
+            <span>Group 1</span>
         </a>.
     </section>
 </body>

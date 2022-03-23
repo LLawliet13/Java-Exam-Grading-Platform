@@ -25,18 +25,11 @@ namespace ChamThiDotnet5.Controllers
             _accountService = accountService;
         }
 
-        //public IActionResult Index()
-        //{
-        //    if (HttpContext.Session.GetString("AccountSession") != null)
-        //    {
-        //        TempData["account"] = HttpContext.Session.GetString("Account");
-        //        return View();
-        //    }
-        //    else
-        //    {
-        //        return RedirectToAction("Login", "Account");
-        //    }
-        //}
+        public IActionResult changePassword(Account account)
+        {
+            var obj = db.Accounts.Where(x => x.Password.Equals(account.Password)).FirstOrDefault();
+            return View();
+        }
         [HttpGet]
         public IActionResult Login()
         {
