@@ -37173,8 +37173,9 @@ a.u-link.u-text-hover-grey-90:hover {
     margin-left: 46px;
   }
 }
- .u-footer {
-  background-image: none;
+.u-footer {
+    background-image: none;
+    background-color: #111111;
 }
 
 .u-footer .u-sheet-1 {

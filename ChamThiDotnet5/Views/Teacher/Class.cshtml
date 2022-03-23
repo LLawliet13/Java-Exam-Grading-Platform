@@ -1,0 +1,50 @@
+﻿@{
+    Layout = "_TeacherMenu";
+}
+<ul class="u-spacing-15 u-tab-list u-unstyled">
+    <li class="u-tab-item">
+        <a class="active u-active-white u-button-style u-custom-font u-heading-font  u-tab-link-1" href="/Teacher/Class" aria-selected="true">class</a>
+    </li>
+    <li class="u-tab-item">
+        <a class="u-active-white u-button-style u-custom-font u-heading-font  u-tab-link-2" href="/Teacher/ExamBank" aria-selected="false"> exam bank</a>
+    </li>
+    <li class="u-tab-item">
+        <a class="u-active-white u-button-style u-custom-font u-heading-font  u-tab-link-3" href="/Teacher/ExamPending" aria-selected="false"> Exam pending</a>
+    </li>
+    <li class="u-tab-item">
+        <a class="u-active-white u-button-style u-custom-font u-heading-font  u-tab-link-4" href="/Teacher/ExamResult" aria-selected="false"> Exam result </a>
+    </li>
+</ul>
+
+<div class="u-tab-content">
+    <div class="u-align-left u-container-style u-tab-active u-tab-pane u-white u-tab-pane-1">
+        <div class="u-container-layout u-container-layout-1">
+            
+                <div class="leftcolumn">
+                    <div class="cards">
+                        <h4>CLASS INFORMATION</h4>
+                        <partial name="_ClassName" />
+                    </div>
+                    @if (@ViewData["ClassId"] != null)
+                    {
+                        @if (@ViewData["StudentNum"].ToString() != "0")
+                        {
+                            <div class="cards">
+                                <h4>ADD TEST SCHEDULE</h4>
+                                <partial name="_AddExam" />
+                            </div>
+                        }
+                    }
+                </div>
+                <div class="rightcolumn">
+                    <div class="cards">
+                        <h4>STUDENT LIST</h4>
+                        <partial name="_StudentList" />
+                    </div>
+                </div>
+           
+
+        </div>
+    </div>
+</div>
+
