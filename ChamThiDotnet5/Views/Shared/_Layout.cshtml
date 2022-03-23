@@ -52,7 +52,7 @@
                 <div class="u-container-layout">
                     <div class="u-container-style u-group u-group-3">
                         <div class="u-container-layout">
-                            <a href="/" data-page-id="1538070" class="u-image u-logo u-image-2" data-image-width="412" data-image-height="122" title="Teacher">
+                            <a href="Teacher.html" data-page-id="1538070" class="u-image u-logo u-image-2" data-image-width="412" data-image-height="122" title="Teacher">
                                 <img src="/images/logoFPT.png" class="u-logo-image u-logo-image-2">
                             </a>
                             <nav class="u-align-left u-menu u-menu-dropdown u-nav-spacing-25 u-offcanvas u-menu-1" data-responsive-from="XL">
@@ -66,7 +66,6 @@
                                 <div class="u-custom-menu u-nav-container">
                                     <ul class="u-nav u-unstyled u-nav-1">
                                         <li class="u-nav-item">
-
                                             <a class="u-button-style u-nav-link" href="/" style="padding-right: 6px;">Index</a>
                                         </li>
                                         <li class="u-nav-item">
@@ -90,6 +89,7 @@
                                             <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
                                                 <li class="u-nav-item">
                                                     <a class="u-button-style u-nav-link" href="/" style="padding-right: 6px;">Home</a>
+
                                                 </li>
                                                 <li class="u-nav-item">
                                                     <a class="u-button-style u-nav-link" href="/Account/Account" style="padding-right: 6px;">Account</a>
@@ -148,16 +148,16 @@
                     <font style="vertical-align: inherit;"></font>
                 </font>
                 @{
-                        if (username != null)
-                        {
-                            <div>User(<a href="#" >@username</a>)</div>
-                        }
-                        else
-                        {
-                            <div>You are not logged in. <a href="/Account/Login" >Login</a></div>
-                        }
+                    if (username != null)
+                    {
+                        <div>User(<a href="#">@username</a>)</div>
                     }
-                
+                    else
+                    {
+                        <div>You are not logged in. <a href="/Account/Login">Login</a></div>
+                    }
+                }
+
                 Created and Developed by TEAM 1 - PRN211<br>
             </p>
         </div>
