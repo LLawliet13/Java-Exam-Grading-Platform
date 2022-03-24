@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Management;
 using ChamThiDotnet5.DAO;
+using System.Text;
 
 namespace ChamThiDotnet5.Controllers
 {
@@ -25,11 +26,12 @@ namespace ChamThiDotnet5.Controllers
         [HttpPost]
         public IActionResult AutoMark(int ClassId, int ExamId)
         {
+
             //check classid, examid
             Console.WriteLine(ClassId + "_" + ExamId);
 
 
-
+            
             string DuongDanTestCase = @"C:\PRNChamThi\" + ClassId + "_" + ExamId + @"\testcase";
 
             //lay thong tin toan bo cac qes
@@ -38,11 +40,13 @@ namespace ChamThiDotnet5.Controllers
             List<Exam_Student> students = _Exam_StudentService.FindStudent_ExamByClassAndExamID(ClassId, ExamId);
             foreach (Exam_Student es in students)
             {
+                string report = "";
                 float totalMark = 0;
                 string submittedFolderPath = es.SubmittedFolder;
                 if (submittedFolderPath != null && !submittedFolderPath.Equals(""))
                 {
-                    Console.WriteLine("HOC SINH MANG ID:" + es.Id+" Da nop bai");
+                    report += "Sinh viên Có ID: "+es.StudentId+" - "+ es.Student.Studentname+ " đã nộp folder bài làm\n";
+                    
                     for (int i = 1; i <= SoCauHoi; i++)
                     {
 
@@ -63,19 +67,31 @@ namespace ChamThiDotnet5.Controllers
 
                         string submittedJarFile = submittedFolderPath + @"\Q" + i + @"\dist" + @"\Q" + i + ".jar";
 
-                        if(System.IO.File.Exists(submittedJarFile))
-
-                        for (int j = 0; j < inputs.Count; j++)
+                        if (System.IO.File.Exists(submittedJarFile)) {
+                            report += "Trong Câu Q" + i + ":\n";
+                            for (int j = 0; j < inputs.Count; j++)
+                            {
+                                float point = MarkOnATesecase(submittedJarFile, inputs.ElementAt(j), outputs.ElementAt(j), marks.ElementAt(j));
+                                totalMark += point;
+                                report+="Với testcase:"+inputs.ElementAt(j)+" Sinh viên đạt được "+point +" điểm\n";
+                            }
+                        }
+                        else
                         {
-                            
-                            totalMark += MarkOnATesecase(submittedJarFile, inputs.ElementAt(j), outputs.ElementAt(j), marks.ElementAt(j));
+                            report += "Sinh viên nộp thiếu file Q" + i + ".jar\n";
                         }
 
 
                     }
                 }
-               
-                Console.WriteLine("HOC SINH MANG ID:" + es.Id+" Co diem la "+totalMark);
+                else
+                {
+                    report += "Sinh viên Có ID: " + es.StudentId + " - " + es.Student.Studentname + " chưa nộp folder bài làm\n";
+                }
+
+                report += "Tổng điểm cả bài thi: " + totalMark;
+                Console.OutputEncoding = Encoding.UTF8;
+                Console.WriteLine(report);
                 es.Score = totalMark;
                 esDao.UpdateExam_Student(es.Id, es);
 
@@ -85,7 +101,7 @@ namespace ChamThiDotnet5.Controllers
             ViewBag.ans = students;
             return View();
         }
-        private int MarkOnATesecase(string path, string inputList, string output, string mark)
+        private float MarkOnATesecase(string path, string inputList, string output, string mark)
         {
 
             Process cmd = new Process();
@@ -118,20 +134,16 @@ namespace ChamThiDotnet5.Controllers
                 return 0;
             }
             string realOutput = cmd.StandardOutput.ReadToEnd();
-            if (!realOutput.Contains("OUTPUT:")) return 0; // truong hop bi exception
+            
             string[] txt = realOutput.Split("OUTPUT:");//output
             string[] clearAns = txt[1].Split("\r\n");
-            //for(int i = 0; i < clearAns.Length;i ++)
-            //{
-            //    Console.WriteLine("phan thu "+i+" la start"+clearAns[i]+"end");
-            //}
-            //Console.WriteLine("OUTPUT: la start" + output + "end");
-            //Console.WriteLine("Mark: la start" + mark + "end");
-            //cham diem
+            //if (clearAns[0].Equals("")) return 0; // truong hop bi exception
+            //for(int i = 0; i<clearAns.Length; i++)
+            //    Console.WriteLine(clearAns[i]);
             if (clearAns[1].Equals(output)) {
-                return int.Parse(mark); 
+                return float.Parse(mark); 
             }
-            return 0;
+            return 0;//truong hop lam sai// hoac co exception
         }
 
        

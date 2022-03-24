@@ -31,13 +31,13 @@
         <div class="u-clearfix u-sheet u-sheet-1">
             <div class="u-container-style u-group u-group-1">
                 <div class="u-container-layout">
-                    <a href="#" data-page-id="1539906" class="u-image u-logo u-image-1" data-image-width="750" data-image-height="700" title="Student">
-                        <img src="/images/java.png" class="u-logo-image u-logo-image-1">
+                    <a href="#" data-page-id="1539906" class="u-image u-logo u-image-1" data-image-width="500" data-image-height="500" title="Student">
+                        <img src="/images/Logo.png" class="u-logo-image u-logo-image-1">
                     </a>
                     @{
                         if (username != null)
                         {
-                            <a class="u-custom-font u-heading-font u-login u-login-1" href="/Account/Index" data-page-id="1538002" title="" style="margin-right:20px">@username</a>
+                            <a class="u-custom-font u-heading-font u-login u-login-1" href="Account/Index" data-page-id="1538002" title="">@username</a>
                         }
                         else
                         {
@@ -92,16 +92,7 @@
 
                                                 </li>
                                                 <li class="u-nav-item">
-                                                    @{
-                                                        if (username != null)
-                                                        {
-
-                                                            <a class="u-button-style u-nav-link" href="/Account/Index" style="padding-right: 6px;">Account</a>
-
-
-                                                        }
-                                                    }
-
+                                                    <a class="u-button-style u-nav-link" href="/Account/Index" style="padding-right: 6px;">Account</a>
                                                 </li>
                                                 <li class="u-nav-item">
                                                     @{
