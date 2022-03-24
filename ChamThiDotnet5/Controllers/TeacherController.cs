@@ -27,10 +27,10 @@ namespace ChamThiDotnet5.Controllers
         }
 
         [HttpGet]
-        public IActionResult Teacher(string ID)
+        public IActionResult Index(string ID)
         {
             //id mac dinh dung trong test
-            if (!HttpContext.Session.GetString("accounttype").Equals("Teacher"))
+            if (HttpContext.Session.GetString("accounttype")==null||!HttpContext.Session.GetString("accounttype").Equals("Teacher"))
                 return RedirectToAction("Index", "Home");
             //Dictionary<string, List<Class_Exam>> examList = new Dictionary<string, List<Class_Exam>>();
             int teacherId = accountDAO.ReadAAccount( int.Parse(HttpContext.Session.GetString("accountid"))).Teacher.Id;
@@ -234,10 +234,7 @@ namespace ChamThiDotnet5.Controllers
         {
             return View("Teacher");
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
+ 
 
 
 
