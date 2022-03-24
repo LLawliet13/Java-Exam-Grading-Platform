@@ -58,8 +58,7 @@ namespace ChamThiDotnet5.DAO
             int n = 0;
             AccountType AccountType = ReadAAccountType(id);
             if (AccountType == null) return n;
-            AccountType = NewAccountType;
-
+            AccountType.Typename = NewAccountType.Typename;
             
             try
             {

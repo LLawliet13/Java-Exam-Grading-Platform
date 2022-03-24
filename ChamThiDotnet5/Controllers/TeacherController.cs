@@ -18,6 +18,7 @@ namespace ChamThiDotnet5.Controllers
         private StudentDAO studentDAO = new StudentDAO();
         private ExamDAO examDAO = new ExamDAO();
         private Exam_StudentDAO exam_studentDAO=new Exam_StudentDAO(); 
+        private AccountDAO accountDAO = new AccountDAO();
         public TeacherController(ClassService classService, Exam_StudentService exam_StudentService)
         {
             _classService = classService;
@@ -28,13 +29,15 @@ namespace ChamThiDotnet5.Controllers
         public IActionResult Teacher()
         {
             //id mac dinh dung trong test
-            int id = 2;
+            if (!HttpContext.Session.GetString("accounttype").Equals("Teacher"))
+                return RedirectToAction("Index", "Home");
             //Dictionary<string, List<Class_Exam>> examList = new Dictionary<string, List<Class_Exam>>();
+            int teacherId = accountDAO.ReadAAccount( int.Parse(HttpContext.Session.GetString("accountid"))).Teacher.Id;
             List<Class_Exam> Class_Exams = new List<Class_Exam>();
-            if (teacherDAO.ReadATeacher(id) != null)
-                Class_Exams = _exam_StudentService.FindPending_ResultExamOfTeacher(id);
+            if (teacherDAO.ReadATeacher(teacherId) != null)
+                Class_Exams = _exam_StudentService.FindPending_ResultExamOfTeacher(teacherId);
             ViewBag.Class_Exams = Class_Exams;
-
+            ViewBag.ResultClass_Exams = _exam_StudentService.FindResultExamOfTeacher(teacherId);
             Class1(0);
             ViewData["StudentNum"] = StudentNum;
             ViewBag.StudentList = students;
@@ -183,10 +186,22 @@ namespace ChamThiDotnet5.Controllers
             return View("~/Teacher/ExamPending.cshtml");
         }
 
-
-        public IActionResult ExamBank()
+        public IActionResult getExamResultTable()
         {
             return View();
+        }
+        public IActionResult updatePendingExamTable()
+        {
+
+            return View();
+        }
+        [HttpPost]
+        public IActionResult updateResultStudentList(int ClassId,int ExamID)
+        {
+            List<Exam_Student> exam_Students = _exam_StudentService.FindStudent_ExamByClassAndExamID(ClassId, ExamID);
+            
+            ViewBag.Exam_StudentList = exam_Students;
+            return View("ResultStudentList");
         }
         public IActionResult ExamPending()
         {

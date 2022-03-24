@@ -73,7 +73,8 @@ namespace ChamThiDotnet5.DAO
             int n = 0;
             Teacher Teacher = ReadATeacher(id);
             if (Teacher == null) return n;
-            Teacher = NewTeacher;
+            Teacher.TeacherName = NewTeacher.TeacherName;
+            Teacher.AccountId = NewTeacher.AccountId;
 
 
             try

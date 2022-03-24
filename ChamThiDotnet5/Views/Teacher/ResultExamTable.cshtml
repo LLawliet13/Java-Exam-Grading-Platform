@@ -1,0 +1,43 @@
+﻿@{
+    Layout = null;
+}
+<table class="table resultStudentList">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">ClassName</th>
+                                                <th scope="col">ExamName</th>
+                                                <th scope="col">View</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @{
+                                                int index4 = 0;
+                                                string rowid4 = "row4" + index4;
+                                                foreach (Class_Exam ce in ViewBag.ResultClass_Exams)
+                                                {
+                                                    rowid4 = "row4" + index4++;
+
+                                                    <tr id="@rowid4">
+                                                        <td>@ce.Class.Classname</td>
+                                                        <td>@ce.Exam.Examname</td>
+                                                        <td>
+                                                            <button type="button" classid="@ce.Class.Id"
+                                                                examid="@ce.Exam.Id" class="btn btn-primary" onclick="getExamInfo(@ce.Class.Id,@ce.Exam.Id,@rowid4)">
+                                                                Check
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                            @*   <tr>
+                                                <td>Jacob</td>
+                                                <td>Thornton</td>
+                                                <td><button type="button" class="btn btn-primary">Check</button></td>
+                                                </tr>
+                                                <tr>
+                                                <td>Larry</td>
+                                                <td>the Bird</td>
+                                                <td><button type="button" class="btn btn-primary">Check</button></td>
+                                                </tr>*@
+                                        </tbody>
+                                    </table>

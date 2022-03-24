@@ -126,7 +126,7 @@
                         </div>
                     </div>
 
-                    
+
                 </div>
                 <div class="u-align-left u-container-style u-tab-pane u-white u-tab-pane-2" id="tab-14b7" role="tabpanel" aria-labelledby="link-tab-14b7">
                     <div class="u-container-layout u-container-layout-2">
@@ -222,46 +222,48 @@
                                     <div>Start Time: hh:mm:ss</div>
 
                                     <div> End Time: hh:mm:ss</div>*@
-                                <table class="table studentList">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">ClassName</th>
-                                            <th scope="col">ExamName</th>
-                                            <th scope="col">View</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @{
-                                           
-                                            string rowid = "row" + index;
-                                            foreach (Class_Exam ce in ViewBag.Class_Exams)
-                                            {
-                                                rowid = "row" + index++;
-
-                                                <tr id="@rowid">
-                                                    <td>@ce.Class.Classname</td>
-                                                    <td>@ce.Exam.Examname</td>
-                                                    <td>
-                                                        <button type="button" classid="@ce.Class.Id"
-                                                            examid="@ce.Exam.Id" class="btn btn-primary" onclick="getExamInfo(@ce.Class.Id,@ce.Exam.Id,@rowid)">
-                                                            Check
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                            }
-                                        }
-                                        @*   <tr>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td><button type="button" class="btn btn-primary">Check</button></td>
-                                            </tr>
+                                <div id="pendingExamTable">
+                                    <table class="table studentList">
+                                        <thead>
                                             <tr>
-                                            <td>Larry</td>
-                                            <td>the Bird</td>
-                                            <td><button type="button" class="btn btn-primary">Check</button></td>
-                                            </tr>*@
-                                    </tbody>
-                                </table>
+                                                <th scope="col">ClassName</th>
+                                                <th scope="col">ExamName</th>
+                                                <th scope="col">View</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @{
+                                                int index3 = 0;
+                                                string rowid3 = "row3" + index3;
+                                                foreach (Class_Exam ce in ViewBag.Class_Exams)
+                                                {
+                                                    rowid3 = "row3" + index3++;
+
+                                                    <tr id="@rowid3">
+                                                        <td>@ce.Class.Classname</td>
+                                                        <td>@ce.Exam.Examname</td>
+                                                        <td>
+                                                            <button type="button" classid="@ce.Class.Id"
+                                                                examid="@ce.Exam.Id" class="btn btn-primary" onclick="getExamInfo(@ce.Class.Id,@ce.Exam.Id,@rowid3)">
+                                                                Check
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                            @*   <tr>
+                                                <td>Jacob</td>
+                                                <td>Thornton</td>
+                                                <td><button type="button" class="btn btn-primary">Check</button></td>
+                                                </tr>
+                                                <tr>
+                                                <td>Larry</td>
+                                                <td>the Bird</td>
+                                                <td><button type="button" class="btn btn-primary">Check</button></td>
+                                                </tr>*@
+                                        </tbody>
+                                    </table>
+                                </div>
 
                                 @* <a href="https://nicepage.online" class="u-border-none u-btn u-button-style u-custom-color-1 u-hover-palette-1-dark-3 u-btn-8">DELETE</a>
                                     <a href="#EditExam" class="u-border-none u-btn u-button-style u-custom-color-5 u-dialog-link u-hover-palette-1-dark-3 u-btn-9" title="EDIT" style="color: #ffffff !important;background-color: #40bb25 !important;">EDIT</a>*@
@@ -323,59 +325,60 @@
                                     <div>Start Time: hh:mm:ss</div>
 
                                     <div> End Time: hh:mm:ss</div>*@
-                                <table class="table studentList">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">ClassName</th>
-                                            <th scope="col">ExamName</th>
-                                            <th scope="col">View</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @{
-                                            int index1 = 0;
-                                            string rowid1 = "row" + index;
-                                            foreach (Class_Exam ce in ViewBag.Class_Exams)
-                                            {
-                                                rowid = "row" + index++;
-
-                                                <tr id="@rowid">
-                                                    <td>@ce.Class.Classname</td>
-                                                    <td>@ce.Exam.Examname</td>
-                                                    <td>
-                                                        <button type="button" classid="@ce.Class.Id"
-                                                            examid="@ce.Exam.Id" class="btn btn-primary" onclick="getExamInfo(@ce.Class.Id,@ce.Exam.Id,@rowid)">
-                                                            Check
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                            }
-                                        }
-                                        @*   <tr>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td><button type="button" class="btn btn-primary">Check</button></td>
-                                            </tr>
+                                <div id="resultExamTable">
+                                    <table class="table resultStudentList">
+                                        <thead>
                                             <tr>
-                                            <td>Larry</td>
-                                            <td>the Bird</td>
-                                            <td><button type="button" class="btn btn-primary">Check</button></td>
-                                            </tr>*@
-                                    </tbody>
-                                </table>
+                                                <th scope="col">ClassName</th>
+                                                <th scope="col">ExamName</th>
+                                                <th scope="col">View</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @{
+                                                int index4 = 0;
+                                                string rowid4 = "row4" + index4;
+                                                foreach (Class_Exam ce in ViewBag.ResultClass_Exams)
+                                                {
+                                                    rowid4 = "row4" + index4++;
 
+                                                    <tr id="@rowid4">
+                                                        <td>@ce.Class.Classname</td>
+                                                        <td>@ce.Exam.Examname</td>
+                                                        <td>
+                                                            <button type="button" classid="@ce.Class.Id"
+                                                                examid="@ce.Exam.Id" class="btn btn-primary" onclick="updateResultStudentList(@ce.Class.Id,@ce.Exam.Id,@rowid4)">
+                                                                Check
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                            @*   <tr>
+                                                <td>Jacob</td>
+                                                <td>Thornton</td>
+                                                <td><button type="button" class="btn btn-primary">Check</button></td>
+                                                </tr>
+                                                <tr>
+                                                <td>Larry</td>
+                                                <td>the Bird</td>
+                                                <td><button type="button" class="btn btn-primary">Check</button></td>
+                                                </tr>*@
+                                        </tbody>
+                                    </table>
+                                </div>
                                 @* <a href="https://nicepage.online" class="u-border-none u-btn u-button-style u-custom-color-1 u-hover-palette-1-dark-3 u-btn-8">DELETE</a>
                                     <a href="#EditExam" class="u-border-none u-btn u-button-style u-custom-color-5 u-dialog-link u-hover-palette-1-dark-3 u-btn-9" title="EDIT" style="color: #ffffff !important;background-color: #40bb25 !important;">EDIT</a>*@
-                                <a onlick="autoMark()" class="u-border-none u-btn u-button-style u-custom-color-1 u-hover-palette-1-dark-3 u-btn-10"> Automark</a>
+                                
                             </div>
                             <div class="col-sm-7" id="ClassPageTable">
-                                <div id="class_exam">
+                                <div id="resultClass_exam">
                                     <table class="table">
                                         <thead>
                                             <tr>
                                                 <th scope="col">Student ID</th>
                                                 <th scope="col">Student Name</th>
-                                                <th scope="col">Status</th>
+                                                <th scope="col">Score</th>
                                             </tr>
                                         </thead>
                                         <tbody>
