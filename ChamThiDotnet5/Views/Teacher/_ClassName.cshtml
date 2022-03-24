@@ -17,7 +17,7 @@
             @if (ViewBag.ClassList != null)
                 foreach (Class cl in ViewBag.ClassList)
                 {
-                    <li><a href="/Teacher/Teacher/@cl.Id">@cl.Classname</a></li>
+                    <li><a href="/Teacher/Index/@cl.Id">@cl.Classname</a></li>
                 }
         }
     </ul>

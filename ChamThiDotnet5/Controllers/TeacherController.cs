@@ -27,7 +27,7 @@ namespace ChamThiDotnet5.Controllers
         }
 
         [HttpGet]
-        public IActionResult Teacher(string ID)
+        public IActionResult Index(string ID)
         {
             //id mac dinh dung trong test
             if (!HttpContext.Session.GetString("accounttype").Equals("Teacher"))
@@ -234,10 +234,7 @@ namespace ChamThiDotnet5.Controllers
         {
             return View("Teacher");
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
+ 
 
 
 
