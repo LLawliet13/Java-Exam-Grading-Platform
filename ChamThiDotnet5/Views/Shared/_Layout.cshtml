@@ -31,13 +31,13 @@
         <div class="u-clearfix u-sheet u-sheet-1">
             <div class="u-container-style u-group u-group-1">
                 <div class="u-container-layout">
-                    <a href="#" data-page-id="1539906" class="u-image u-logo u-image-1" data-image-width="500" data-image-height="500" title="Student">
-                        <img src="/images/Logo.png" class="u-logo-image u-logo-image-1">
+                    <a href="#" data-page-id="1539906" class="u-image u-logo u-image-1" data-image-width="750" data-image-height="700" title="Student">
+                        <img src="/images/java.png" class="u-logo-image u-logo-image-1">
                     </a>
                     @{
                         if (username != null)
                         {
-                            <a class="u-custom-font u-heading-font u-login u-login-1" href="Account/Account" data-page-id="1538002" title="">@username</a>
+                            <a class="u-custom-font u-heading-font u-login u-login-1" href="/Account/Account" data-page-id="1538002" title="">@username</a>
                         }
                         else
                         {
@@ -52,7 +52,7 @@
                 <div class="u-container-layout">
                     <div class="u-container-style u-group u-group-3">
                         <div class="u-container-layout">
-                            <a href="Teacher.html" data-page-id="1538070" class="u-image u-logo u-image-2" data-image-width="412" data-image-height="122" title="Teacher">
+                            <a href="/" data-page-id="1538070" class="u-image u-logo u-image-2" data-image-width="412" data-image-height="122" title="Teacher">
                                 <img src="/images/logoFPT.png" class="u-logo-image u-logo-image-2">
                             </a>
                             <nav class="u-align-left u-menu u-menu-dropdown u-nav-spacing-25 u-offcanvas u-menu-1" data-responsive-from="XL">
@@ -92,7 +92,12 @@
 
                                                 </li>
                                                 <li class="u-nav-item">
-                                                    <a class="u-button-style u-nav-link" href="/Account/Account" style="padding-right: 6px;">Account</a>
+                                                    @{
+                                                        if (username != null)
+                                                        {
+                                                            <a class="u-button-style u-nav-link" href="/Account/Account" style="padding-right: 6px;">Account</a>
+                                                        }
+                                                    }
                                                 </li>
                                                 <li class="u-nav-item">
                                                     @{
