@@ -1,4 +1,5 @@
-﻿@{
+﻿@model ChamThiDotnet5.Models.FilesViewModel
+@{
     Layout = "_Layout";
 }
 <link rel="stylesheet" href="/css/Teacher.css" media="screen">
@@ -9,6 +10,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
 <script src="../js/AutoMarkPage.js"></script>
+<script src="../js/LoadFilePage.js"></script>
 <section class="u-align-center u-clearfix u-palette-2-dark-1 u-section-1" id="carousel_d3ce">
     <div class="u-clearfix u-sheet u-sheet-1">
         <div class="u-expanded-width u-tab-links-align-right u-tabs u-tabs-1">
@@ -32,7 +34,47 @@
                     <div class="leftcolumn">
                         <div class="cards">
                             <h4>CLASS INFORMATION</h4>
-                            <partial name="_ClassName" />
+                            @*<partial name="_ClassName" />*@
+
+                            <div class="dropdown" style="z-index:1;margin: 20px 50px;">
+                                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"
+                                        style="color: #ffffff !important;
+    background-color: #40bb25 !important;
+    border: none;
+    border-radius: 0;
+    font-size: 0.875rem;
+    letter-spacing: 1px;
+    font-weight: 700;
+    text-transform: uppercase;
+    background-image: none;
+    border-style: none;
+    padding: 10px 20px;">
+                                    Class Name
+                                </button>
+                                <ul class="dropdown-menu">
+                                    @{
+                                        @if (ViewBag.ClassList != null)
+                                            foreach (Class cl in ViewBag.ClassList)
+                                            {
+                                                <li><a href="/Teacher/Index/@cl.Id">@cl.Classname</a></li>
+                                            }
+                                    }
+                                </ul>
+                            </div>
+                            <div>
+                                @if (ViewData["ClassName"] != null)
+                                {
+                                    <h6>Class @ViewData["ClassName"]: @ViewData["StudentNum"] Students</h6>
+                                    <a href="/Teacher/ExamResult/classid=@ViewData["ClassId"]">View Test History</a>
+                                }
+                                else
+                                {
+                                    <h6>Class information...</h6>
+                                }
+
+                            </div>
+
+
                         </div>
                         @if (@ViewData["ClassId"] != null)
                         {
@@ -40,7 +82,42 @@
                             {
                                 <div class="cards">
                                     <h4>ADD TEST SCHEDULE</h4>
-                                    <partial name="_AddExam" />
+                                    @*<partial name="_AddExam" />*@
+                                    <div class="u-form u-form-1">
+                                        <form asp-action="teacher" asp-controller="teacher" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="email" name="form">
+                                            <input type="hidden" id="classid" name="classid" value="@ViewData["ClassId"]">
+                                            <div class="u-form-group u-form-select u-form-group-1">
+                                                <label for="select-0641" class="u-label">Exam</label>
+                                                <div class="u-form-select-wrapper">
+                                                    <select id="select-0641" name="exam" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="required" autofocus="autofocus">
+                                                        @if (@ViewBag.Exam != null)
+                                                            @foreach (var e in @ViewBag.Exam)
+                                                            {
+                                                                <option value="@e.Id">@e.Examname</option>
+                                                            }
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="u-form-group u-form-name">
+                                                <label for="name-ba83" class="u-label">Time Start</label>
+                                                <input type="datetime-local" name="start" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="required" autofocus="autofocus">
+                                            </div>
+                                            <div class="u-form-group u-form-name">
+                                                <label for="email-ba83" class="u-label">Time End</label>
+                                                <input type="datetime-local" name="end" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="required" autofocus="autofocus">
+                                            </div>
+                                            <div class="u-align-left u-form-group u-form-submit">
+                                                <button type="submit" class="u-border-none u-btn u-btn-submit u-button-style u-custom-color-5 u-hover-palette-1-dark-3 u-btn-1" style="color: #ffffff !important;background-color: #40bb25 !important;">Add Test</button>
+                                            </div>
+                                            @*<div class="u-align-left u-form-group u-form-submit">
+                                                <a href="/Teacher/Class" class="u-border-none u-btn u-btn-submit u-button-style u-custom-color-5 u-hover-palette-1-dark-3 u-btn-1" style="color: #ffffff !important;background-color: #40bb25 !important;">SAVE</a>
+                                                <input type="submit" value="submit" class="u-form-control-hidden">
+                                                </div>*@
+                                        </form>
+                                    </div>
+
+
                                 </div>
                             }
                         }
@@ -48,7 +125,33 @@
                     <div class="rightcolumn">
                         <div class="cards">
                             <h4>STUDENT LIST</h4>
-                            <partial name="_StudentList" />
+                            @*<partial name="_StudentList" />*@
+
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Student ID</th>
+                                        <th scope="col">Student Name</th>
+                                        <th scope="col">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        int index = 0;
+                                        if (@ViewBag.StudentList != null)
+                                            @foreach (var s in @ViewBag.StudentList)
+                                            {
+                                                index++;
+                                                <tr>
+                                                    <td>@index</td>
+                                                    <td>@s.Studentname</td>
+                                                    <td>__</td>
+                                                </tr>
+                                            }
+                                    }
+                                </tbody>
+                            </table>
+
                         </div>
                     </div>
 
@@ -67,14 +170,67 @@
                                 text-transform: uppercase;
                                 background-image: none;
                                 border-style: none;
-                                padding: 10px 20px;" 
-                                type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                padding: 10px 20px;"
+                                    type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                                 Add Exam
                             </button>
                         </p>
                         <div class="collapse" id="collapseExample" style="border: none;padding: 0 20%;">
                             <div class="card card-body" style="border: none;">
-                                <partial name="_ExamBank" />
+                                @* <partial name="_ExamBank" />*@
+                                <div class="text-left">
+                                    <h2 style="margin-bottom:50px">Upload More Exam</h2>
+
+                                    <!-- In order to post files to server we should use form with post method, also need to add multipart/form-data encoding.
+                                         Otherwise the files will not sent to the server. -->
+                                    <div id="ExamBank">
+                                        <form id="frmExamBank"  method="post" enctype="multipart/form-data">
+                                        <input type="file" id="file" name="files" multiple />
+                                        <button type="submit">Upload</button>
+                                    </form>
+                                    </div>
+                                    
+
+                                    <!-- To show the success message to the user  -->
+                                    @if (ViewBag.Message != null)
+                                    {
+                                        <div class="alert alert-success" role="alert">
+                                            <strong>Success!</strong> @ViewBag.Message
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                    }
+                                    @if (@TempData["deleted"] != null)
+                                    {
+                                        <div class="alert alert-success" role="alert">
+                                            <strong>Success!</strong> @TempData["deleted"]
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                    }
+
+
+                                    <p style="margin-top: 50px">List of Files</p>
+                                    <!-- Get all the files from the server -->
+                                    <ul>
+                                        @foreach (var item in Model.Files)
+                                        {
+                                            <li>
+                                                <a asp-action="Download" asp-controller="Loadfile" asp-route-filename="@item.Name">
+                                                    @item.Name
+                                                </a>
+                                            </li>
+                                            <form asp-action="DeleteFile" asp-controller="Loadfile" method="POST">
+                                                <input name="filename" type="hidden" value="@item.Name" />
+                                                <input type="submit" value="Delete">
+                                            </form>
+                                        }
+                                    </ul>
+
+                                </div>
+
                             </div>
                         </div>
 
@@ -142,7 +298,7 @@
                             <div class="col-sm-4" spellcheck="true" style="margin-right:30px">
 
 
-                                
+
                                 <div id="pendingExamTable">
                                     <table class="table studentList">
                                         <thead>
@@ -174,7 +330,7 @@
                                                 }
                                             }
 
-                                     
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -226,7 +382,7 @@
                             <div class="col-sm-4" spellcheck="true" style="margin-right:30px">
 
 
-                                 
+
                                 <div id="resultExamTable">
                                     <table class="table resultStudentList">
                                         <thead>
@@ -271,7 +427,7 @@
                                 </div>
                                 @* <a href="https://nicepage.online" class="u-border-none u-btn u-button-style u-custom-color-1 u-hover-palette-1-dark-3 u-btn-8">DELETE</a>
                                     <a href="#EditExam" class="u-border-none u-btn u-button-style u-custom-color-5 u-dialog-link u-hover-palette-1-dark-3 u-btn-9" title="EDIT" style="color: #ffffff !important;background-color: #40bb25 !important;">EDIT</a>*@
-                                
+
 
                             </div>
                             <div class="col-sm-7" id="ClassPageTable">

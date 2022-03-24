@@ -20,6 +20,7 @@ namespace ChamThiDotnet5.Controllers
         private ExamDAO examDAO = new ExamDAO();
         private Exam_StudentDAO exam_studentDAO=new Exam_StudentDAO(); 
         private AccountDAO accountDAO = new AccountDAO();
+        private LoadfileController load = new LoadfileController();
         public TeacherController(ClassService classService, Exam_StudentService exam_StudentService)
         {
             _classService = classService;
@@ -46,13 +47,15 @@ namespace ChamThiDotnet5.Controllers
             if (ID != null) classid = int.Parse(ID);
             Class1(classid);
 
+            var model = new FilesViewModel();
+            model = load.Index();
             ViewData["StudentNum"] = StudentNum;
             ViewBag.StudentList = students;
             ViewBag.Exam = exams;
             ViewData["ClassId"] = classID;
             ViewData["ClassName"] = className;
             ViewBag.ClassList = classes;
-            return View();
+            return View(model);
         }
         [HttpPost]
         public IActionResult getPendingExam_Student(int examid, int classid)
@@ -228,28 +231,6 @@ namespace ChamThiDotnet5.Controllers
         }
 
 
-        [HttpPost]
-        public IActionResult UploadExam(IFormFile myfile)
-        {
-            if (myfile == null)
-            {
-                // chỉ định đường dẫn lưu file
-                string fullpath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "PRNChamThi", myfile.FileName);
-                //copy vào thư mục chỉ định
-                using (var file = new FileStream(fullpath, FileMode.Create))
-                {
-                    myfile.CopyTo(file);
-
-                }
-            }
-            return RedirectToAction("Teacher");
-        }
-        public IActionResult UploadExam()
-
-        {
-            return View("Teacher");
-        }
- 
 
 
 
