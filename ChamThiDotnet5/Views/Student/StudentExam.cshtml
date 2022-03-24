@@ -1,0 +1,30 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Student Page";
+}
+<link rel="stylesheet" href="/css/Student.css" media="screen">
+<section class="u-align-center u-clearfix u-white u-section-1" src="" id="sec-328b">
+    <div class="u-clearfix u-sheet u-sheet-1">
+        <div>
+            @{
+                if (ViewBag.Exam_List != null)
+                {
+                    foreach(Exam item in ViewBag.Exam_List)
+                    {
+                        <h2>
+                            <a asp-controller="Student" asp-action="StudentAction" asp-route-id="@item.Id">
+                                Exam: @item.Examname
+                            </a>
+                        </h2>
+                    }
+                }
+                
+            }
+            
+        </div>
+    </div>
+</section>
+
