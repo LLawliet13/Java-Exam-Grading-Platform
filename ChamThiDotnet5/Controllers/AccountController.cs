@@ -65,7 +65,7 @@ namespace ChamThiDotnet5.Controllers
             HttpContext.Session.Remove("password");
             return RedirectToAction("Index", "Home");
         }
-        public IActionResult Account()
+        public IActionResult Index()
         {
             return View();
         }
