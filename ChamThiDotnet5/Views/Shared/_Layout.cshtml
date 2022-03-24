@@ -5,6 +5,7 @@
 @{
     var username = HttpContextAccessor.HttpContext.Session.GetString("username");
     var password = HttpContextAccessor.HttpContext.Session.GetString("password");
+    var accounttype = HttpContextAccessor.HttpContext.Session.GetString("accounttype");
 
 }
 
@@ -30,17 +31,18 @@
         <div class="u-clearfix u-sheet u-sheet-1">
             <div class="u-container-style u-group u-group-1">
                 <div class="u-container-layout">
-                    <a href="Student.html" data-page-id="1539906" class="u-image u-logo u-image-1" data-image-width="500" data-image-height="500" title="Student">
+                    <a href="#" data-page-id="1539906" class="u-image u-logo u-image-1" data-image-width="500" data-image-height="500" title="Student">
                         <img src="/images/Logo.png" class="u-logo-image u-logo-image-1">
                     </a>
                     @{
                         if (username != null)
                         {
-                            <a class="u-custom-font u-heading-font u-login u-login-1" href="#" data-page-id="1538002" title="Login">@username</a>
+                            <a class="u-custom-font u-heading-font u-login u-login-1" href="Account/Account" data-page-id="1538002" title="">@username</a>
                         }
                         else
                         {
                             <a class="u-custom-font u-heading-font u-login u-login-1" href="/Account/Login" data-page-id="1538002" title="Login">Login</a>
+
                         }
                     }
 
@@ -50,7 +52,7 @@
                 <div class="u-container-layout">
                     <div class="u-container-style u-group u-group-3">
                         <div class="u-container-layout">
-                            <a href="/" data-page-id="1538070" class="u-image u-logo u-image-2" data-image-width="412" data-image-height="122" title="Teacher">
+                            <a href="Teacher.html" data-page-id="1538070" class="u-image u-logo u-image-2" data-image-width="412" data-image-height="122" title="Teacher">
                                 <img src="/images/logoFPT.png" class="u-logo-image u-logo-image-2">
                             </a>
                             <nav class="u-align-left u-menu u-menu-dropdown u-nav-spacing-25 u-offcanvas u-menu-1" data-responsive-from="XL">
@@ -86,20 +88,42 @@
                                             <div class="u-menu-close"></div>
                                             <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
                                                 <li class="u-nav-item">
-                                                    <a class="u-button-style u-nav-link" href="/" style="padding-right: 6px;">Index</a>
+                                                    <a class="u-button-style u-nav-link" href="/" style="padding-right: 6px;">Home</a>
+
                                                 </li>
                                                 <li class="u-nav-item">
                                                     <a class="u-button-style u-nav-link" href="/Account/Account" style="padding-right: 6px;">Account</a>
                                                 </li>
                                                 <li class="u-nav-item">
-                                                    <a class="u-button-style u-nav-link" href="/Account/Login" style="padding-right: 6px;">Login</a>
+                                                    @{
+                                                        if (username == null)
+                                                        {
+                                                            <a class="u-button-style u-nav-link" href="/Account/Login" style="padding-right: 6px;">Login</a>
+                                                        }
+                                                    }
                                                 </li>
-                                                <li class="u-nav-item">
-                                                    <a class="u-button-style u-nav-link" href="/Student/Student" style="padding-right: 6px;">Student</a>
-                                                </li>
-                                                <li class="u-nav-item">
-                                                    <a class="u-button-style u-nav-link" href="/Teacher/Teacher" style="padding-right: 6px;">Teacher</a>
-                                                </li>
+                                                @{
+                                                    if (accounttype != null)
+                                                    {
+                                                        if (accounttype.Equals("Student"))
+                                                        {
+                                                            <li class="u-nav-item">
+                                                                <a class="u-button-style u-nav-link" href="/Student/Student" style="padding-right: 6px;">Student</a>
+                                                            </li>
+                                                        }
+                                                        if (accounttype.Equals("Teacher"))
+                                                        {
+                                                            <li class="u-nav-item">
+                                                                <a class="u-button-style u-nav-link" href="/Teacher/Teacher" style="padding-right: 6px;">Teacher</a>
+                                                            </li>
+                                                        }
+                                                        <li class="u-nav-item">
+
+                                                            <a class="u-button-style u-nav-link" href="/Account/Logout" style="padding-right: 6px;">Logout</a>
+
+                                                        </li>
+                                                    }
+                                                }
                                             </ul>
                                         </div>
                                     </div>
@@ -124,16 +148,16 @@
                     <font style="vertical-align: inherit;"></font>
                 </font>
                 @{
-                        if (username != null)
-                        {
-                            <div>User(<a href="#" >@username</a>)</div>
-                        }
-                        else
-                        {
-                            <div>You are not logged in. <a href="/Account/Login" >Login</a></div>
-                        }
+                    if (username != null)
+                    {
+                        <div>User(<a href="#">@username</a>)</div>
                     }
-                
+                    else
+                    {
+                        <div>You are not logged in. <a href="/Account/Login">Login</a></div>
+                    }
+                }
+
                 Created and Developed by TEAM 1 - PRN211<br>
             </p>
         </div>

@@ -25,18 +25,11 @@ namespace ChamThiDotnet5.Controllers
             _accountService = accountService;
         }
 
-        //public IActionResult Index()
-        //{
-        //    if (HttpContext.Session.GetString("AccountSession") != null)
-        //    {
-        //        TempData["account"] = HttpContext.Session.GetString("Account");
-        //        return View();
-        //    }
-        //    else
-        //    {
-        //        return RedirectToAction("Login", "Account");
-        //    }
-        //}
+        public IActionResult changePassword(Account account)
+        {
+            var obj = db.Accounts.Where(x => x.Password.Equals(account.Password)).FirstOrDefault();
+            return View();
+        }
         [HttpGet]
         public IActionResult Login()
         {
@@ -55,16 +48,22 @@ namespace ChamThiDotnet5.Controllers
                 HttpContext.Session.SetString("password", obj.Password);
                 HttpContext.Session.SetString("accounttype", obj.AccountType.Typename);
                 HttpContext.Session.SetString("accountid", obj.Id.ToString());
-                if (obj.AccountType.Typename.Equals("Teacher"))
-                    return RedirectToAction("Teacher", "Teacher");
-                else
-                    return RedirectToAction("Student", "Student");
+                return RedirectToAction("Index", "Home");
             }
             else
             {
                 TempData["error"] = "Error";
                 return View(account);
             }
+        }
+        [HttpGet]
+        public IActionResult Logout()
+        {
+
+            HttpContext.Session.Clear();
+            HttpContext.Session.Remove("username");
+            HttpContext.Session.Remove("password");
+            return RedirectToAction("Index", "Home");
         }
         public IActionResult Account()
         {
