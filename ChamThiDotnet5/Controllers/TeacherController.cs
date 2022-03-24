@@ -61,7 +61,7 @@ namespace ChamThiDotnet5.Controllers
 
             ViewBag.Exam_StudentList = exam_Students;
 
-            return View("StudentList");
+            return View("PendingStudentList");
         }
         public IActionResult getResultExam_Student(int examid, int classid)
         {
@@ -194,22 +194,37 @@ namespace ChamThiDotnet5.Controllers
         }
 
 
-        public IActionResult getExamResultTable()
+        public IActionResult updateExamResultTable()
         {
-            return View();
+            int teacherId = accountDAO.ReadAAccount(int.Parse(HttpContext.Session.GetString("accountid"))).Teacher.Id;
+            ViewBag.ResultClass_Exams = _exam_StudentService.FindResultExamOfTeacher(teacherId);
+            return View("ResultExamTable");
         }
         public IActionResult updatePendingExamTable()
         {
 
-            return View();
+            int teacherId = accountDAO.ReadAAccount(int.Parse(HttpContext.Session.GetString("accountid"))).Teacher.Id;
+            ViewBag.Class_Exams = _exam_StudentService.FindPending_ResultExamOfTeacher(teacherId);
+             
+            return View("PendingExamTable");
         }
         [HttpPost]
         public IActionResult updateResultStudentList(int ClassId,int ExamID)
         {
+            //danh sach diem + hoc sinh cua 1 lop da duoc cham
             List<Exam_Student> exam_Students = _exam_StudentService.FindStudent_ExamByClassAndExamID(ClassId, ExamID);
             
             ViewBag.Exam_StudentList = exam_Students;
             return View("ResultStudentList");
+        }
+        [HttpGet]
+        public IActionResult getPendingExam_StudentList()
+        {
+            List<Exam_Student> exam_Students = new List<Exam_Student>();
+
+            ViewBag.Exam_StudentList = exam_Students;
+
+            return View("PendingStudentList");
         }
 
 

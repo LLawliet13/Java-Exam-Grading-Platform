@@ -24,7 +24,7 @@ namespace ChamThiDotnet5.Controllers
             _AutoMarkService = autoMarkService;
         }
         [HttpPost]
-        public IActionResult AutoMark(int ClassId, int ExamId)
+        public IActionResult AutoMarkAClass_Exam(int ClassId, int ExamId)
         {
 
             //check classid, examid
@@ -93,13 +93,14 @@ namespace ChamThiDotnet5.Controllers
                 Console.OutputEncoding = Encoding.UTF8;
                 Console.WriteLine(report);
                 es.Score = totalMark;
+                es.Report = report;
                 esDao.UpdateExam_Student(es.Id, es);
 
             }
 
          
             ViewBag.ans = students;
-            return View();
+            return View("AutoMark");
         }
         private float MarkOnATesecase(string path, string inputList, string output, string mark)
         {

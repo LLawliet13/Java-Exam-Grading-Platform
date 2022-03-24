@@ -11,6 +11,7 @@
                                         </thead>
                                         <tbody>
                                             @{
+                                                string id4 = "";
                                                 int index4 = 0;
                                                 string rowid4 = "row4" + index4;
                                                 foreach (Class_Exam ce in ViewBag.ResultClass_Exams)
@@ -21,8 +22,11 @@
                                                         <td>@ce.Class.Classname</td>
                                                         <td>@ce.Exam.Examname</td>
                                                         <td>
-                                                            <button type="button" classid="@ce.Class.Id"
-                                                                examid="@ce.Exam.Id" class="btn btn-primary" onclick="getExamInfo(@ce.Class.Id,@ce.Exam.Id,@rowid4)">
+                                                            @{
+                                                                id4 = ce.Class.Id + "_" + ce.Exam.Id;
+                                                            }
+                                                            <button type="button" id="@id4" classid="@ce.Class.Id"
+                                                                examid="@ce.Exam.Id" class="btn btn-primary" onclick="updateResultStudentList(@ce.Class.Id,@ce.Exam.Id,@rowid4)">
                                                                 Check
                                                             </button>
                                                         </td>

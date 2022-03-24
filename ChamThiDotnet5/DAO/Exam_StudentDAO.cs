@@ -66,6 +66,7 @@ namespace ChamThiDotnet5.DAO
             Exam_Student.SubmittedFolder = NewExam_Student.SubmittedFolder;
             Exam_Student.Start = NewExam_Student.Start;
             Exam_Student.End = NewExam_Student.End;
+            Exam_Student.Report = NewExam_Student.Report;
             try
             {
                 n = DbContext.SaveChanges();

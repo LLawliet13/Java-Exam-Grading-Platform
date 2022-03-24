@@ -52,7 +52,7 @@ namespace ChamThiDotnet5
             services.AddSingleton<IFileProvider>(
             new PhysicalFileProvider(
                 Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")));
-
+            services.AddDbContext<AppDbContext>(ServiceLifetime.Transient);
             services.AddMvc();
         }
 

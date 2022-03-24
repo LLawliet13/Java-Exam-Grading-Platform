@@ -11,7 +11,8 @@ namespace ChamThiDotnet5.Services
         Exam_StudentDAO exam_Studentsdao = new Exam_StudentDAO();
         TeacherDAO teacherDAO = new TeacherDAO();
         ClassDAO ClassDAO = new ClassDAO();
-        StudentDAO studentDAO = new StudentDAO();   
+        StudentDAO studentDAO = new StudentDAO();
+        //ham tra ve danh sach tat ca cac lop co bai kiem tra chua duoc cham cua 1 giao vien
         public List<Class_Exam> FindPending_ResultExamOfTeacher(int id)
         {
             List<Class_Exam> class_Exams = new List<Class_Exam>();
@@ -35,7 +36,7 @@ namespace ChamThiDotnet5.Services
                         {
                             //chua co diem nghia la chua cham
                             Exam_Student esInfo = exam_Studentsdao.ReadAExam_Student(es.Id);
-                            if (esInfo.Score != null) { }
+                            if (esInfo.Score == null) 
                             class_Exams.Add(new Class_Exam { Class = cInfo, Exam = esInfo.Exam });
                         }
                     }
@@ -66,6 +67,7 @@ namespace ChamThiDotnet5.Services
             return exam_Students;
         }
 
+        //ham tra ve danh sach tat ca cac lop co bai kiem tra duoc cham cua 1 giao vien
         public List<Class_Exam> FindResultExamOfTeacher(int id)
         {
             List<Class_Exam> class_Exams = new List<Class_Exam>();
