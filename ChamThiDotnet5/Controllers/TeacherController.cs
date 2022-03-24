@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace ChamThiDotnet5.Controllers
@@ -25,7 +26,7 @@ namespace ChamThiDotnet5.Controllers
         }
 
         [HttpGet]
-        public IActionResult Teacher()
+        public IActionResult Teacher(string ID)
         {
             //id mac dinh dung trong test
             int id = 2;
@@ -34,8 +35,9 @@ namespace ChamThiDotnet5.Controllers
             if (teacherDAO.ReadATeacher(id) != null)
                 Class_Exams = _exam_StudentService.FindPending_ResultExamOfTeacher(id);
             ViewBag.Class_Exams = Class_Exams;
-
-            Class1(0);
+            int classid = 0;
+            if (ID != null) classid = int.Parse(ID);
+            Class1(classid);
             ViewData["StudentNum"] = StudentNum;
             ViewBag.StudentList = students;
             ViewBag.Exam = exams;
@@ -184,17 +186,46 @@ namespace ChamThiDotnet5.Controllers
         }
 
 
-        public IActionResult ExamBank()
+        [HttpPost]
+        public IActionResult UploadExam(IFormFile myfile)
+        {
+            if (myfile == null)
+            {
+                // chỉ định đường dẫn lưu file
+                string fullpath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "PRNChamThi", myfile.FileName);
+                //copy vào thư mục chỉ định
+                using (var file = new FileStream(fullpath, FileMode.Create))
+                {
+                    myfile.CopyTo(file);
+
+                }
+            }
+            return RedirectToAction("Teacher");
+        }
+        public IActionResult UploadExam()
+        {
+            return View("Teacher");
+        }
+        public IActionResult Index()
         {
             return View();
         }
-        public IActionResult ExamPending()
-        {
-            return View();
-        }
-        public IActionResult ExamResult()
-        {
-            return View();
-        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }
