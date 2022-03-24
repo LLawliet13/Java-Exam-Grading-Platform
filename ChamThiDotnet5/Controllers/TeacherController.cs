@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace ChamThiDotnet5.Controllers
@@ -18,6 +19,7 @@ namespace ChamThiDotnet5.Controllers
         private StudentDAO studentDAO = new StudentDAO();
         private ExamDAO examDAO = new ExamDAO();
         private Exam_StudentDAO exam_studentDAO=new Exam_StudentDAO(); 
+        private AccountDAO accountDAO = new AccountDAO();
         public TeacherController(ClassService classService, Exam_StudentService exam_StudentService)
         {
             _classService = classService;
@@ -25,17 +27,25 @@ namespace ChamThiDotnet5.Controllers
         }
 
         [HttpGet]
-        public IActionResult Teacher()
+        public IActionResult Teacher(string ID)
         {
             //id mac dinh dung trong test
-            int id = 2;
+            if (!HttpContext.Session.GetString("accounttype").Equals("Teacher"))
+                return RedirectToAction("Index", "Home");
             //Dictionary<string, List<Class_Exam>> examList = new Dictionary<string, List<Class_Exam>>();
+            int teacherId = accountDAO.ReadAAccount( int.Parse(HttpContext.Session.GetString("accountid"))).Teacher.Id;
             List<Class_Exam> Class_Exams = new List<Class_Exam>();
-            if (teacherDAO.ReadATeacher(id) != null)
-                Class_Exams = _exam_StudentService.FindPending_ResultExamOfTeacher(id);
+            if (teacherDAO.ReadATeacher(teacherId) != null)
+                Class_Exams = _exam_StudentService.FindPending_ResultExamOfTeacher(teacherId);
             ViewBag.Class_Exams = Class_Exams;
 
-            Class1(0);
+            ViewBag.ResultClass_Exams = _exam_StudentService.FindResultExamOfTeacher(teacherId);
+            
+
+            int classid = 0;
+            if (ID != null) classid = int.Parse(ID);
+            Class1(classid);
+
             ViewData["StudentNum"] = StudentNum;
             ViewBag.StudentList = students;
             ViewBag.Exam = exams;
@@ -184,17 +194,66 @@ namespace ChamThiDotnet5.Controllers
         }
 
 
-        public IActionResult ExamBank()
+        public IActionResult getExamResultTable()
         {
             return View();
         }
-        public IActionResult ExamPending()
+        public IActionResult updatePendingExamTable()
+        {
+
+            return View();
+        }
+        [HttpPost]
+        public IActionResult updateResultStudentList(int ClassId,int ExamID)
+        {
+            List<Exam_Student> exam_Students = _exam_StudentService.FindStudent_ExamByClassAndExamID(ClassId, ExamID);
+            
+            ViewBag.Exam_StudentList = exam_Students;
+            return View("ResultStudentList");
+        }
+
+
+        [HttpPost]
+        public IActionResult UploadExam(IFormFile myfile)
+        {
+            if (myfile == null)
+            {
+                // chỉ định đường dẫn lưu file
+                string fullpath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "PRNChamThi", myfile.FileName);
+                //copy vào thư mục chỉ định
+                using (var file = new FileStream(fullpath, FileMode.Create))
+                {
+                    myfile.CopyTo(file);
+
+                }
+            }
+            return RedirectToAction("Teacher");
+        }
+        public IActionResult UploadExam()
+
+        {
+            return View("Teacher");
+        }
+        public IActionResult Index()
         {
             return View();
         }
-        public IActionResult ExamResult()
-        {
-            return View();
-        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }

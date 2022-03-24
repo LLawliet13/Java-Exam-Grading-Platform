@@ -1,12 +1,23 @@
 ﻿
 <div class="dropdown" style="z-index:1;margin: 20px 50px;">
-    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Class Name</button>
+    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" 
+    style="color: #ffffff !important;
+    background-color: #40bb25 !important;
+    border: none;
+    border-radius: 0;
+    font-size: 0.875rem;
+    letter-spacing: 1px;
+    font-weight: 700;
+    text-transform: uppercase;
+    background-image: none;
+    border-style: none;
+    padding: 10px 20px;">Class Name</button>
     <ul class="dropdown-menu">
         @{
             @if (ViewBag.ClassList != null)
                 foreach (Class cl in ViewBag.ClassList)
                 {
-                    <li><a href="/Teacher/Class/@cl.Id">@cl.Classname</a></li>
+                    <li><a href="/Teacher/Teacher/@cl.Id">@cl.Classname</a></li>
                 }
         }
     </ul>

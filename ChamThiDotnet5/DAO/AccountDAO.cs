@@ -66,8 +66,10 @@ namespace ChamThiDotnet5.DAO
             int n = 0;
             Account Account = ReadAAccount(id);
             if (Account == null) return n;
-            Account = NewAccount;
-
+            Account.AccountTypeId = NewAccount.AccountTypeId;
+            Account.Password = NewAccount.Password;
+            Account.Username = NewAccount.Username;
+            Account.Email = NewAccount.Email;
 
             try
             {

@@ -63,9 +63,74 @@ function autoMark() {
                     alert("Request: " + JSON.stringify(request));
                 }
             });
-
+            document.getElementById('link-tab-fa2d').click();
         }
-        document.getElementById('link-tab-fa2d').click();
+        
 
     }
+}
+
+function updateExamResultTable() {
+
+}
+
+function updatePendingExamTable() {
+
+}
+
+function updateResultStudentList(classid, examid, rowid) {
+    // test
+    console.log(rowid);
+
+    let stu_table = document.getElementsByClassName('resultStudentList')[0];
+    //neu co class dang active thi xoa di
+    if (stu_table.getElementsByClassName('table-active').length > 0) {
+        stu_table.getElementsByClassName('table-active')[0].classList.remove('table-active')
     }
+    console.log(stu_table);
+    //active dong dc chon
+    rowid.classList.add('table-active')
+    //if (rowid == -1) {
+    //    $.ajax({
+
+    //        url: "/Teacher/updateResultStudentList",
+    //        type: 'get',
+    //        data: {
+                
+    //        },
+    //        dataType: 'text',
+    //        success: function (data) {
+    //            $('#class_exam').html(data);
+    //        },
+    //        error: function (request, error) {
+    //            alert("Request: " + JSON.stringify(request));
+    //        }
+    //    });
+    //}
+    //else {
+        // lay danh sach hoc sinh
+        $.ajax({
+
+            url: "/Teacher/updateResultStudentList",
+            type: 'post',
+            data: {
+                'ClassId': classid,
+                'ExamId': examid,
+            },
+            dataType: 'text',
+            success: function (data) {
+                $('#resultClass_exam').html(data);
+            },
+            error: function (request, error) {
+                alert("Request: " + JSON.stringify(request));
+            }
+        });
+    //}
+    
+    
+}
+
+function updateStudentList() {
+    // PendingStudentList
+
+}
