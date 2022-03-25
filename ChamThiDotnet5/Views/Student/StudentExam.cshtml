@@ -8,23 +8,30 @@
 <link rel="stylesheet" href="/css/Student.css" media="screen">
 <section class="u-align-center u-clearfix u-white u-section-1" src="" id="sec-328b">
     <div class="u-clearfix u-sheet u-sheet-1">
-        <div>
+        <h2>List exam for students:</h2>
+        <table class="table table-striped">
             @{
                 if (ViewBag.Exam_List != null)
                 {
                     foreach(Exam item in ViewBag.Exam_List)
-                    {
-                        <h2>
-                            <a asp-controller="Student" asp-action="StudentAction" asp-route-id="@item.Id">
-                                Exam: @item.Examname
-                            </a>
-                        </h2>
+                    {  
+                        <tr>
+                            <td>Exam ID</td>
+                            <td>@item.Id</td>
+                        </tr>
+                        <tr>
+                            <td>Exam Name</td>
+                            <td>
+                                <a asp-controller="Student" asp-action="StudentAction" asp-route-id="@item.Id">
+                                    @item.Examname
+                                </a>
+                            </td>
+                        </tr>
                     }
                 }
                 
             }
-            
-        </div>
+        </table>
     </div>
 </section>
 

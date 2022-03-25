@@ -37,15 +37,23 @@ namespace ChamThiDotnet5.Controllers
 
         public IActionResult StudentAction(int id)
         {
-            ViewData["id"] = id;
+            Exam exam = daoExam.ReadAExam(id);
+            List<Exam_Student> listExamsStudent = daoExamStudent.ReadAllExam_Student();
+            foreach (Exam_Student ExamStudent in listExamsStudent)
+            {
+                if (ExamStudent.ExamId == id)
+                {
+                    ViewBag.ExamStudent = ExamStudent;
+                }
+            }
+
+            ViewBag.Exam_Test = exam;
             return View();
         }
 
-        [HttpPost]
         public IActionResult StudentTakeExam(int id)
         {
             Exam exam = daoExam.ReadAExam(id);
-            string user_id = HttpContext.Session.GetString("accountid");
             List<Exam_Student> listExamStudent = daoExamStudent.ReadAllExam_Student();
             List<Exam_Student> listExamExist = new List<Exam_Student>();
             foreach (Exam_Student student in listExamStudent)
@@ -71,5 +79,9 @@ namespace ChamThiDotnet5.Controllers
             return View();
         }
 
+        public IActionResult StudentSubmit(int id)
+        {
+            return View();
+        }
     }
 }
