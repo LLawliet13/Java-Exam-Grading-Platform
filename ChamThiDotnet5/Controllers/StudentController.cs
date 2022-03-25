@@ -52,7 +52,10 @@ namespace ChamThiDotnet5.Controllers
             List<Exam_Student> listExamExist = new List<Exam_Student>();
             foreach (Exam_Student student in listExamStudent)
             {
+                if (student.StudentId == id)
+                {
                     listExamExist.Add(student);
+                }
             }
             
             List<Exam> listExam = new List<Exam>();

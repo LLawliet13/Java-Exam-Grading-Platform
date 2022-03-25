@@ -14,12 +14,12 @@
             @{
                 if (ViewBag.Exam_List != null)
                 {
-                    foreach(Exam item in ViewBag.Exam_List)
-                    {  
-                        <tr>
+                    <tr>
                             <td>Exam ID</td>
                             <td>Exam Name</td>
-                        </tr>
+                    </tr>
+                    foreach(Exam item in ViewBag.Exam_List)
+                    {  
                         <tr>
                             <td>@item.Id</td>
                             <td>
