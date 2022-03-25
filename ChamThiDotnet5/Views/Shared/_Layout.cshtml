@@ -68,9 +68,13 @@
                                         <li class="u-nav-item">
                                             <a class="u-button-style u-nav-link" href="/" style="padding-right: 6px;">Index</a>
                                         </li>
-                                        <li class="u-nav-item">
-                                            <a class="u-button-style u-nav-link" href="/Account/Index" style="padding-right: 6px;">Account</a>
-                                        </li>
+                                        @{
+                                            if(username!=null){
+                                                <li class="u-nav-item">
+                                                    <a class="u-button-style u-nav-link" href="/Account/Index" style="padding-right: 6px;">Account</a>
+                                                </li>
+                                            }
+                                        }
                                         <li class="u-nav-item">
                                             <a class="u-button-style u-nav-link" href="/Account/Login" style="padding-right: 6px;">Login</a>
                                         </li>
@@ -91,9 +95,14 @@
                                                     <a class="u-button-style u-nav-link" href="/" style="padding-right: 6px;">Home</a>
 
                                                 </li>
-                                                <li class="u-nav-item">
-                                                    <a class="u-button-style u-nav-link" href="/Account/Index" style="padding-right: 6px;">Account</a>
-                                                </li>
+                                                @{
+                                                    if (username != null)
+                                                    {
+                                                        <li class="u-nav-item">
+                                                            <a class="u-button-style u-nav-link" href="/Account/Index" style="padding-right: 6px;">Account</a>
+                                                        </li>
+                                                    }
+                                                }
                                                 <li class="u-nav-item">
                                                     @{
                                                         if (username == null)

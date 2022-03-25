@@ -15,6 +15,7 @@ namespace ChamThiDotnet5.Controllers
 
     public class AutoMarkController : Controller
     {
+        private ExamDAO examDAO = new ExamDAO();
         private Exam_StudentDAO esDao = new Exam_StudentDAO();
         private readonly Exam_StudentService _Exam_StudentService;
         private readonly AutoMarkService _AutoMarkService;
@@ -31,8 +32,9 @@ namespace ChamThiDotnet5.Controllers
             Console.WriteLine(ClassId + "_" + ExamId);
 
 
-            
-            string DuongDanTestCase = @"C:\PRNChamThi\" + ClassId + "_" + ExamId + @"\testcase";
+            string DuongDanTestCase = examDAO.ReadAExam(ExamId).Testcase;
+
+            //string DuongDanTestCase = @"C:\PRNChamThi\" + ClassId + "_" + ExamId + @"\testcase";
 
             //lay thong tin toan bo cac qes
             int SoCauHoi = Directory.GetFiles(DuongDanTestCase, "*", SearchOption.AllDirectories).Length;
