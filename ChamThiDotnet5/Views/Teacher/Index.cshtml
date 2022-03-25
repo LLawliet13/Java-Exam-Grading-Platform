@@ -83,8 +83,17 @@
                                 <div class="cards">
                                     <h4>ADD TEST SCHEDULE</h4>
                                     @*<partial name="_AddExam" />*@
+                                    @if (ViewData["AddExam"] != null)
+                                    {
+                                        <div class="alert alert-success" role="alert">
+                                            <strong>Success!</strong> @ViewData["AddExam"]
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                    }
                                     <div class="u-form u-form-1">
-                                        <form asp-action="teacher" asp-controller="teacher" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="email" name="form">
+                                        <form asp-action="AddTest" asp-controller="teacher" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="email" name="form">
                                             <input type="hidden" id="classid" name="classid" value="@ViewData["ClassId"]">
                                             <div class="u-form-group u-form-select u-form-group-1">
                                                 <label for="select-0641" class="u-label">Exam</label>
