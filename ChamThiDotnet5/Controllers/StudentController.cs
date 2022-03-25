@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace ChamThiDotnet5.Controllers
 {
@@ -58,10 +59,7 @@ namespace ChamThiDotnet5.Controllers
             List<Exam_Student> listExamExist = new List<Exam_Student>();
             foreach (Exam_Student student in listExamStudent)
             {
-                if (student.Start.CompareTo(DateTime.Now) < 0 && student.End.CompareTo(DateTime.Now) > 0)
-                {
-                    listExamExist.Add(student);
-                }
+                listExamExist.Add(student);
             }
             Exam_Student exam_Student_Check = new Exam_Student();
             foreach (Exam_Student student in listExamExist)
@@ -79,8 +77,40 @@ namespace ChamThiDotnet5.Controllers
             return View();
         }
 
-        public IActionResult StudentSubmit(int id)
+        [HttpPost]
+        public IActionResult StudentSubmit(int id, IFormFile[] files)
         {
+            // Iterate each files
+            foreach (var file in files)
+            {
+                // Get the file name from the browser
+                var fileName = Path.GetFileName(file.FileName);
+
+                // Get file path to be uploaded
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "Upload", fileName);
+
+                // Check If file with same name exists and delete it
+                if (System.IO.File.Exists(filePath))
+                {
+                    System.IO.File.Delete(filePath);
+                }
+
+                // Create a new local file and copy contents of uploaded file
+                using (var localFile = System.IO.File.OpenWrite(filePath))
+                using (var uploadedFile = file.OpenReadStream())
+                {
+                    uploadedFile.CopyTo(localFile);
+                }
+            }
+
+            // Get files from the server
+            var model = new Exam_Student();
+            foreach (var item in Directory.GetFiles(Path.Combine(Directory.GetCurrentDirectory(), "Upload")))
+            {
+                model = new Exam_Student { SubmittedFolder = item.ToString() };
+            }
+
+
             return View();
         }
     }

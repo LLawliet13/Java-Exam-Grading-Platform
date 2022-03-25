@@ -10,9 +10,9 @@
 <section class="u-align-center u-clearfix u-white u-section-1" src="" id="sec-328b" style="margin-bottom:200px;margin-top:50px">
     @{
         Exam exam_test = ViewBag.Exam_Test;
-        <h3 style="text-align:center">
+        <h2 style="text-align:center">
             Exam Test: @exam_test.Examname
-        </h3>
+        </h2>
             Exam_Student examStudent = ViewBag.ExamStudent;
             if(examStudent.Start.CompareTo(DateTime.Now)<0 && examStudent.End.CompareTo(DateTime.Now) >0)
             {
