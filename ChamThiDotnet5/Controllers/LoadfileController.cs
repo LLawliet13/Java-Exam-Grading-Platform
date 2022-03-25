@@ -1,4 +1,6 @@
-﻿using ChamThiDotnet5.Models;
+﻿using Aspose.Zip.Rar;
+using ChamThiDotnet5.DAO;
+using ChamThiDotnet5.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -10,7 +12,8 @@ using System.Threading.Tasks;
 namespace ChamThiDotnet5.Controllers
 {
     public class LoadfileController : Controller
-    { 
+    {
+        private ExamDAO examDAO = new ExamDAO();
         public LoadfileController()
         {
         }
@@ -44,18 +47,53 @@ namespace ChamThiDotnet5.Controllers
             return model;
         }
 
-        [HttpPost]
-        public IActionResult Index(IFormFile[] files)
+        public void UnzipFile(string filePath, string directory)
         {
+            if (filePath.Contains(".rar") || filePath.Contains(".zip"))
+            {
+                using (RarArchive archive = new RarArchive(filePath))
+                {
+                    archive.ExtractToDirectory(directory);
+                }
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Index(IFormFile[] fileDe, IFormFile[] fileTest)
+        {
+            string name = null, detail = null, testcase = null;
+            name = fileDe[0].Name;
+
             // Iterate each files
-            foreach (var file in files)
+            foreach (var file in fileDe)
+            {
+                // Get the file name from the browser
+                var fileName = System.IO.Path.GetFileName(file.FileName);
+                
+                // Get file path to be uploaded
+                var filePath = Path.Combine(getDefaultFilePath(), fileName);
+                detail = getDefaultFilePath() + $@"/{fileName}";
+                // Check If file with same name exists and delete it
+                if (System.IO.File.Exists(filePath))
+                {
+                    System.IO.File.Delete(filePath);
+                }
+
+                // Create a new local file and copy contents of uploaded file
+                using (var localFile = System.IO.File.OpenWrite(filePath))
+                using (var uploadedFile = file.OpenReadStream())
+                {
+                    uploadedFile.CopyTo(localFile);
+                }
+            }
+            foreach (var file in fileTest)
             {
                 // Get the file name from the browser
                 var fileName = System.IO.Path.GetFileName(file.FileName);
 
                 // Get file path to be uploaded
                 var filePath = Path.Combine(getDefaultFilePath(), fileName);
-
+                testcase = getDefaultFilePath()+$@"/{fileName}";
                 // Check If file with same name exists and delete it
                 if (System.IO.File.Exists(filePath))
                 {
@@ -78,6 +116,9 @@ namespace ChamThiDotnet5.Controllers
                 model.Files.Add(
                     new FileDetails { Name = System.IO.Path.GetFileName(item), Path = item });
             }
+
+            var list = model.Files.ToArray();
+            examDAO.AddNewExam(new Exam() { Examname=name, Detail=detail,Testcase=testcase});
             return View("../Teacher/ExamBank", model);
         }
 

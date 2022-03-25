@@ -63,6 +63,18 @@ namespace ChamThiDotnet5.Controllers
             ViewData["ClassId"] = classID;
             ViewData["ClassName"] = className;
             ViewBag.ClassList = classes;
+
+            // err validate
+            if (HttpContext.Session.GetString("start") != null)
+            {
+                ViewData["start"] = HttpContext.Session.GetString("start");
+                HttpContext.Session.SetString("start", null);
+            }
+            if (HttpContext.Session.GetString("end") != null)
+            {
+                ViewData["end"] = HttpContext.Session.GetString("end");
+                HttpContext.Session.SetString("end", null);
+            }
             return View(model);
         }
         [HttpPost]
@@ -122,6 +134,21 @@ namespace ChamThiDotnet5.Controllers
         [HttpPost]
         public IActionResult AddTest(string classid, string exam, string start, string end)
         {
+            DateTime now = DateTime.Now;
+            DateTime st = DateTime.Parse(start);
+            DateTime en = DateTime.Parse(end);
+            bool check = true;
+            if (st < now)
+            {
+                check = false;
+                HttpContext.Session.SetString("start", "Start time must be greater than current time!");
+            }
+            if (en < st)
+            {
+                check = false;
+                HttpContext.Session.SetString("end", "End time must be greater than the start time!");
+            }
+            if (check == false) return RedirectToAction("Index", classid);
 
             int Classid = Convert.ToInt32(classid);
             if (Classid != 0)

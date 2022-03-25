@@ -91,9 +91,27 @@
                             {
                                 <div class="cards">
                                     <h4>ADD TEST SCHEDULE</h4>
+                                    @if (ViewData["start"] != null)
+                                    {
+                                        <div class="alert alert-danger" role="alert">
+                                            <strong>Success!</strong> @ViewData["start"]
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                    }
+                                    @if (ViewData["end"] != null)
+                                    {
+                                        <div class="alert alert-danger" role="alert">
+                                            <strong>Success!</strong> @ViewData["end"]
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                    }
                                     @*<partial name="_AddExam" />*@
                                     <div class="u-form u-form-1">
-                                        <form asp-action="AddTest" method="post">
+                                        <form asp-action="AddTest" method="post" onsubmit = "return(validate());">
                                             <input type="hidden" id="classid" name="classid" value="@ViewData["ClassId"]">
                                             <div class="u-form-group u-form-select u-form-group-1">
                                                 <label for="select-0641" class="u-label">Exam</label>
@@ -157,7 +175,6 @@
 
                         </div>
                     </div>
-
                 </div>
                 <div class="u-align-left u-container-style u-tab-pane u-white u-tab-pane-2" id="tab-14b7" role="tabpanel" aria-labelledby="link-tab-14b7">
                     <div class="u-container-layout u-container-layout-2">
@@ -182,7 +199,7 @@
                                 </ul>
                             </div>
                             <div class="col-sm-7">
-                                <p style="margin:10px 10%">
+                                <p style="margin:50px 10%">
                                     <button class="btn btn-primary" style="
                                 color: #ffffff !important;
                                 background-color: #40bb25 !important;
@@ -210,7 +227,10 @@
                                                  Otherwise the files will not sent to the server. -->
                                             <div id="ExamBank">
                                                 <form id="frmExamBank" enctype="multipart/form-data">
-                                                    <input type="file" id="file" name="files" multiple />
+                                                    Select Exam: 
+                                                    <input type="file" id="fileDe" name="fileDe" multiple />
+                                                    Select TestCase:
+                                                    <input type="file" id="fileTest" name="fileTest" multiple />
                                                     <button onclick="submitFiles()">Upload</button>
                                                 </form>
                                             </div>
