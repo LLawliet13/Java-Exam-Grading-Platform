@@ -26,7 +26,28 @@
     });
     console.log("Upload Success.");
 }
-console.log("Upload Success...");
+
+function deleteFiles() {
+
+    $.ajax({
+
+        url: "/Loadfile/DeleteFile",
+        type: 'POST',
+        data: {
+            "filename": document.getElementById("filename").value
+        },
+        dataType: 'text',
+        success: function (data) {
+            $('#deleteFile').html(data);
+            alert("Delete Success!");
+        },
+        error: function (request, error) {
+            alert("Request: " + JSON.stringify(request));
+        }
+    });
+    console.log("Delete Success.");
+    console.log(document.getElementById("filename").value);
+}
 
 
     

@@ -41,8 +41,10 @@ namespace ChamThiDotnet5.Controllers
             //foreach (var item in Directory.GetFiles(Path.Combine(Directory.GetCurrentDirectory(), "upload")))
             foreach (var item in Directory.GetFiles(Path.Combine(getDefaultFilePath())))
             {
-                model.Files.Add(
-                    new FileDetails { Name = System.IO.Path.GetFileName(item), Path = item });
+                string iname = System.IO.Path.GetFileName(item);
+                if (iname.Contains(".rar") || iname.Contains(".zip"))
+                    model.Files.Add(
+                        new FileDetails { Name = iname, Path = item });
             }
             return model;
         }
@@ -62,14 +64,15 @@ namespace ChamThiDotnet5.Controllers
         public IActionResult Index(IFormFile[] fileDe, IFormFile[] fileTest)
         {
             string name = null, detail = null, testcase = null;
-            name = fileDe[0].Name;
+            
 
             // Iterate each files
             foreach (var file in fileDe)
             {
                 // Get the file name from the browser
                 var fileName = System.IO.Path.GetFileName(file.FileName);
-                
+                name = file.FileName;
+                name = name.Substring(0, name.Length-4);
                 // Get file path to be uploaded
                 var filePath = Path.Combine(getDefaultFilePath(), fileName);
                 detail = getDefaultFilePath() + $@"/{fileName}";
@@ -113,12 +116,14 @@ namespace ChamThiDotnet5.Controllers
             var model = new FilesViewModel();
             foreach (var item in Directory.GetFiles(Path.Combine(getDefaultFilePath())))
             {
+                string iname = System.IO.Path.GetFileName(item);
+                if (iname.Contains(".rar") || iname.Contains(".zip"))
                 model.Files.Add(
-                    new FileDetails { Name = System.IO.Path.GetFileName(item), Path = item });
+                    new FileDetails { Name = iname, Path = item });
             }
             UnzipFile(testcase,getDefaultFilePath());
             testcase=testcase.Substring(0,testcase.Length-4);
-            var list = model.Files.ToArray();
+    
             examDAO.AddNewExam(new Exam() { Examname=name, Detail=detail,Testcase=testcase});
             return View("../Teacher/ExamBank", model);
         }
@@ -142,8 +147,8 @@ namespace ChamThiDotnet5.Controllers
         private string GetContentType(string path)
         {
             var types = GetMimeTypes();
-            var ext = Path.GetExtension(path).ToLowerInvariant();
-            return types[ext];
+            var text = Path.GetExtension(path).ToLowerInvariant();
+            return types[text];
         }
 
         private Dictionary<string, string> GetMimeTypes()
@@ -160,7 +165,8 @@ namespace ChamThiDotnet5.Controllers
                 {".jpg", "image/jpeg"},
                 {".jpeg", "image/jpeg"},
                 {".gif", "image/gif"},
-                {".csv", "text/csv"}
+                {".csv", "text/csv"},
+                {".rar", "application/x-rar-compressed"}
             };
         }
 
@@ -176,7 +182,7 @@ namespace ChamThiDotnet5.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public IActionResult DeleteFile(string filename)
         {
             if (filename == null)
@@ -195,7 +201,7 @@ namespace ChamThiDotnet5.Controllers
                 model.Files.Add(
                     new FileDetails { Name = System.IO.Path.GetFileName(item), Path = item });
             }
-            return RedirectToAction("Index");
+            return View("../Teacher/ExamBank", model);
         }
     }
 }
