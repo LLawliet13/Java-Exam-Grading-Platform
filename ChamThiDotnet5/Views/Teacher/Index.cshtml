@@ -191,10 +191,12 @@
                                                 @item.Name
                                             </a>
                                         </li>
-                                        <form asp-action="DeleteFile" asp-controller="Loadfile" method="POST">
-                                            <input name="filename" type="hidden" value="@item.Name" />
-                                            <input type="submit" value="Delete">
+                                        <div id = "deleteFile">
+                                        <form >
+                                            <input name="filename" id="filename" type="hidden" value="@item.Name" />
+                                            <button onclick="deleteFiles()">Delete</button>
                                         </form>
+                                        </div>
                                     }
                                 </ul>
                             </div>
