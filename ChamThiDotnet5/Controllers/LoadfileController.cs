@@ -116,7 +116,8 @@ namespace ChamThiDotnet5.Controllers
                 model.Files.Add(
                     new FileDetails { Name = System.IO.Path.GetFileName(item), Path = item });
             }
-
+            UnzipFile(testcase,getDefaultFilePath());
+            testcase=testcase.Substring(0,testcase.Length-4);
             var list = model.Files.ToArray();
             examDAO.AddNewExam(new Exam() { Examname=name, Detail=detail,Testcase=testcase});
             return View("../Teacher/ExamBank", model);

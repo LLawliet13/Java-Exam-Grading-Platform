@@ -68,12 +68,12 @@ namespace ChamThiDotnet5.Controllers
             if (HttpContext.Session.GetString("start") != null)
             {
                 ViewData["start"] = HttpContext.Session.GetString("start");
-                HttpContext.Session.SetString("start", null);
+                HttpContext.Session.Remove("start");
             }
             if (HttpContext.Session.GetString("end") != null)
             {
                 ViewData["end"] = HttpContext.Session.GetString("end");
-                HttpContext.Session.SetString("end", null);
+                HttpContext.Session.Remove("end");
             }
             return View(model);
         }
@@ -148,7 +148,7 @@ namespace ChamThiDotnet5.Controllers
                 check = false;
                 HttpContext.Session.SetString("end", "End time must be greater than the start time!");
             }
-            if (check == false) return RedirectToAction("Index", classid);
+            if (check == false) return RedirectToAction("Index", "Teacher", classid);
 
             int Classid = Convert.ToInt32(classid);
             if (Classid != 0)
