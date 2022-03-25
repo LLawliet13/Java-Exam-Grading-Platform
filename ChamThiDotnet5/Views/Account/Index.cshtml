@@ -22,14 +22,14 @@
                         </div>
                         <div class="u-form-group u-form-group-3">
                             <label for="text-fe90" class="u-label">New Password</label>
-                            <input type="password" placeholder="Enter new password" id="text-fe90" name="newPassword" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-radius-30 u-white" >
+                            <input type="password" placeholder="Enter new password" id="text-fe90" name="newPassword" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@@#$%^&*_=+-]).{8,20}$" title="mật khẩu 8-20 kí tự , Có ít nhất 1 chữ in hoa , thường ,1 kí tự đặc biệt" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-radius-30 u-white" >
                             <input type="hidden" name="Email" value="@ViewBag.Account.Email" />
                             <input type="hidden" name="AccountTypeId" value="@ViewBag.Account.AccountTypeId" />
                             <input type="hidden" name="AccountId" value="@ViewBag.Account.Id" />
                         </div>
                         <div class="u-form-group u-form-group-4">
                             <label for="text-a2a2" class="u-label">Confirm new password</label>
-                            <input type="password" placeholder="Enter again new password" id="text-a2a2" name="confirmPassword" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-radius-30 u-white" >
+                            <input type="password" placeholder="Enter again new password" id="text-a2a2" name="confirmPassword" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@@#$%^&*_=+-]).{8,20}$" title="mật khẩu 8-20 kí tự , Có ít nhất 1 chữ in hoa , thường ,1 kí tự đặc biệt" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-radius-30 u-white" >
                         </div>
                         <div class="u-align-left u-form-group u-form-submit">
                             <a href="#" class="u-border-none u-btn u-btn-round u-btn-submit u-button-style u-custom-color-1 u-hover-palette-1-dark-3 u-radius-30 u-btn-1">Submit</a>

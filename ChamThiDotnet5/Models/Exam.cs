@@ -14,7 +14,8 @@ namespace ChamThiDotnet5.Models
         public string Examname { get; set; }
         [Required]
         public string Detail { get; set; }
-
+        
+        public string Testcase { get; set; } 
         public List<Exam_Student> Exam_Students { get; set; }
         
     }
