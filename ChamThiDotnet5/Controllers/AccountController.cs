@@ -1,4 +1,5 @@
-﻿using ChamThiDotnet5.Models;
+﻿using ChamThiDotnet5.DAO;
+using ChamThiDotnet5.Models;
 using ChamThiDotnet5.Services;
 using ChamThiWeb5.Data;
 using Microsoft.AspNetCore.Http;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using System;
 using System.IO;
 using System.Linq;
 
@@ -17,7 +19,7 @@ namespace ChamThiDotnet5.Controllers
     public class AccountController : Controller
     {
         AppDbContext db = new AppDbContext();
-
+        AccountDAO accountDAO = new AccountDAO(); 
         private readonly AccountService _accountService;
 
         
@@ -26,11 +28,7 @@ namespace ChamThiDotnet5.Controllers
             _accountService = accountService;
         }
 
-        public IActionResult changePassword(Account account)
-        {
-            var obj = db.Accounts.Where(x => x.Password.Equals(account.Password)).FirstOrDefault();
-            return View();
-        }
+        
         [HttpGet]
         public IActionResult Login()
         {
@@ -68,7 +66,18 @@ namespace ChamThiDotnet5.Controllers
         }
         public IActionResult Index()
         {
+            ViewBag.Account = accountDAO.ReadAAccount(int.Parse(HttpContext.Session.GetString("accountid")));
             return View();
+        }
+        [HttpPost]
+        public string ChangePassword(Account account,string newPassword)
+        {
+            account.Password = newPassword;
+            Console.WriteLine(newPassword);
+            int n = 0;
+            n = accountDAO.UpdateAccount(account.Id, account);
+            if (n > 0) return "changed";
+            return "error";
         }
 
     }
