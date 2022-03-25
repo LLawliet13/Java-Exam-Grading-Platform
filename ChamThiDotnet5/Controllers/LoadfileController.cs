@@ -30,7 +30,7 @@ namespace ChamThiDotnet5.Controllers
 
             return dirPath;
         }
-
+        
         public FilesViewModel Index()
         {
             // Get files from the server
