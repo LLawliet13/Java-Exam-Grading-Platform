@@ -17,7 +17,7 @@ namespace ChamThiDotnet5.Controllers
         private StudentDAO daoStudent = new StudentDAO();
         private Exam_StudentDAO daoExamStudent = new Exam_StudentDAO();
         private ExamDAO daoExam = new ExamDAO();
-
+        private AccountDAO accountDAO = new AccountDAO();
         public string getDefaultFilePath()
         {
             string dirPath = "C:/PRNChamThi/DeThi";
@@ -140,12 +140,19 @@ namespace ChamThiDotnet5.Controllers
                     ViewBag.ExamStudent = ExamStudent;
                 }
             }
-
+            int student_id = accountDAO.ReadAAccount(int.Parse(HttpContext.Session.GetString("accountid"))).Student.Id;
+            Exam_Student esTarget = null;
+            foreach (Exam_Student es in listExamsStudent)
+            {
+                if (es.ExamId == exam.Id && es.StudentId == student_id)
+                    esTarget = es;
+            }
+            ViewBag.Exam_StudentId = esTarget.Id;
             ViewBag.Exam_Test = exam;
             return View();
         }
 
-        public IActionResult StudentTakeExam(int id)
+        public IActionResult StudentTakeExam(int id,int Exam_StudentID)
         {
             Exam exam = daoExam.ReadAExam(id);
             List<Exam_Student> listExamStudent = daoExamStudent.ReadAllExam_Student();
@@ -166,6 +173,7 @@ namespace ChamThiDotnet5.Controllers
             {
                 ViewBag.Exam_Student_Check = exam_Student_Check;
             }
+            ViewBag.Exam_StudentID = Exam_StudentID;
 
 
 
@@ -174,29 +182,29 @@ namespace ChamThiDotnet5.Controllers
         }
 
         [HttpPost]
-        public IActionResult StudentSubmit(int id, IFormFile[] files)
+        public IActionResult StudentSubmit(int id, IFormFile[] files,int Exam_StudentID)
         {
-            string student_id = HttpContext.Session.GetString("accountid");
+            int student_id = accountDAO.ReadAAccount(int.Parse(HttpContext.Session.GetString("accountid"))).Student.Id;
             
-            Student s = new Student();
-            List<Student> listS = daoStudent.ReadAllStudent();
-            foreach(Student student in listS)
-            {
-                if (student.Id == Convert.ToInt32(student_id))
-                {
-                    s = student;
-                }
-            }
+            Student s = daoStudent.ReadAStudent(student_id);
+            //List<Student> listS = daoStudent.ReadAllStudent();
+            //foreach(Student student in listS)
+            //{
+            //    if (student.Id == Convert.ToInt32(student_id))
+            //    {
+            //        s = student;
+            //    }
+            //}
 
-            Exam_Student exS = new Exam_Student();
-            List<Exam_Student> listexS = daoExamStudent.ReadAllExam_Student();
-            foreach(Exam_Student exstudent in listexS)
-            {
-                if (exstudent.StudentId == s.Id)
-                {
-                    exS = exstudent;
-                }
-            }
+            Exam_Student exS = daoExamStudent.ReadAExam_Student(Exam_StudentID);
+            //List<Exam_Student> listexS = daoExamStudent.ReadAllExam_Student();
+            //foreach(Exam_Student exstudent in listexS)
+            //{
+            //    if (exstudent.StudentId == s.Id)
+            //    {
+            //        exS = exstudent;
+            //    }
+            //}
 
             foreach (var file in files)
             {
@@ -243,14 +251,18 @@ namespace ChamThiDotnet5.Controllers
                 model = new Exam_Student { SubmittedFolder = item };
             }
 
-            Exam_Student exam_Student = daoExamStudent.ReadAExam_Student(id);
-            exam_Student.SubmittedFolder = model.SubmittedFolder;
-            daoExamStudent.UpdateExam_Student(id, exam_Student);
+            //Exam_Student exam_Student = daoExamStudent.ReadAExam_Student(id);
+
+            exS.SubmittedFolder = model.SubmittedFolder;
+            daoExamStudent.UpdateExam_Student(exS.Id, exS);
 
             string directory = $@"C:\PRNChamThi\{s.ClassId}_{exS.ExamId}\BaiLamHocSinh_{exS.StudentId}";
             UnzipFile(exS.SubmittedFolder, directory);
+            int indexSlash = exS.SubmittedFolder.LastIndexOf(@"\");
+            exS.SubmittedFolder = model.SubmittedFolder.Substring(0, indexSlash);
+            daoExamStudent.UpdateExam_Student(exS.Id, exS);
 
-            ViewBag.Exam_Student = exam_Student;
+            ViewBag.Exam_Student = exS;
             return View();
         }
     }

@@ -28,7 +28,7 @@
             success: function (data) {
                 if (data === "changed")
                     alert("change password sucessfully")
-                else alert("error data");
+                else alert(data);
 
             },
             error: function (request, error) {
