@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System;
 
-namespace FileUploadDownload.Models
+namespace ChamThiDotnet5.Models
 {
     public class FileDetails
     {
