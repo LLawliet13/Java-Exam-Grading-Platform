@@ -193,10 +193,10 @@
                                     <!-- In order to post files to server we should use form with post method, also need to add multipart/form-data encoding.
                                          Otherwise the files will not sent to the server. -->
                                     <div id="ExamBank">
-                                        <form id="frmExamBank"  method="post" enctype="multipart/form-data">
+                                        <form id="frmExamBank" enctype="multipart/form-data">
                                         <input type="file" id="file" name="files" multiple />
-                                        <button type="submit">Upload</button>
-                                    </form>
+                                        <button  onclick="submitFiles()">Upload</button>
+                                        </form>
                                     </div>
                                     
 
