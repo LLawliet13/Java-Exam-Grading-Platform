@@ -48,11 +48,14 @@ namespace ChamThiDotnet5.Controllers
         {
             string accountId = HttpContext.Session.GetString("accountid");
             int id = int.Parse(accountId);
+
             List<Exam_Student> listExamStudent = daoExamStudent.ReadAllExam_Student();
             List<Exam_Student> listExamExist = new List<Exam_Student>();
+            Student stu = new AccountDAO().ReadAAccount(id).Student;
+
             foreach (Exam_Student student in listExamStudent)
             {
-                if (student.StudentId == id)
+                if (student.StudentId == stu.Id)
                 {
                     listExamExist.Add(student);
                 }
