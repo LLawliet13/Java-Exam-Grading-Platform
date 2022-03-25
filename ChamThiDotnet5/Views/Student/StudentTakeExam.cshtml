@@ -49,7 +49,7 @@ enctype="multipart/form-data" style="margin-bottom:200px">
                                 <tr>
                                     <td>Submission</td>
                                     <td>
-                                        <input class="form-control" type="file" id="formFile">
+                                        <input class="form-control" type="file" id="formFile" name="files">
                                     </td>
                                 </tr>
                                 <tr style="margin-left:auto;margin-right:auto">
@@ -64,13 +64,13 @@ enctype="multipart/form-data" style="margin-bottom:200px">
                                 <tr>
                                     <td>Submission</td>
                                     <td>
-                                        <input class="form-control" type="file" id="formFile" multiple disabled>
+                                        @exam_Student.SubmittedFolder
                                     </td>
                                 </tr>
                                 <tr style="margin-left:auto;margin-right:auto">
                                     <td></td>
                                     <td>
-                                        <input type="submit" name="submit" value="Submit" multiple disabled/>
+                                        <input type="submit" name="submit" value="View Score"/>
                                     </td>
                                 </tr>
                             }

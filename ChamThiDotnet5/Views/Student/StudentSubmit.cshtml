@@ -7,14 +7,23 @@
 }
 
 <link rel="stylesheet" href="/css/Student.css" media="screen">
-<section class="u-align-center u-clearfix u-white u-section-1" src="" id="sec-328b">
+<section class="u-align-center u-clearfix u-white u-section-1" src="" id="sec-328b" style="margin-top:100px;margin-bottom:200px">
     @{
-        if (Convert.ToInt32(ViewData["check"])>0)
-        {
-            <div class="u-clearfix u-sheet u-sheet-1">
-                <p class="u-large-text u-text u-text-default u-text-variant u-text-2"> Submit successfully.&nbsp;Please wait for the results...</p>
-                <p class="u-large-text u-text u-text-default u-text-variant u-text-3">Result: X/X</p>
-            </div>
-        }
+        Exam_Student exam_Student = ViewBag.Exam_Student;
+            <h1 class"u-large-text u-text u-text-variant u-text-2">
+                Thanks for attemping the exam!
+            </h1>
+                if(exam_Student.SubmittedFolder!=null&&!exam_Student.SubmittedFolder.Equals(""))
+                {
+                    if(exam_Student.Score==null)
+                    {
+                        <p class="u-large-text u-text u-text-variant u-text-3"> Submit successfully.&nbsp;Please wait for the results...</p>
+                    }
+                    else
+                    {
+                        <p class="u-large-text u-text u-text-variant u-text-3">Your result: @exam_Student.Score/10</p>
+                    }
+                    
+                }
     }
 </section>
