@@ -19,7 +19,13 @@ enctype="multipart/form-data" style="margin-bottom:200px">
                 {
                     <h2>Exam name: @ViewBag.Exam_Test.Examname</h2>
                 }
-                    <h5>Source: @ViewBag.Exam_Test.Detail</h5>
+                    <h5>
+                        Source:
+                            <a asp-action="Download"
+                               asp-route-filename="@ViewBag.Exam_Test.Detail">
+                                @ViewBag.Exam_Test.Detail
+                            </a>
+                    </h5>
             
                     <table class="table table-striped">
                         <tr>
