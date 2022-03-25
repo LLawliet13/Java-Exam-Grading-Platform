@@ -63,7 +63,9 @@ namespace ChamThiDotnet5.DAO
             int n = 0;
             Student Student = ReadAStudent(id);
             if (Student == null) return n;
-            Student = NewStudent;
+            Student.Studentname = NewStudent.Studentname;
+            Student.AccountId = NewStudent.AccountId;
+            Student.ClassId = NewStudent.ClassId;
 
 
             try

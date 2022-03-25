@@ -1,0 +1,464 @@
+﻿@model ChamThiDotnet5.Models.FilesViewModel
+@{
+    Layout = "_Layout";
+}
+<link rel="stylesheet" href="/css/Teacher.css" media="screen">
+<link rel="stylesheet" href="/css/Form.css" media="screen">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+<script src="../js/AutoMarkPage.js"></script>
+<script src="../js/LoadFilePage.js"></script>
+<section class="u-align-center u-clearfix u-palette-2-dark-1 u-section-1" id="carousel_d3ce">
+    <div class="u-clearfix u-sheet u-sheet-1">
+        <div class="u-expanded-width u-tab-links-align-right u-tabs u-tabs-1">
+            <ul class="u-spacing-15 u-tab-list u-unstyled" role="tablist">
+                <li class="u-tab-item" role="presentation">
+                    <a class="active u-active-white u-button-style u-custom-font u-heading-font u-tab-link u-tab-link-1" id="link-tab-0da5" href="#tab-0da5" role="tab" aria-controls="tab-0da5" aria-selected="true">class</a>
+                </li>
+                <li class="u-tab-item" role="presentation">
+                    <a class="u-active-white u-button-style u-custom-font u-heading-font u-tab-link u-tab-link-2" id="link-tab-14b7" href="#tab-14b7" role="tab" aria-controls="tab-14b7" aria-selected="false"> exam bank</a>
+                </li>
+                <li class="u-tab-item" role="presentation">
+                    <a class="u-active-white u-button-style u-custom-font u-heading-font u-tab-link u-tab-link-3" id="link-tab-2917" href="#tab-2917" role="tab" aria-controls="tab-2917" aria-selected="false"> Exam pending</a>
+                </li>
+                <li class="u-tab-item" role="presentation">
+                    <a class="u-active-white u-button-style u-custom-font u-heading-font u-tab-link u-tab-link-4" id="link-tab-fa2d" href="#tab-fa2d" role="tab" aria-controls="tab-fa2d" aria-selected="false"> Exam result </a>
+                </li>
+            </ul>
+            <div class="u-tab-content">
+                <div class="u-align-left u-container-style u-tab-active u-tab-pane u-white u-tab-pane-1" id="tab-0da5" role="tabpanel" aria-labelledby="link-tab-0da5">
+                    @*Class*@
+                    <div class="leftcolumn">
+                        <div class="cards">
+                            <h4>CLASS INFORMATION</h4>
+                            @*<partial name="_ClassName" />*@
+
+                            <div class="dropdown" style="z-index:1;margin: 20px 50px;">
+                                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"
+                                        style="color: #ffffff !important;
+                                        background-color: #40bb25 !important;
+                                        border: none;
+                                        border-radius: 0;
+                                        font-size: 0.875rem;
+                                        letter-spacing: 1px;
+                                        font-weight: 700;
+                                        text-transform: uppercase;
+                                        background-image: none;
+                                        border-style: none;
+                                        padding: 10px 20px;">
+                                    Class Name
+                                </button>
+                                <ul class="dropdown-menu">
+                                    @{
+                                        @if (ViewBag.ClassList != null)
+                                            foreach (Class cl in ViewBag.ClassList)
+                                            {
+                                                <li><a href="/Teacher/Index/@cl.Id">@cl.Classname</a></li>
+                                            }
+                                    }
+                                </ul>
+                            </div>
+                            <div>
+                                @if (ViewData["ClassName"] != null)
+                                {
+                                    <h6>Class @ViewData["ClassName"]: @ViewData["StudentNum"] Students</h6>
+                                    <a href="/Teacher/ExamResult/classid=@ViewData["ClassId"]">View Test History</a>
+                                }
+                                else
+                                {
+                                    <h6>Class information...</h6>
+                                }
+
+                            </div>
+
+
+                        </div>
+                        @if (ViewData["AddExam"] != null)
+                        {
+                            <div class="alert alert-success" role="alert">
+                                <strong>Success!</strong> @ViewData["AddExam"]
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        }
+                        @if (@ViewData["ClassId"] != null)
+                        {
+                            @if (@ViewData["StudentNum"].ToString() != "0")
+                            {
+                                <div class="cards">
+                                    <h4>ADD TEST SCHEDULE</h4>
+                                    @*<partial name="_AddExam" />*@
+                                    <div class="u-form u-form-1">
+                                        <form asp-action="AddTest" method="post">
+                                            <input type="hidden" id="classid" name="classid" value="@ViewData["ClassId"]">
+                                            <div class="u-form-group u-form-select u-form-group-1">
+                                                <label for="select-0641" class="u-label">Exam</label>
+                                                <div class="u-form-select-wrapper">
+                                                    <select id="select-0641" name="exam" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="required" autofocus="autofocus">
+                                                        @if (@ViewBag.Exam != null)
+                                                            @foreach (var e in @ViewBag.Exam)
+                                                            {
+                                                                <option value="@e.Id">@e.Examname</option>
+                                                            }
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="u-form-group u-form-name">
+                                                <label for="name-ba83" class="u-label">Time Start</label>
+                                                <input type="datetime-local" name="start" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="required" autofocus="autofocus">
+                                            </div>
+                                            <div class="u-form-group u-form-name">
+                                                <label for="email-ba83" class="u-label">Time End</label>
+                                                <input type="datetime-local" name="end" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="required" autofocus="autofocus">
+                                            </div>
+                                            <div class="u-align-left u-form-group u-form-submit">
+                                                <button type="submit" class="u-border-none u-btn u-btn-submit u-button-style u-custom-color-5 u-hover-palette-1-dark-3 u-btn-1" style="color: #ffffff !important;background-color: #40bb25 !important;">Add Test</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                    <div class="rightcolumn">
+                        <div class="cards">
+                            <h4>STUDENT LIST</h4>
+                            @*<partial name="_StudentList" />*@
+
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Student ID</th>
+                                        <th scope="col">Student Name</th>
+                                        <th scope="col">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        int index = 0;
+                                        if (@ViewBag.StudentList != null)
+                                            @foreach (var s in @ViewBag.StudentList)
+                                            {
+                                                index++;
+                                                <tr>
+                                                    <td>@index</td>
+                                                    <td>@s.Studentname</td>
+                                                    <td>__</td>
+                                                </tr>
+                                            }
+                                    }
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="u-align-left u-container-style u-tab-pane u-white u-tab-pane-2" id="tab-14b7" role="tabpanel" aria-labelledby="link-tab-14b7">
+                    <div class="u-container-layout u-container-layout-2">
+
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <!-- Get all the files from the server -->
+                                <ul style="margin: 50px auto 100px auto">
+                                    <li class="list-group-item active"><strong>List of Exam Files</strong></li>
+                                    @foreach (var item in Model.Files)
+                                    {
+                                        <li class="list-group-item">
+                                            <a asp-action="Download" asp-controller="Loadfile" asp-route-filename="@item.Name">
+                                                @item.Name
+                                            </a>
+                                        </li>
+                                        <form asp-action="DeleteFile" asp-controller="Loadfile" method="POST">
+                                            <input name="filename" type="hidden" value="@item.Name" />
+                                            <input type="submit" value="Delete">
+                                        </form>
+                                    }
+                                </ul>
+                            </div>
+                            <div class="col-sm-7">
+                                <p style="margin:10px 10%">
+                                    <button class="btn btn-primary" style="
+                                color: #ffffff !important;
+                                background-color: #40bb25 !important;
+                                border: none;
+                                border-radius: 0;
+                                font-size: 0.875rem;
+                                letter-spacing: 1px;
+                                font-weight: 700;
+                                text-transform: uppercase;
+                                background-image: none;
+                                border-style: none;
+                                padding: 10px 20px;"
+                                            type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                        Add Exam
+                                    </button>
+                                </p>
+
+                                <div class="collapse" id="collapseExample" style="border: none;padding: 0 20%;">
+                                    <div class="card card-body" style="border: none;">
+                                        @* <partial name="_ExamBank" />*@
+                                        <div class="text-left">
+                                            <h2 style="margin-bottom:50px">Upload More Exam</h2>
+
+                                            <!-- In order to post files to server we should use form with post method, also need to add multipart/form-data encoding.
+                                                 Otherwise the files will not sent to the server. -->
+                                            <div id="ExamBank">
+                                                <form id="frmExamBank" enctype="multipart/form-data">
+                                                    <input type="file" id="file" name="files" multiple />
+                                                    <button onclick="submitFiles()">Upload</button>
+                                                </form>
+                                            </div>
+
+
+                                            <!-- To show the success message to the user  -->
+                                            @if (ViewBag.Message != null)
+                                            {
+                                                <div class="alert alert-success" role="alert">
+                                                    <strong>Success!</strong> @ViewBag.Message
+                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                            }
+                                            @if (@TempData["deleted"] != null)
+                                            {
+                                                <div class="alert alert-success" role="alert">
+                                                    <strong>Success!</strong> @TempData["deleted"]
+                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                            }
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+                <div class="u-container-style u-tab-pane u-white u-tab-pane-3" id="tab-2917" role="tabpanel" aria-labelledby="link-tab-2917">
+                    <div class="u-container-layout u-container-layout-3">
+                        <nav class="u-dropdown-icon u-menu u-menu-dropdown u-offcanvas u-menu-2">
+                            <div class="menu-collapse" style="font-size: 1rem; letter-spacing: 0px; font-weight: 700; text-transform: uppercase;">
+                                <a class="u-button-style u-custom-active-border-color u-custom-border u-custom-border-color u-custom-borders u-custom-hover-border-color u-custom-padding-bottom u-custom-text-active-color u-custom-text-color u-custom-text-hover-color u-custom-top-bottom-menu-spacing u-nav-link" href="#" style="padding: 1px 0px; font-size: calc(1em + 2px);">
+                                    <svg class="u-svg-link" viewBox="0 0 24 24"><use xlink:href="#svg-5804"></use></svg>
+                                    <svg class="u-svg-content" version="1.1" id="svg-5804" viewBox="0 0 16 16" x="0px" y="0px" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+                                        <g>
+                                            <rect y="1" width="16" height="2"></rect><rect y="7" width="16" height="2"></rect><rect y="13" width="16" height="2"></rect>
+                                        </g>
+                                    </svg>
+                                </a>
+                            </div>
+
+                            <div class="u-custom-menu u-nav-container">
+
+                                <div style="display:flex">
+                                </div>
+                                <div class="u-custom-menu u-nav-container-collapse">
+                                    <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
+                                        <div class="u-inner-container-layout u-sidenav-overflow">
+                                            <div class="u-menu-close"></div>
+                                            <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-6">
+                                                <li class="u-nav-item">
+                                                    <a class="u-button-style u-nav-link" href="#">Class Name</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
+                                </div>
+                            </div>
+                        </nav>
+                        <div class="row" style="display:flex;position:relative;padding:8%; justify-content:space-between">
+
+
+                            <div class="col-sm-4" spellcheck="true" style="margin-right:30px">
+
+
+
+                                <div id="pendingExamTable">
+                                    <table class="table studentList">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">ClassName</th>
+                                                <th scope="col">ExamName</th>
+                                                <th scope="col">View</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @{
+                                                int index3 = 0;
+                                                string rowid3 = "row3" + index3;
+                                                foreach (Class_Exam ce in ViewBag.Class_Exams)
+                                                {
+                                                    rowid3 = "row3" + index3++;
+
+
+                                                    <tr id="@rowid3">
+                                                        <td>@ce.Class.Classname</td>
+                                                        <td>@ce.Exam.Examname</td>
+                                                        <td>
+                                                            <button type="button" classid="@ce.Class.Id"
+                                                                examid="@ce.Exam.Id" class="btn btn-primary" onclick="getExamInfo(@ce.Class.Id,@ce.Exam.Id,@rowid3)">
+                                                                Check
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+
+
+                                        </tbody>
+                                    </table>
+                                </div>
+
+
+                                <button onclick="autoMark()" class="u-border-none u-btn u-button-style u-custom-color-1 u-hover-palette-1-dark-3 u-btn-10"> Automark</button>
+                            </div>
+                            <div class="col-sm-7">
+                                <div id="class_exam">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Student ID</th>
+                                                <th scope="col">Student Name</th>
+                                                <th scope="col">Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="u-container-style u-tab-pane u-white u-tab-pane-4" id="tab-fa2d" role="tabpanel" aria-labelledby="link-tab-fa2d">
+                    <div class="u-container-layout u-container-layout-4">
+                        <div class="row" style="display:flex;position:relative;padding:8%; justify-content:space-between">
+
+
+                            <div class="col-sm-4" spellcheck="true" style="margin-right:30px">
+
+
+
+                                <div id="resultExamTable">
+                                    <table class="table resultStudentList">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">ClassName</th>
+                                                <th scope="col">ExamName</th>
+                                                <th scope="col">View</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @{
+                                                int index4 = 0;
+                                                string rowid4 = "row4" + index4;
+                                                foreach (Class_Exam ce in ViewBag.ResultClass_Exams)
+                                                {
+                                                    rowid4 = "row4" + index4++;
+
+                                                    <tr id="@rowid4">
+                                                        <td>@ce.Class.Classname</td>
+                                                        <td>@ce.Exam.Examname</td>
+                                                        <td>
+                                                            <button type="button" classid="@ce.Class.Id"
+                                                                examid="@ce.Exam.Id" class="btn btn-primary" onclick="updateResultStudentList(@ce.Class.Id,@ce.Exam.Id,@rowid4)">
+                                                                Check
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                            @*   <tr>
+                                                <td>Jacob</td>
+                                                <td>Thornton</td>
+                                                <td><button type="button" class="btn btn-primary">Check</button></td>
+                                                </tr>
+                                                <tr>
+                                                <td>Larry</td>
+                                                <td>the Bird</td>
+                                                <td><button type="button" class="btn btn-primary">Check</button></td>
+                                                </tr>*@
+                                        </tbody>
+                                    </table>
+                                </div>
+                                @* <a href="https://nicepage.online" class="u-border-none u-btn u-button-style u-custom-color-1 u-hover-palette-1-dark-3 u-btn-8">DELETE</a>
+                                    <a href="#EditExam" class="u-border-none u-btn u-button-style u-custom-color-5 u-dialog-link u-hover-palette-1-dark-3 u-btn-9" title="EDIT" style="color: #ffffff !important;background-color: #40bb25 !important;">EDIT</a>*@
+
+
+                            </div>
+                            <div class="col-sm-7" id="ClassPageTable">
+                                <div id="resultClass_exam">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Student ID</th>
+                                                <th scope="col">Student Name</th>
+                                                <th scope="col">Score</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+

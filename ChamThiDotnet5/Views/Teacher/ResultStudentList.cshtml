@@ -1,0 +1,27 @@
+﻿@{
+    Layout = null;
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Student ID</th>
+            <th scope="col">Student Name</th>
+            <th scope="col">Score</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int index = 1;
+            foreach (Exam_Student es in ViewBag.Exam_StudentList)
+            {
+                
+                <tr style="height: 72px;">
+                    <td class="u-border-1 u-border-grey-dark-1 u-table-cell" spellcheck="false">@(index++)</td>
+                    <td class="u-border-1 u-border-grey-dark-1 u-table-cell">@es.Student.Studentname</td>
+                    <td class="u-border-1 u-border-grey-dark-1 u-table-cell">@es.Score</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

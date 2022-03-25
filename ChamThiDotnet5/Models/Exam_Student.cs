@@ -32,6 +32,8 @@ namespace ChamThiDotnet5.Models
         [Required]
         public DateTime End { get; set; }
 
+        [MaxLength(4000)]
+        public string Report { get; set; }
         public string SubmittedFolder { get; set; }
         public float? Score { get; set; }
     }

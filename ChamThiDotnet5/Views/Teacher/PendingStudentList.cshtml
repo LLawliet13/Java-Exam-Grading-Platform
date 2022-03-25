@@ -16,7 +16,7 @@
             string status;
             foreach (Exam_Student es in ViewBag.Exam_StudentList)
             {
-                if (es.SubmittedFolder == null)
+                if (es.SubmittedFolder != null)
                 {
                     status = "Submitted";
                 }

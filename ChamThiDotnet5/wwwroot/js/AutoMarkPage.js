@@ -49,7 +49,7 @@ function autoMark() {
 
             $.ajax({
 
-                url: '/AutoMark/AutoMark',
+                url: '/AutoMark/AutoMarkAClass_Exam',
                 type: 'Post',
                 data: {
                     'ClassId': parseInt(classid),
@@ -57,15 +57,115 @@ function autoMark() {
                 },
                 dataType: 'text',
                 success: function (data) {
-                    alert("Sent");
+                    alert("Automark Successfully");
+                    updateExamResultTable(classid,examid);
                 },
                 error: function (request, error) {
                     alert("Request: " + JSON.stringify(request));
                 }
             });
+            //checking
+            
+            
 
         }
-        document.getElementById('link-tab-fa2d').click();
+        
 
     }
+}
+
+function updateExamResultTable(classid, examid) {
+    $.ajax({
+
+        url: '/Teacher/updateExamResultTable',
+        type: 'Get',
+        data: {
+            
+        },
+        dataType: 'text',
+        success: function (data) {
+            $('#resultExamTable').html(data);
+            updatePendingExamTable(classid, examid);
+            
+        },
+        error: function (request, error) {
+            alert("Request: " + JSON.stringify(request));
+        }
+    });
+}
+
+function updatePendingExamTable(classid, examid) {
+    
+    $.ajax({
+
+        url: '/Teacher/updatePendingExamTable',
+        type: 'Post',
+        data: {
+
+        },
+        dataType: 'text',
+        success: function (data) {
+            $("#pendingExamTable").html(data);
+            ResetPendingStudentList(classid, examid);
+        },
+        error: function (request, error) {
+            alert("Request: " + JSON.stringify(request));
+        }
+    });
+}
+
+function updateResultStudentList(classid, examid, rowid) {
+    // test
+    console.log(rowid);
+
+    let stu_table = document.getElementsByClassName('resultStudentList')[0];
+    //neu co class dang active thi xoa di
+    if (stu_table.getElementsByClassName('table-active').length > 0) {
+        stu_table.getElementsByClassName('table-active')[0].classList.remove('table-active')
     }
+    console.log(stu_table);
+    //active dong dc chon
+    rowid.classList.add('table-active')
+   
+        // lay danh sach hoc sinh
+        $.ajax({
+
+            url: "/Teacher/updateResultStudentList",
+            type: 'post',
+            data: {
+                'ClassId': classid,
+                'ExamId': examid,
+            },
+            dataType: 'text',
+            success: function (data) {
+                $('#resultClass_exam').html(data);
+            },
+            error: function (request, error) {
+                alert("Request: " + JSON.stringify(request));
+            }
+        });
+    //}
+    
+    
+}
+
+function ResetPendingStudentList(classid, examid) {
+    $.ajax({
+
+        url: "/Teacher/getPendingExam_StudentList",
+        type: 'Get',
+        data: {
+            
+        },
+        dataType: 'text',
+        success: function (data) {
+            $('#class_exam').html(data);
+            document.getElementById('link-tab-fa2d').click();
+            document.getElementById(classid + '_' + examid).click();
+        },
+        error: function (request, error) {
+            alert("Request: " + JSON.stringify(request));
+        }
+    });
+
+}

@@ -1,0 +1,54 @@
+﻿@model ChamThiDotnet5.Models.FilesViewModel
+@{
+    Layout = null;
+}
+<div class="text-left">
+    <h2 style="margin-bottom:50px">Upload More Exam</h2>
+
+    <!-- In order to post files to server we should use form with post method, also need to add multipart/form-data encoding.
+         Otherwise the files will not sent to the server. -->
+
+    <form asp-action="Index" asp-controller="Loadfile" method="post" enctype="multipart/form-data">
+        <input type="file" name="files" multiple />
+        <button type="submit">Upload</button>
+    </form>
+
+    <!-- To show the success message to the user  -->
+    @if (ViewBag.Message != null)
+    {
+        <div class="alert alert-success" role="alert">
+            <strong>Success!</strong> @ViewBag.Message
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+    @if (@TempData["deleted"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            <strong>Success!</strong> @TempData["deleted"]
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+
+
+    <p style="margin-top: 50px">List of Files</p>
+    <!-- Get all the files from the server -->
+    <ul>
+        @foreach (var item in Model.Files)
+        {
+            <li>
+                <a asp-action="Download" asp-controller="Loadfile" asp-route-filename="@item.Name">
+                    @item.Name
+                </a>
+            </li>
+            <form asp-action="DeleteFile" asp-controller="Loadfile" method="POST">
+                <input name="filename" type="hidden" value="@item.Name" />
+                <input type="submit" value="Delete">
+            </form>
+        }
+    </ul>
+
+</div>

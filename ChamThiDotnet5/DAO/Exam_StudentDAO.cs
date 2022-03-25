@@ -60,9 +60,13 @@ namespace ChamThiDotnet5.DAO
             int n = 0;
             Exam_Student Exam_Student = ReadAExam_Student(id);
             if (Exam_Student == null) return n;
-            Exam_Student = NewExam_Student;
-
-
+            Exam_Student.ExamId = NewExam_Student.ExamId;
+            Exam_Student.Score = NewExam_Student.Score;
+            Exam_Student.StudentId = NewExam_Student.StudentId;
+            Exam_Student.SubmittedFolder = NewExam_Student.SubmittedFolder;
+            Exam_Student.Start = NewExam_Student.Start;
+            Exam_Student.End = NewExam_Student.End;
+            Exam_Student.Report = NewExam_Student.Report;
             try
             {
                 n = DbContext.SaveChanges();

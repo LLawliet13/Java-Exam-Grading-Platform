@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using System.IO;
 using System.Linq;
 
+
 namespace ChamThiDotnet5.Controllers
 {
 
@@ -19,7 +20,7 @@ namespace ChamThiDotnet5.Controllers
 
         private readonly AccountService _accountService;
 
-
+        
         public AccountController(AccountService accountService)
         {
             _accountService = accountService;
@@ -65,7 +66,7 @@ namespace ChamThiDotnet5.Controllers
             HttpContext.Session.Remove("password");
             return RedirectToAction("Index", "Home");
         }
-        public IActionResult Account()
+        public IActionResult Index()
         {
             return View();
         }

@@ -59,8 +59,8 @@ namespace ChamThiDotnet5.DAO
             int n = 0;
             Exam Exam = ReadAExam(id);
             if (Exam == null) return n;
-            Exam = NewExam;
-
+            Exam.Examname = NewExam.Examname;
+            Exam.Detail = NewExam.Detail;
 
             try
             {

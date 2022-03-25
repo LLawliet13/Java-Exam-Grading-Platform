@@ -66,8 +66,9 @@ namespace ChamThiDotnet5.DAO
             int n = 0;
             Class Class = ReadAClass(id);
             if (Class == null) return n;
-            Class = NewClass;
-
+            Class.TeacherId = NewClass.TeacherId;
+            Class.Classname = NewClass.Classname;
+            
 
             try
             {
