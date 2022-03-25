@@ -1,0 +1,34 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Student Page";
+}
+
+<link rel="stylesheet" href="/css/Student.css" media="screen">
+<section class="u-align-center u-clearfix u-white u-section-1" src="" id="sec-328b" style="margin-bottom:200px;margin-top:50px">
+    @{
+        Exam exam_test = ViewBag.Exam_Test;
+        <h2 style="text-align:center">
+            Exam Test: @exam_test.Examname
+        </h2>
+            Exam_Student examStudent = ViewBag.ExamStudent;
+            if(examStudent.Start.CompareTo(DateTime.Now)<0 && examStudent.End.CompareTo(DateTime.Now) >0)
+            {
+                <p class="u-large-text u-text u-text-variant u-text-1"> 
+                    The test has been opened. Get resources, read questions carefully, and submit assignments on time. Good luck!
+                </p>
+            }
+            else
+            {
+                <p class="u-large-text u-text u-text-variant u-text-1"> 
+                    Please wait until the assignment time. Contact your teacher for the permission of the test
+                </p>
+            }
+        
+        <a asp-controller="Student" asp-action="StudentTakeExam" asp-route-id="@exam_test.Id" 
+        class="u-border-none u-btn u-button-style u-hover-palette-1-dark-3 u-palette-2-base u-btn-1"> View exam</a>
+    }
+</section>
+

@@ -1,0 +1,83 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model ChamThiDotnet5.Models.Exam_Student
+
+@{
+    ViewData["Title"] = "Student Page";
+}
+
+@{
+}
+<form asp-controller="Student" asp-action="StudentSubmit" asp-route-id="2" method="post" 
+enctype="multipart/form-data" style="margin-bottom:200px">
+    <section class="u-align-center u-clearfix u-white u-section-1" src="" id="sec-328b">
+        <div class="u-clearfix u-sheet u-sheet-1">
+            @{
+                Exam_Student exam_Student = ViewBag.Exam_Student_Check;
+                if (ViewBag.Exam_Test != null)
+                {
+                    <h2>Exam name: @ViewBag.Exam_Test.Examname</h2>
+                }
+                    <h5>Source: @ViewBag.Exam_Test.Detail</h5>
+            
+                    <table class="table table-striped">
+                        <tr>
+                            <td>Start Date</td>
+                            <td>@exam_Student.Start</td>
+                        </tr>
+                        <tr>
+                            <td>Countdown</td>
+                            @{
+                                if (exam_Student.End.CompareTo(DateTime.Now) > 0)
+                                {
+                                    <td>@(exam_Student.End.Subtract(DateTime.Now).Days + " days, "
+                                    + exam_Student.End.Subtract(DateTime.Now).Hours + " hours, "
+                                    + exam_Student.End.Subtract(DateTime.Now).Minutes + "minutes left")</td>
+                                }
+                                else
+                                {
+                                    <td>Due date</td>
+                                } 
+                            }
+                        
+                        </tr>
+
+                        @{
+                            if(exam_Student.Start.CompareTo(DateTime.Now)<0 && exam_Student.End.CompareTo(DateTime.Now) > 0)
+                            {
+                                <tr>
+                                    <td>Submission</td>
+                                    <td>
+                                        <input class="form-control" type="file" id="formFile" name="files">
+                                    </td>
+                                </tr>
+                                <tr style="margin-left:auto;margin-right:auto">
+                                    <td></td>
+                                    <td>
+                                        <input type="submit" name="submit" value="Submit"/>
+                                    </td>
+                                </tr>
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td>Submission</td>
+                                    <td>
+                                        @exam_Student.SubmittedFolder
+                                    </td>
+                                </tr>
+                                <tr style="margin-left:auto;margin-right:auto">
+                                    <td></td>
+                                    <td>
+                                        <input type="submit" name="submit" value="View Score"/>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </table>
+
+            }
+        </div>
+    </section>
+</form>
