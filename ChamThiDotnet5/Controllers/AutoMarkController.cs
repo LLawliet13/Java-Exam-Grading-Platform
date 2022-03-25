@@ -135,13 +135,19 @@ namespace ChamThiDotnet5.Controllers
                 return 0;
             }
             string realOutput = cmd.StandardOutput.ReadToEnd();
-            
-            string[] txt = realOutput.Split("OUTPUT:");//output
-            string[] clearAns = txt[1].Split("\r\n");
-            //if (clearAns[0].Equals("")) return 0; // truong hop bi exception
-            //for(int i = 0; i<clearAns.Length; i++)
-            //    Console.WriteLine(clearAns[i]);
-            if (clearAns[1].Equals(output)) {
+            Console.WriteLine(realOutput);
+            if (!realOutput.Contains("OUTPUT")) return 0; // thieu ham set
+            string[] txt = realOutput.Split("OUTPUT:"+"\r\n");//output
+            Console.WriteLine(txt[0]);
+            if (txt.Length < 2) return 0; // thieu gia tri tra ve
+            string[] clearAns2 = txt[1].Split("\r\n" + "\r\n" + @"C:\>");
+
+            Console.WriteLine("start" + clearAns2[0] + "end");
+            output = output.Replace(@"\n", "\n").Replace(@"\r", "\r");// chinh sua cac ki tu trong testcase
+            Console.WriteLine("Expected OUTPUT: " + "start" + output + "end");
+            Console.WriteLine("start" + clearAns2[0] + "end" + " , " + "start" + output + "end" + "\nans: " + clearAns2[0].Equals(output));
+
+            if (clearAns2[0].Equals(output)) {
                 return float.Parse(mark); 
             }
             return 0;//truong hop lam sai// hoac co exception

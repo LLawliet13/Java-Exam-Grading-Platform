@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using System;
 using System.IO;
 using System.Linq;
 
@@ -27,11 +28,7 @@ namespace ChamThiDotnet5.Controllers
             _accountService = accountService;
         }
 
-        public IActionResult changePassword(Account account)
-        {
-            var obj = db.Accounts.Where(x => x.Password.Equals(account.Password)).FirstOrDefault();
-            return View();
-        }
+        
         [HttpGet]
         public IActionResult Login()
         {
@@ -69,13 +66,18 @@ namespace ChamThiDotnet5.Controllers
         }
         public IActionResult Index()
         {
+            ViewBag.Account = accountDAO.ReadAAccount(int.Parse(HttpContext.Session.GetString("accountid")));
             return View();
         }
-        public IActionResult ChangePassword(Account account,string newPassword)
+        [HttpPost]
+        public string ChangePassword(Account account,string newPassword)
         {
             account.Password = newPassword;
-            
-            return View();
+            Console.WriteLine(newPassword);
+            int n = 0;
+            n = accountDAO.UpdateAccount(account.Id, account);
+            if (n > 0) return "changed";
+            return "error";
         }
 
     }
