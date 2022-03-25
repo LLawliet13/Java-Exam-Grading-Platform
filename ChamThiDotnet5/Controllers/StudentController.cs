@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace ChamThiDotnet5.Controllers
 {
@@ -16,6 +17,22 @@ namespace ChamThiDotnet5.Controllers
         private StudentDAO daoStudent = new StudentDAO();
         private Exam_StudentDAO daoExamStudent = new Exam_StudentDAO();
         private ExamDAO daoExam = new ExamDAO();
+
+        public string getDefaultFilePath()
+        {
+            string dirPath = "C:/PRNChamThi/DeThi";
+
+            bool exist = Directory.Exists(dirPath);
+
+            // Nếu không tồn tại, tạo thư mục này.
+            if (!exist)
+            {
+                // Tạo thư mục.
+                Directory.CreateDirectory(dirPath);
+            }
+
+            return dirPath;
+        }
 
         public string getDefaultFilePath(Student s, Exam_Student exam_Student)
         {
@@ -42,6 +59,48 @@ namespace ChamThiDotnet5.Controllers
                     archive.ExtractToDirectory(directory);
                 }
             }
+        }
+
+        public async Task<IActionResult> Download(string filename)
+        {
+            if (filename == null)
+                return Content("filename is not availble");
+
+            var path = Path.Combine(getDefaultFilePath(), filename);
+
+            var memory = new MemoryStream();
+            using (var stream = new FileStream(path, FileMode.Open))
+            {
+                await stream.CopyToAsync(memory);
+            }
+            memory.Position = 0;
+            return File(memory, GetContentType(path), Path.GetFileName(path));
+        }
+
+        private string GetContentType(string path)
+        {
+            var types = GetMimeTypes();
+            var ext = Path.GetExtension(path).ToLowerInvariant();
+            return types[ext];
+        }
+
+        private Dictionary<string, string> GetMimeTypes()
+        {
+            return new Dictionary<string, string>
+            {
+                {".txt", "text/plain"},
+                {".pdf", "application/pdf"},
+                {".doc", "application/vnd.ms-word"},
+                {".docx", "application/vnd.ms-word"},
+                {".xls", "application/vnd.ms-excel"},
+                {".xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"},
+                {".png", "image/png"},
+                {".jpg", "image/jpeg"},
+                {".jpeg", "image/jpeg"},
+                {".gif", "image/gif"},
+                {".csv", "text/csv"},
+                {".rar", "application/x-rar-compressed" }
+            };
         }
 
         public IActionResult StudentExam()
@@ -107,6 +166,9 @@ namespace ChamThiDotnet5.Controllers
             {
                 ViewBag.Exam_Student_Check = exam_Student_Check;
             }
+
+
+
             ViewBag.Exam_Test = exam;
             return View();
         }
