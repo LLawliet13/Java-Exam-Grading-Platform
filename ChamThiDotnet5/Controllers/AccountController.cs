@@ -1,4 +1,5 @@
-﻿using ChamThiDotnet5.Models;
+﻿using ChamThiDotnet5.DAO;
+using ChamThiDotnet5.Models;
 using ChamThiDotnet5.Services;
 using ChamThiWeb5.Data;
 using Microsoft.AspNetCore.Http;
@@ -17,7 +18,7 @@ namespace ChamThiDotnet5.Controllers
     public class AccountController : Controller
     {
         AppDbContext db = new AppDbContext();
-
+        AccountDAO accountDAO = new AccountDAO(); 
         private readonly AccountService _accountService;
 
         
@@ -68,6 +69,12 @@ namespace ChamThiDotnet5.Controllers
         }
         public IActionResult Index()
         {
+            return View();
+        }
+        public IActionResult ChangePassword(Account account,string newPassword)
+        {
+            account.Password = newPassword;
+            
             return View();
         }
 
