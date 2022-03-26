@@ -26,8 +26,8 @@
                     Please wait until the assignment time. Contact your teacher for the permission of the test
                 </p>
             }
-        
-        <a asp-controller="Student" asp-action="StudentTakeExam" asp-route-id="@exam_test.Id" 
+        //href="/Student/StudentTakeExam?Id=@exam_test.Id&&ExamStudentId=@ViewBag.Exam_StudentId"
+        <a asp-controller="Student" asp-action="StudentTakeExam" asp-route-id="@exam_test.Id" asp-route-Exam_StudentID="@ViewBag.Exam_StudentId"
         class="u-border-none u-btn u-button-style u-hover-palette-1-dark-3 u-palette-2-base u-btn-1"> View exam</a>
     }
 </section>

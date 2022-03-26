@@ -72,12 +72,14 @@ namespace ChamThiDotnet5.Controllers
         [HttpPost]
         public string ChangePassword(Account account,string newPassword)
         {
+            Account account1 = accountDAO.ReadAAccount(account.Id);
+            if (!account1.Password.Equals(account.Password)) return "Wrong Old Password";
             account.Password = newPassword;
-            Console.WriteLine(newPassword);
+            
             int n = 0;
             n = accountDAO.UpdateAccount(account.Id, account);
             if (n > 0) return "changed";
-            return "error";
+            return "DB Cant be Changed";
         }
 
     }

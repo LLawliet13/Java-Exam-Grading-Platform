@@ -8,13 +8,14 @@ namespace ChamThiDotnet5.Services
 {
     public class Exam_StudentServiceImpl : Exam_StudentService
     {
-        Exam_StudentDAO exam_Studentsdao = new Exam_StudentDAO();
-        TeacherDAO teacherDAO = new TeacherDAO();
-        ClassDAO ClassDAO = new ClassDAO();
-        StudentDAO studentDAO = new StudentDAO();
+        
         //ham tra ve danh sach tat ca cac lop co bai kiem tra chua duoc cham cua 1 giao vien
         public List<Class_Exam> FindPending_ResultExamOfTeacher(int id)
         {
+            StudentDAO studentDAO = new StudentDAO();
+            ClassDAO ClassDAO = new ClassDAO();
+            Exam_StudentDAO exam_Studentsdao = new Exam_StudentDAO();
+            TeacherDAO teacherDAO = new TeacherDAO();
             List<Class_Exam> class_Exams = new List<Class_Exam>();
             Teacher t = teacherDAO.ReadATeacher(id);
             // lay danh sach cac lop cua giao vien
@@ -53,6 +54,9 @@ namespace ChamThiDotnet5.Services
         public List<Exam_Student> FindStudent_ExamByClassAndExamID(int ClassID, int ExamID)
         {
 
+            Exam_StudentDAO exam_Studentsdao = new Exam_StudentDAO();
+
+           
             List<Exam_Student> exam_Students = new List<Exam_Student>();
 
             exam_Studentsdao.ReadAllExam_Student().ForEach(x =>
@@ -70,6 +74,10 @@ namespace ChamThiDotnet5.Services
         //ham tra ve danh sach tat ca cac lop co bai kiem tra duoc cham cua 1 giao vien
         public List<Class_Exam> FindResultExamOfTeacher(int id)
         {
+            ClassDAO ClassDAO = new ClassDAO();
+            TeacherDAO teacherDAO = new TeacherDAO();
+            StudentDAO studentDAO = new StudentDAO();
+            Exam_StudentDAO exam_Studentsdao = new Exam_StudentDAO();
             List<Class_Exam> class_Exams = new List<Class_Exam>();
             Teacher t = teacherDAO.ReadATeacher(id);
             // lay danh sach cac lop cua giao vien

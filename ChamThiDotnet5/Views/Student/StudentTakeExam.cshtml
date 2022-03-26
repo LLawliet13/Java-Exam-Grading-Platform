@@ -9,7 +9,7 @@
 
 @{
 }
-<form asp-controller="Student" asp-action="StudentSubmit" asp-route-id="2" method="post" 
+<form asp-controller="Student" asp-action="StudentSubmit" asp-route-id="2" asp-route-Exam_StudentID="@ViewBag.Exam_StudentID" method="post" 
 enctype="multipart/form-data" style="margin-bottom:200px">
     <section class="u-align-center u-clearfix u-white u-section-1" src="" id="sec-328b">
         <div class="u-clearfix u-sheet u-sheet-1">
@@ -35,20 +35,24 @@ enctype="multipart/form-data" style="margin-bottom:200px">
                         <tr>
                             <td>Countdown</td>
                             @{
-                                if (exam_Student.End.CompareTo(DateTime.Now) > 0)
-                                {
-                                    <td>@(exam_Student.End.Subtract(DateTime.Now).Days + " days, "
-                                    + exam_Student.End.Subtract(DateTime.Now).Hours + " hours, "
-                                    + exam_Student.End.Subtract(DateTime.Now).Minutes + "minutes left")</td>
+                                if(exam_Student.Start.CompareTo(DateTime.Now)<0){
+                                    if (exam_Student.End.CompareTo(DateTime.Now) > 0)
+                                    {
+                                        <td>@(exam_Student.End.Subtract(DateTime.Now).Days + " days, "
+                                        + exam_Student.End.Subtract(DateTime.Now).Hours + " hours, "
+                                        + exam_Student.End.Subtract(DateTime.Now).Minutes + "minutes left")</td>
+                                    }
+                                    else
+                                    {
+                                        <td>Due date</td>
+                                    } 
+                                }else{
+                                    <td>Not yet</td>
                                 }
-                                else
-                                {
-                                    <td>Due date</td>
-                                } 
                             }
                         
                         </tr>
-
+                        
                         @{
                             if(exam_Student.Start.CompareTo(DateTime.Now)<0 && exam_Student.End.CompareTo(DateTime.Now) > 0)
                             {
@@ -61,6 +65,7 @@ enctype="multipart/form-data" style="margin-bottom:200px">
                                 <tr style="margin-left:auto;margin-right:auto">
                                     <td></td>
                                     <td>
+                                        <input type="hidden" value="@ViewBag.Exam_StudentID" name="Exam_StudentID"/>
                                         <input type="submit" name="submit" value="Submit"/>
                                     </td>
                                 </tr>

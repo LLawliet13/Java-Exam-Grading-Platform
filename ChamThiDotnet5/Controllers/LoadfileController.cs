@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.IO.Compression;
 using System.Threading.Tasks;
 
 namespace ChamThiDotnet5.Controllers
@@ -72,6 +73,7 @@ namespace ChamThiDotnet5.Controllers
                 {
                     archive.ExtractToDirectory(directory);
                 }
+                
             }
         }
 
