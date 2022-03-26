@@ -7,14 +7,15 @@
 }
 
 <link rel="stylesheet" href="/css/Student.css" media="screen">
-<section class="u-align-center u-clearfix u-white u-section-1" src="" id="sec-328b" style="margin-top:100px;margin-bottom:200px">
+<section class="u-align-center u-clearfix u-white u-section-1" src="" id="sec-328b" style="margin-top:200px;margin-bottom:300px">
     @{
         Exam_Student exam_Student = ViewBag.Exam_Student;
-            <h1 class"u-large-text u-text u-text-variant u-text-2">
-                Thanks for attemping the exam!
-            </h1>
+            
                 if(exam_Student.SubmittedFolder!=null&&!exam_Student.SubmittedFolder.Equals(""))
                 {
+                    <h1 class"u-large-text u-text u-text-variant u-text-2">
+                        Thanks for attemping the exam!
+                    </h1>
                     if(exam_Student.Score==null)
                     {
                         <p class="u-large-text u-text u-text-variant u-text-3"> Submit successfully.&nbsp;Please wait for the results...</p>
@@ -24,6 +25,10 @@
                         <p class="u-large-text u-text u-text-variant u-text-3">Your result: @exam_Student.Score/10</p>
                     }
                     
+                }else{
+                    <h3 class"u-large-text u-text u-text-variant u-text-2">
+                        The test has not been started. Contact your lecture to unlock the exam
+                    </h3>
                 }
     }
 </section>

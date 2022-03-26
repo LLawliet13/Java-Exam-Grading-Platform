@@ -35,16 +35,20 @@ enctype="multipart/form-data" style="margin-bottom:200px">
                         <tr>
                             <td>Countdown</td>
                             @{
-                                if (exam_Student.End.CompareTo(DateTime.Now) > 0)
-                                {
-                                    <td>@(exam_Student.End.Subtract(DateTime.Now).Days + " days, "
-                                    + exam_Student.End.Subtract(DateTime.Now).Hours + " hours, "
-                                    + exam_Student.End.Subtract(DateTime.Now).Minutes + "minutes left")</td>
+                                if(exam_Student.Start.CompareTo(DateTime.Now)<0){
+                                    if (exam_Student.End.CompareTo(DateTime.Now) > 0)
+                                    {
+                                        <td>@(exam_Student.End.Subtract(DateTime.Now).Days + " days, "
+                                        + exam_Student.End.Subtract(DateTime.Now).Hours + " hours, "
+                                        + exam_Student.End.Subtract(DateTime.Now).Minutes + "minutes left")</td>
+                                    }
+                                    else
+                                    {
+                                        <td>Due date</td>
+                                    } 
+                                }else{
+                                    <td>Not yet</td>
                                 }
-                                else
-                                {
-                                    <td>Due date</td>
-                                } 
                             }
                         
                         </tr>

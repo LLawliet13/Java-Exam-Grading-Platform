@@ -251,16 +251,17 @@ namespace ChamThiDotnet5.Controllers
             }
 
             //Exam_Student exam_Student = daoExamStudent.ReadAExam_Student(id);
-
             exS.SubmittedFolder = model.SubmittedFolder;
             daoExamStudent.UpdateExam_Student(exS.Id, exS);
 
             string directory = $@"C:\PRNChamThi\{s.ClassId}_{exS.ExamId}\BaiLamHocSinh_{exS.StudentId}";
-            UnzipFile(exS.SubmittedFolder, directory);
-            int indexSlash = exS.SubmittedFolder.LastIndexOf(@"\");
-            exS.SubmittedFolder = model.SubmittedFolder.Substring(0, indexSlash);
-            daoExamStudent.UpdateExam_Student(exS.Id, exS);
-
+            if (exS.SubmittedFolder != null)
+            {
+                UnzipFile(exS.SubmittedFolder, directory);
+                int indexSlash = exS.SubmittedFolder.LastIndexOf(@"\");
+                exS.SubmittedFolder = model.SubmittedFolder.Substring(0, indexSlash);
+                daoExamStudent.UpdateExam_Student(exS.Id, exS);
+            }
             ViewBag.Exam_Student = exS;
             return View();
         }
