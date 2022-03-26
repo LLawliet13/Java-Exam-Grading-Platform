@@ -1,44 +1,43 @@
-﻿
-@{
-     Layout = null;
+﻿@{
+    Layout = null;
 }
- <table class="table studentList">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">ClassName</th>
-                                                <th scope="col">ExamName</th>
-                                                <th scope="col">View</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @{
-                                                int index3 = 0;
-                                                string rowid3 = "row3" + index3;
-                                                foreach (Class_Exam ce in ViewBag.Class_Exams)
-                                                {
-                                                    rowid3 = "row3" + index3++;
+<table class="table studentList">
+    <thead>
+        <tr>
+            <th scope="col">ClassName</th>
+            <th scope="col">ExamName</th>
+            <th scope="col">View</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int index3 = 0;
+            string rowid3 = "row3" + index3;
+            foreach (Class_Exam ce in ViewBag.Class_Exams)
+            {
+                rowid3 = "row3" + index3++;
 
-                                                    <tr id="@rowid3">
-                                                        <td>@ce.Class.Classname</td>
-                                                        <td>@ce.Exam.Examname</td>
-                                                        <td>
-                                                            <button type="button" classid="@ce.Class.Id"
-                                                                examid="@ce.Exam.Id" class="btn btn-primary" onclick="getExamInfo(@ce.Class.Id,@ce.Exam.Id,@rowid3)">
-                                                                Check
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-                                                }
-                                            }
-                                            @*   <tr>
-                                                <td>Jacob</td>
-                                                <td>Thornton</td>
-                                                <td><button type="button" class="btn btn-primary">Check</button></td>
-                                                </tr>
-                                                <tr>
-                                                <td>Larry</td>
-                                                <td>the Bird</td>
-                                                <td><button type="button" class="btn btn-primary">Check</button></td>
-                                                </tr>*@
-                                        </tbody>
-                                    </table>
+                <tr id="@rowid3">
+                    <td>@ce.Class.Classname</td>
+                    <td>@ce.Exam.Examname</td>
+                    <td>
+                        <button type="button" classid="@ce.Class.Id"
+                            examid="@ce.Exam.Id" class="btn btn-primary" onclick="getExamInfo(@ce.Class.Id,@ce.Exam.Id,@rowid3)">
+                            Check
+                        </button>
+                    </td>
+                </tr>
+            }
+        }
+        @*   <tr>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td><button type="button" class="btn btn-primary">Check</button></td>
+            </tr>
+            <tr>
+            <td>Larry</td>
+            <td>the Bird</td>
+            <td><button type="button" class="btn btn-primary">Check</button></td>
+            </tr>*@
+    </tbody>
+</table>

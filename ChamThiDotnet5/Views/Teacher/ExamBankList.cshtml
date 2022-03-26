@@ -1,0 +1,30 @@
+﻿@model ChamThiDotnet5.Models.FilesViewModel
+@{
+    Layout = null;
+}
+
+<ul style="margin: 50px auto 100px auto">
+    <li class="list-group-item active"><strong>List of Exam Files</strong></li>
+
+    @foreach (var item in Model.Files)
+    {
+        <li class="list-group-item">
+            <a asp-action="Download" asp-controller="Loadfile" asp-route-filename="@item.Name">
+                @item.Name
+            </a>
+            <div>
+                <input name="filename" id="filename" type="hidden" value="@item.Name" />
+                <button onclick="deleteFiles()">Delete</button>
+            </div>
+        </li>
+    }
+</ul>
+@if (@TempData["deleted"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        <strong>Success!</strong> @TempData["deleted"]
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}

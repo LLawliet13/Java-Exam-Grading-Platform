@@ -42,11 +42,26 @@ namespace ChamThiDotnet5.Controllers
             foreach (var item in Directory.GetFiles(Path.Combine(getDefaultFilePath())))
             {
                 string iname = System.IO.Path.GetFileName(item);
-                if (iname.Contains(".rar") || iname.Contains(".zip"))
+               //if (iname.Contains(".rar") || iname.Contains(".zip"))
                     model.Files.Add(
                         new FileDetails { Name = iname, Path = item });
             }
             return model;
+        }
+
+        public IActionResult Load()
+        {
+            // Get files from the server
+            var model = new FilesViewModel();
+            //foreach (var item in Directory.GetFiles(Path.Combine(Directory.GetCurrentDirectory(), "upload")))
+            foreach (var item in Directory.GetFiles(Path.Combine(getDefaultFilePath())))
+            {
+                string iname = System.IO.Path.GetFileName(item);
+                //if (iname.Contains(".rar") || iname.Contains(".zip"))
+                model.Files.Add(
+                    new FileDetails { Name = iname, Path = item });
+            }
+            return View("~/Views/Teacher/ExamBankList.cshtml", model);
         }
 
         public void UnzipFile(string filePath, string directory)
@@ -117,7 +132,7 @@ namespace ChamThiDotnet5.Controllers
             foreach (var item in Directory.GetFiles(Path.Combine(getDefaultFilePath())))
             {
                 string iname = System.IO.Path.GetFileName(item);
-                if (iname.Contains(".rar") || iname.Contains(".zip"))
+                //if (iname.Contains(".rar") || iname.Contains(".zip"))
                 model.Files.Add(
                     new FileDetails { Name = iname, Path = item });
             }
@@ -125,7 +140,7 @@ namespace ChamThiDotnet5.Controllers
             testcase=testcase.Substring(0,testcase.Length-4);
     
             examDAO.AddNewExam(new Exam() { Examname=name, Detail=detail,Testcase=testcase});
-            return View("../Teacher/ExamBank", model);
+            return View("~/Views/Teacher/ExamBankAdd.cshtml", model);
         }
 
         public async Task<IActionResult> Download(string filename)
@@ -194,6 +209,12 @@ namespace ChamThiDotnet5.Controllers
             {
                 System.IO.File.Delete(fullPath);
                 TempData["deleted"] = "Files are successfully Deleted";
+                //var x = examDAO.ReadAExamByLink(fullPath);
+                //if (x != null)
+                //{
+                //    TempData["deleted"] += " Exam " + x.Examname + " was DELETED.";
+                //    examDAO.DeleteExam(x.Id);
+                //}
             }
             var model = new FilesViewModel();
             foreach (var item in Directory.GetFiles(Path.Combine(getDefaultFilePath())))
@@ -201,7 +222,7 @@ namespace ChamThiDotnet5.Controllers
                 model.Files.Add(
                     new FileDetails { Name = System.IO.Path.GetFileName(item), Path = item });
             }
-            return View("../Teacher/ExamBank", model);
+            return View("~/Views/Teacher/ExamBankList.cshtml", model);
         }
     }
 }

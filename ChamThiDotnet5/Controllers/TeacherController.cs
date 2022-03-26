@@ -42,7 +42,22 @@ namespace ChamThiDotnet5.Controllers
 
             ViewBag.ResultClass_Exams = _exam_StudentService.FindResultExamOfTeacher(teacherId);
 
-
+            // err validate
+            if (HttpContext.Session.GetString("start") != null)
+            {
+                ViewData["start"] = HttpContext.Session.GetString("start");
+                HttpContext.Session.Remove("start");
+            }
+            if (HttpContext.Session.GetString("end") != null)
+            {
+                ViewData["end"] = HttpContext.Session.GetString("end");
+                HttpContext.Session.Remove("end");
+            }
+            if (HttpContext.Session.GetString("ID") != null)
+            {
+                ID = HttpContext.Session.GetString("ID");
+                HttpContext.Session.Remove("ID");
+            }
 
             int classid = 0;
             if (ID != null) classid = int.Parse(ID);
@@ -64,18 +79,7 @@ namespace ChamThiDotnet5.Controllers
             ViewData["ClassName"] = className;
             ViewBag.ClassList = classes;
 
-            // err validate
-            if (HttpContext.Session.GetString("start") != null)
-            {
-                ViewData["start"] = HttpContext.Session.GetString("start");
-                HttpContext.Session.Remove("start");
-            }
-            if (HttpContext.Session.GetString("end") != null)
-            {
-                ViewData["end"] = HttpContext.Session.GetString("end");
-                HttpContext.Session.Remove("end");
-            }
-            return View(model);
+            return View("~/Views/Teacher/Index.cshtml",model);
         }
         [HttpPost]
         public IActionResult getPendingExam_Student(int examid, int classid)
@@ -122,6 +126,15 @@ namespace ChamThiDotnet5.Controllers
                 StudentNum = student.Count;
                 students = student;
                 exams = examDAO.ReadAllExam().ToList();
+                i = 0;
+                while (i < exams.Count)
+                {
+                    if (exams[i].Detail == null || exams[i].Testcase == null)
+                    {
+                        exams.Remove(exams[i]);
+                    }
+                    else i++;
+                }
             }
 
             var accid = HttpContext.Session.GetString("accountid");
@@ -148,8 +161,11 @@ namespace ChamThiDotnet5.Controllers
                 check = false;
                 HttpContext.Session.SetString("end", "End time must be greater than the start time!");
             }
-            if (check == false) return RedirectToAction("Index", "Teacher", classid);
-
+            if (check == false)
+            {
+                HttpContext.Session.SetString("ID", classid);
+                return RedirectToAction("Index", "Teacher", classid);
+            }
             int Classid = Convert.ToInt32(classid);
             if (Classid != 0)
             {

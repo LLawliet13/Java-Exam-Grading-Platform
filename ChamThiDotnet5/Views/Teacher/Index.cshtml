@@ -94,7 +94,7 @@
                                     @if (ViewData["start"] != null)
                                     {
                                         <div class="alert alert-danger" role="alert">
-                                            <strong>Success!</strong> @ViewData["start"]
+                                            <strong>False!</strong> @ViewData["start"]
                                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -103,7 +103,7 @@
                                     @if (ViewData["end"] != null)
                                     {
                                         <div class="alert alert-danger" role="alert">
-                                            <strong>Success!</strong> @ViewData["end"]
+                                            <strong>False!</strong> @ViewData["end"]
                                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -111,7 +111,7 @@
                                     }
                                     @*<partial name="_AddExam" />*@
                                     <div class="u-form u-form-1">
-                                        <form asp-action="AddTest" method="post" onsubmit = "return(validate());">
+                                        <form asp-action="AddTest" method="post" onsubmit="return(validate());">
                                             <input type="hidden" id="classid" name="classid" value="@ViewData["ClassId"]">
                                             <div class="u-form-group u-form-select u-form-group-1">
                                                 <label for="select-0641" class="u-label">Exam</label>
@@ -136,7 +136,9 @@
                                             </div>
                                             <div class="u-align-left u-form-group u-form-submit">
                                                 <button type="submit" class="u-border-none u-btn u-btn-submit u-button-style u-custom-color-5 u-hover-palette-1-dark-3 u-btn-1" style="color: #ffffff !important;background-color: #40bb25 !important;">Add Test</button>
-                                            </div>
+                                                </div>
+                                                <a href="/Teacher/Index" class="u-border-none u-btn u-btn-submit u-button-style u-custom-color-5 u-hover-palette-1-dark-3 u-btn-1" style="color: #ffffff !important;background-color: #bb2529 !important;">Cancel</a>
+                                            
                                         </form>
                                     </div>
                                 </div>
@@ -178,27 +180,38 @@
                 </div>
                 <div class="u-align-left u-container-style u-tab-pane u-white u-tab-pane-2" id="tab-14b7" role="tabpanel" aria-labelledby="link-tab-14b7">
                     <div class="u-container-layout u-container-layout-2">
-
                         <div class="row">
                             <div class="col-sm-5">
                                 <!-- Get all the files from the server -->
-                                <ul style="margin: 50px auto 100px auto">
-                                    <li class="list-group-item active"><strong>List of Exam Files</strong></li>
-                                    @foreach (var item in Model.Files)
+                                <div id="load">
+                                <div id="deleteFile">
+                                    <ul style="margin: 50px auto 100px auto">
+                                        <li class="list-group-item active"><strong>List of Exam Files</strong></li>
+
+                                        @foreach (var item in Model.Files)
+                                        {
+                                            <li class="list-group-item">
+                                                <a asp-action="Download" asp-controller="Loadfile" asp-route-filename="@item.Name">
+                                                    @item.Name
+                                                </a>
+                                                <div>
+                                                    <input name="filename" id="filename" type="hidden" value="@item.Name" />
+                                                    <button onclick="deleteFiles()">Delete</button>
+                                                </div>
+                                            </li>
+                                        }
+                                    </ul>
+                                    @if (@TempData["deleted"] != null)
                                     {
-                                        <li class="list-group-item">
-                                            <a asp-action="Download" asp-controller="Loadfile" asp-route-filename="@item.Name">
-                                                @item.Name
-                                            </a>
-                                        </li>
-                                        <div id = "deleteFile">
-                                        <form >
-                                            <input name="filename" id="filename" type="hidden" value="@item.Name" />
-                                            <button onclick="deleteFiles()">Delete</button>
-                                        </form>
+                                        <div class="alert alert-success" role="alert">
+                                            <strong>Success!</strong> @TempData["deleted"]
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
                                         </div>
                                     }
-                                </ul>
+                                </div>
+                                </div>
                             </div>
                             <div class="col-sm-7">
                                 <p style="margin:50px 10%">
@@ -218,7 +231,7 @@
                                         Add Exam
                                     </button>
                                 </p>
-
+                                <div id="ExamBank">
                                 <div class="collapse" id="collapseExample" style="border: none;padding: 0 20%;">
                                     <div class="card card-body" style="border: none;">
                                         @* <partial name="_ExamBank" />*@
@@ -227,47 +240,31 @@
 
                                             <!-- In order to post files to server we should use form with post method, also need to add multipart/form-data encoding.
                                                  Otherwise the files will not sent to the server. -->
-                                            <div id="ExamBank">
-                                                <form id="frmExamBank" enctype="multipart/form-data">
-                                                    Select Exam: 
+                                            
+                                                <div id="frmExamBank" enctype="multipart/form-data">
+                                                    Select Exam:
                                                     <input type="file" id="fileDe" name="fileDe" multiple />
                                                     Select TestCase:
                                                     <input type="file" id="fileTest" name="fileTest" multiple />
                                                     <button onclick="submitFiles()">Upload</button>
-                                                </form>
-                                            </div>
-
-
-                                            <!-- To show the success message to the user  -->
-                                            @if (ViewBag.Message != null)
-                                            {
-                                                <div class="alert alert-success" role="alert">
-                                                    <strong>Success!</strong> @ViewBag.Message
-                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
                                                 </div>
-                                            }
-                                            @if (@TempData["deleted"] != null)
-                                            {
-                                                <div class="alert alert-success" role="alert">
-                                                    <strong>Success!</strong> @TempData["deleted"]
-                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                            }
+                                                <!-- To show the success message to the user  -->
+                                                @if (ViewBag.Message != null)
+                                                {
+                                                    <div class="alert alert-success" role="alert">
+                                                        <strong>Success!</strong> @ViewBag.Message
+                                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                }
+                                            
                                         </div>
-
-
                                     </div>
-
+                                </div>
                                 </div>
                             </div>
                         </div>
-
-
-
                     </div>
                 </div>
                 <div class="u-container-style u-tab-pane u-white u-tab-pane-3" id="tab-2917" role="tabpanel" aria-labelledby="link-tab-2917">

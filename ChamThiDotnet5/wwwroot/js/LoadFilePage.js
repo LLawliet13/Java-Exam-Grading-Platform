@@ -17,14 +17,34 @@
         processData: false,
         contentType: false,
         success: function (data) {
+            
             /*$('#ExamBank').html(data);*/
             alert("Upload Success!");
+            load();
         },
         error: function (request, error) {
             alert("Request: " + JSON.stringify(request));
         }
     });
     console.log("Upload Success.");
+}
+
+function load() {
+    $.ajax({
+
+        url: "/Loadfile/Load",
+        type: 'get',
+        data: false,
+        processData: false,
+        contentType: false,
+        success: function (data) {
+            $('#deleteFile').html(data);
+            alert("Load Success!");
+        },
+        error: function (request, error) {
+            alert("Request: " + JSON.stringify(request));
+        }
+    });
 }
 
 function deleteFiles() {
@@ -48,6 +68,8 @@ function deleteFiles() {
     console.log("Delete Success.");
     console.log(document.getElementById("filename").value);
 }
+
+
 
 
     

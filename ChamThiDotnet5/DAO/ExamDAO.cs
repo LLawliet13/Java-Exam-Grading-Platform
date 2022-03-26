@@ -52,6 +52,17 @@ namespace ChamThiDotnet5.DAO
             return Exam;
         }
 
+        public Exam ReadAExamByLink(string link)
+        {
+            Exam Exam = (from a in DbContext.Exams where a.Detail == link orderby a.Testcase == link select a).FirstOrDefault();
+            if (Exam != null)
+            {
+                var e = DbContext.Entry(Exam);
+                e.Collection(a => a.Exam_Students).Load();
+            }
+            return Exam;
+        }
+
         // return false co nghia id khong ton tai
         public int UpdateExam(int id, Exam NewExam)
 
