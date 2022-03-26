@@ -97,6 +97,7 @@ namespace ChamThiDotnet5.Controllers
                 es.Score = totalMark;
                 es.Report = report;
                 esDao.UpdateExam_Student(es.Id, es);
+               
 
             }
 
