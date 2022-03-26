@@ -210,13 +210,15 @@ namespace ChamThiDotnet5.Controllers
             if (System.IO.File.Exists(fullPath))
             {
                 System.IO.File.Delete(fullPath);
+                string path = getDefaultFilePath() + $@"/{filename}";
                 TempData["deleted"] = "Files are successfully Deleted";
-                //var x = examDAO.ReadAExamByLink(fullPath);
-                //if (x != null)
-                //{
-                //    TempData["deleted"] += " Exam " + x.Examname + " was DELETED.";
-                //    examDAO.DeleteExam(x.Id);
-                //}
+                var x = examDAO.ReadAExamByLink(path);
+                if (x != null)
+                {
+                    TempData["deleted"] += " - Exam " + x.Examname + " was Unable.";
+                    x.Detail = "";
+                    examDAO.UpdateExam(x.Id, x);
+                }
             }
             var model = new FilesViewModel();
             foreach (var item in Directory.GetFiles(Path.Combine(getDefaultFilePath())))
