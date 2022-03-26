@@ -136,7 +136,8 @@ namespace ChamThiDotnet5.Controllers
                 cmd.Close();// xu ly vong lap vo han
                 
                 return 0;
-            }
+            } 
+
             string realOutput = cmd.StandardOutput.ReadToEnd();
             //Console.WriteLine(realOutput);
             if (!realOutput.Contains("OUTPUT")) return 0; // thieu ham set
@@ -156,7 +157,7 @@ namespace ChamThiDotnet5.Controllers
             return 0;//truong hop lam sai// hoac co exception
         }
 
-       
+        //phan nay thua
         private static void KillProcessAndChildren(int pid)
         {
             // Cannot close 'system idle process'.
