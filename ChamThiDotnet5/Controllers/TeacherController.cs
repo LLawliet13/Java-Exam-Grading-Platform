@@ -79,7 +79,7 @@ namespace ChamThiDotnet5.Controllers
             ViewData["ClassName"] = className;
             ViewBag.ClassList = classes;
 
-            return View("~/Views/Teacher/Index.cshtml",model);
+            return View("~/Views/Teacher/Index.cshtml", model);
         }
         [HttpPost]
         public IActionResult getPendingExam_Student(int examid, int classid)
@@ -129,9 +129,9 @@ namespace ChamThiDotnet5.Controllers
                 i = 0;
                 while (i < exams.Count)
                 {
-                    if (exams[i].Detail == null || exams[i].Testcase == null)
+                    if (exams[i].Detail.Equals("") || exams[i].Testcase.Equals(""))
                     {
-                        exams.Remove(exams[i]);
+                            exams.Remove(exams[i]);
                     }
                     else i++;
                 }
