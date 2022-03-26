@@ -205,8 +205,7 @@ namespace ChamThiDotnet5.Controllers
             //        exS = exstudent;
             //    }
             //}
-
-            foreach (var file in files)
+                foreach (var file in files)
             {
                 // Get the file name from the browser
                 var fileName = System.IO.Path.GetFileName(file.FileName);
